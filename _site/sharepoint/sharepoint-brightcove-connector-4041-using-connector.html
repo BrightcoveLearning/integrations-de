@@ -1,728 +1,1007 @@
-﻿<!doctype html>
-<html lang="de">
+﻿<!DOCTYPE html>
+<html lang="de"> 
+    <head>
+        <title>SharePoint-Brightcove-Connector 4.0/4.1: Verwenden des Connectors</title>
+        
+        <!-- Meta -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        
+        <!-- Google Font -->
+        <link href="/assets/s-site-assets-stylesheets/fonts/poppins.css" rel="stylesheet">
+        <link rel="stylesheet" href="/assets/s-site-assets-stylesheets/fonts/articulat-site.css">
+        <link href="/assets/s-site-assets-stylesheets/fonts/source-code-pro.css" rel="stylesheet">
+        
+        <!-- FontAwesome JS-->
+        
+        <script src="https://kit.fontawesome.com/d67c74a882.js" crossorigin="anonymous"></script>  
+        
+        <!-- Plugins CSS -->
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.2/styles/atom-one-dark.min.css">
+        <link rel="stylesheet" href="/assets/s-site-assets-template-stylesheets/plugins/simplelightbox/simple-lightbox.min.css">
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  
-  <title>SharePoint-BrightCove Anschluss 4.0/4.1: Verwenden des Connectors</title>
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="manifest" href="/site.webmanifest">  
-  <link data-react-helmet="true" rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500&amp;display=swap">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://support.brightcove.com/site-assets/css/site/prism.css">
-  <link rel="stylesheet" href="https://support.brightcove.com/site-assets/css/site/styles.css">
-  <link rel="stylesheet" href="https://support.brightcove.com/site-assets/css/site/landing-page.css">
-  <link rel="stylesheet" href="https://support.brightcove.com/site-assets/css/site/tabs.css">
-  <link rel="stylesheet" href="/assets/css/local.css">
-  <link data-react-helmet="true" rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500&display=swap">
-  <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro&display=swap" rel="stylesheet">
-  <script src="https://kit.fontawesome.com/381443caa8.js" crossorigin="anonymous"></script>
-  <script src="https://support.brightcove.com/site-assets/js/site/google-analytics.js"></script>
-  <script src="/assets/js/sajari-head.js"></script>
-</head>
-
-<body class="body">
-
-<header>
-  <div class="div-header">
-    <a href="/"><img class="product-logo" src="https://support.brightcove.com/site-assets/images/site/product-logos/Video_Cloud_Logo.svg" alt="Produkt-Logo" style="max-height: 100px;max-width: 232px;"/></a>
-<!-- GTranslate: https://gtranslate.io/ -->
-<select onchange="doGTranslate(this);"><option value="">Sprache wählen</option><option value="en|en" translate="No">English</option><option value="en|zh-TW" translate="No">繁體中文</option><option value="en|fr" translate="No">Français</option><option value="en|de" translate="No">Deutsche</option><option value="en|ja" translate="No">日本語</option><option value="en|ko" translate="No">한국어</option><option value="en|es" translate="No">Español</option></select>
-
-<script>
-/* <![CDATA[ */
-function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;if(lang_pair=='')return;var lang=lang_pair.split('|')[1];var plang=location.hostname.split('.')[0];if(plang.length !=2 && plang.toLowerCase() != 'zh-cn' && plang.toLowerCase() != 'zh-tw')plang='en';location.href=location.protocol+'//'+(lang == 'en' ? '' : lang+'.')+location.hostname.replace('www.', '').replace(RegExp('^' + plang + '\\.'), '')+location.pathname+location.search;}
-/* ]]> */
-</script>
-
-    
+        <!-- Theme CSS -->  
+        <link id="theme-style" rel="stylesheet" href="/assets/s-site-assets-template-stylesheets/css/theme.css">
+        <link rel="stylesheet" href="/assets/s-site-assets-stylesheets/prism.css">
+        <link rel="stylesheet" href="/assets/s-site-assets-template-stylesheets/custom-css/styles.css">
 
 
-    <span class="secondary-nav"><a href="https://supportportal.brightcove.com/s/login/?"><img src="https://support.brightcove.com/site-assets/images/site/support.png" alt="Support"/> Kontaktieren Sie Support</a> <span style="vertical-align: top;margin-left:1em;margin-right:1em;">|</span> <a href="https://status.brightcove.com/"><img src="https://support.brightcove.com/site-assets/images/site/status.png" alt="Systemstatus"/> Systemstatus</a></span> <br/>
-    
-  </div>
-  <nav aria-label="breadcrumb">
-    <ol class="breadcrumb arr-right">
-      
-      <li class="breadcrumb-item"><a href="/">Nach Hause</a></li>
-      
-      
-      
-      <li class="breadcrumb-item"><a href="/sharepoint/">SharePoint</a></li>
-      
-      <li class="breadcrumb-item active" aria-current="page">SharePoint-BrightCove Anschluss 4.0/4.1: Verwenden des Connectors</li>
-    </ol>
-  </nav>
-</header>
-<div class="container">
-    <div class="row">
-            <div class="col-sm-3 left-side-bar">
-        <select id="site_select" class="bcls-select" style="margin-right: 1rem;">
-          <option value="">Weitere Brightcove Docs</option>
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-XBJC11HF8Z"></script>
+        <script translate="no">
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-XBJC11HF8Z');
+        </script>
+        <script src="/assets/s-site-assets-scripts/sixth-sense.js"></script>
+        <script src="/assets/s-site-assets-scripts/sajari-head.js"></script>
+        <script src="/assets/s-site-assets-scripts/feather.min.js"></script>
+
+    </head> 
+
+    <body class="docs-page">
+        
+
+<header class="header fixed-top">
+  <div class="branding docs-branding">
+    <div class="container-fluid position-relative py-2">
+      <div class="docs-logo-wrapper">
+        <button id="docs-sidebar-toggler" class="docs-sidebar-toggler"
+          type="button">
+          <span></span> <span></span> <span></span>
+        </button>
+        <div class="site-logo"><a class="navbar-brand" href="https://support.brightcove.com/" style="margin-left: 15px;"> <img class="logo-icon me-2" src="/assets/s-site-assets-template-stylesheets/images/bc_logo_black_1@1x.png" alt="logo" style="margin-bottom: 9px;"/>
+            <!-- <span class="logo-text">BRIGHTCOVE</span> -->
+          </a></div>
+      </div><!--//docs-logo-wrapper-->
+
+      <div class="docs-top-utilities d-flex justify-content-end
+        align-items-center">
+        
+        <!-- Search bar -->
+        <div id="nav-search-box" class="top-search-box d-none d-lg-flex" style="margin-right: 10px ;"></div>
+
+<select id="site_select" class="form-select select-focus" style="width:
+          20%; margin-right: 10px;" translate="no">
+          <option value="">Other Brightcove Docs</option>
           
-            
-              <option value="https://support.brightcove.com">Dokumentation Home</option>
-            
           
-            
-              <option value="https://audience.support.brightcove.com">Brightcove Publikum</option>
-            
+          <option value="https://support.brightcove.com" translate="no">Documentation Home</option>
           
-            
-              <option value="https://beacon.support.brightcove.com">Brightcove Leuchtfeuer</option>
-            
           
-            
-              <option value="https://campaign.support.brightcove.com">Brightcove Kampagne</option>
-            
           
-            
-              <option value="https://engage.support.brightcove.com">Brightcove Engage</option>
-            
+          <option value="https://support.brightcove.com/" translate="no">-- VIDEO CLOUD --</option>
           
-            
-              <option value="https://live.support.brightcove.com">Brightcove Live</option>
-            
           
-            
-              <option value="https://gallery.support.brightcove.com">Brightcove Gallery</option>
-            
           
-            
-              <option value="https://ssai.support.brightcove.com">Brightcove SSAI</option>
-            
+          <option value="https://studio.support.brightcove.com" translate="no">&nbsp;&nbsp;&nbsp;&nbsp;Video Cloud Studio</option>
           
-            
-              <option value="https://social.support.brightcove.com">Brightcove Social</option>
-            
           
-            
-              <option value="https://studio.support.brightcove.com">Video Cloud Studio</option>
-            
           
-            
-              <option value="https://player.support.brightcove.com">Brightcove Spieler-Entwicklung</option>
-            
+          <option value="https://mstudio.support.brightcove.com" translate="no">&nbsp;&nbsp;&nbsp;&nbsp;Marketing Studio</option>
           
-            
-              <option value="https://apis.support.brightcove.com">APIs für Video Cloud-Plattform</option>
-            
           
-            
-              <option value="https://sdks.support.brightcove.com">Videocloud-Geräte-SDKs</option>
-            
           
-            
-              <option value="https://integrations.support.brightcove.com">Integrationen und CMS-Konnektoren</option>
-            
+          <option value="https://player.support.brightcove.com" translate="no">&nbsp;&nbsp;&nbsp;&nbsp;Brightcove Player Development</option>
           
-            
-              <option value="https://general.support.brightcove.com">Video Cloud — Allgemeine Informationen</option>
-            
           
-            
-              <option value="https://zencoder.support.brightcove.com">Zencoder</option>
-            
+          
+          <option value="https://apis.support.brightcove.com" translate="no">&nbsp;&nbsp;&nbsp;&nbsp;Video Cloud Platform APIs</option>
+          
+          
+          
+          <option value="https://sdks.support.brightcove.com" translate="no">&nbsp;&nbsp;&nbsp;&nbsp;Video Cloud Device SDKs</option>
+          
+          
+          
+          <option value="https://integrations.support.brightcove.com" translate="no">&nbsp;&nbsp;&nbsp;&nbsp;Integrations and CMS Connectors</option>
+          
+          
+          
+          <option value="https://general.support.brightcove.com" translate="no">&nbsp;&nbsp;&nbsp;&nbsp;Video Cloud General Information</option>
+          
+          
+          
+          <option value="https://support.brightcove.com/" translate="no">-- VIDEO ESSENTIALS --</option>
+          
+          
+          
+          <option value="https://audience-insights.support.brightcove.com" translate="no">&nbsp;&nbsp;&nbsp;&nbsp;Brightcove Audience Insights</option>
+          
+          
+          
+          <option value="https://beacon-help.support.brightcove.com" translate="no">&nbsp;&nbsp;&nbsp;&nbsp;Brightcove Beacon Studio</option>
+          
+          
+          
+          <option value="https://beacon.support.brightcove.com" translate="no">&nbsp;&nbsp;&nbsp;&nbsp;Brightcove Beacon Classic</option>
+          
+          
+          
+          <option value="https://corptv.support.brightcove.com" translate="no">&nbsp;&nbsp;&nbsp;&nbsp;CorpTV</option>
+          
+          
+          
+          <option value="https://live.support.brightcove.com" translate="no">&nbsp;&nbsp;&nbsp;&nbsp;Brightcove Live</option>
+          
+          
+          
+          <option value="https://zencoder.support.brightcove.com" translate="no">&nbsp;&nbsp;&nbsp;&nbsp;Zencoder</option>
+          
+          
+          
+          <option value="https://support.brightcove.com/" translate="no">-- VIDEO CLOUD ADD-ONS --</option>
+          
+          
+          
+          <option value="https://gallery.support.brightcove.com" translate="no">&nbsp;&nbsp;&nbsp;&nbsp;Brightcove Gallery</option>
+          
+          
+          
+          <option value="https://studio.support.brightcove.com/social/index.html" translate="no">&nbsp;&nbsp;&nbsp;&nbsp;Brightcove Social</option>
+          
+          
+          
+          <option value="https://interactivity.support.brightcove.com/index.html" translate="no">&nbsp;&nbsp;&nbsp;&nbsp;Brightcove Interactivity</option>
+          
+          
+          
+          <option value="https://ssai.support.brightcove.com" translate="no">&nbsp;&nbsp;&nbsp;&nbsp;Brightcove SSAI</option>
+          
+          
+          
+          <option value="https://campaign.support.brightcove.com" translate="no">&nbsp;&nbsp;&nbsp;&nbsp;Brightcove Campaign</option>
+          
           
         </select>
 
-        <nav class="sidenav" id="side_nav">
-          
-            
-            <h5><a href="/index.html">Nach Hause</a></h5>
-            
-          
-            
-              <h5 class="submenu-header"><a href="/general/index.html">Allgemeine Informationen <strong>+</strong></a></h5>
-              <ul class="sidenav-submenu" style="display:none;">
-                
-                  
-                    <li><a href="/general/cms-integration-training-videos.html">Schulungsvideos zur CMS-Integration</a></li>
-                  
-                
-                  
-                    <li><a href="/general/integrating-your-cms-video-cloud.html">Integrieren Sie Ihr CMS mit Video Cloud</a></li>
-                  
-                
-                  
-                    <li><a href="/general/embedding-brightcove-players-cms.html">Einbetten von Brightcove-Spielern in ein CMS</a></li>
-                  
-                
-                  
-                    <li><a href="/general/embedding-brightcove-page-experiences-cms.html">Einbetten von In-Page-Erlebnissen in ein CMS</a></li>
-                  
-                
-                  
-                    <li><a href="/general/debugging-network-and-api-connection-issues-cms-and-dam-integrations.html">Debuggen von Netzwerk- und API-Verbindungsproblemen</a></li>
-                  
-                
-              </ul>
-            
-          
-            
-              <h5 class="submenu-header"><a href="/wordpress/index.html">Wordpress <strong>+</strong></a></h5>
-              <ul class="sidenav-submenu" style="display:none;">
-                
-                  
-                    <li><a href="/wordpress/getting-started-brightcove-video-connect-wordpress-cms.html">Erste Schritte mit Brightcove Video Connect</a></li>
-                  
-                
-                  
-                    <li><a href="/wordpress/wordpress-brightcove-connector-configuration.html">konfiguration</a></li>
-                  
-                
-                  
-                    <li><a href="/wordpress/wordpress-brightcove-connector-frequently-asked-questions.html">Häufig gestellte Fragen</a></li>
-                  
-                
-                  
-                    <li><a href="/wordpress/wordpress-brightcove-connector-installation.html">Installation</a></li>
-                  
-                
-                  
-                    <li><a href="/wordpress/wordpress-brightcove-connector-using-connector.html">Verwenden des Connectors</a></li>
-                  
-                
-              </ul>
-            
-          
-            
-              <h5 class="submenu-header"><a href="/drupal/index.html">Drupal <strong>+</strong></a></h5>
-              <ul class="sidenav-submenu" style="display:none;">
-                
-                  
-                    <li><a href="/drupal/getting-started-brightcove-video-connect-drupal-cms.html">Erste Schritte mit dem Connector für Drupal</a></li>
-                  
-                
-                  
-                    <li><a href="/drupal/drupal-8-brightcove-connector-configuration.html">Drupal 8 - Konfiguration</a></li>
-                  
-                
-                  
-                    <li><a href="/drupal/drupal-8-brightcove-connector-content-management.html">Drupal 8 - Inhaltsmanagement</a></li>
-                  
-                
-                  
-                    <li><a href="/drupal/drupal-8-brightcove-connector-embedding-content.html">Drupal 8 - Inhalte einbetten</a></li>
-                  
-                
-                  
-                    <li><a href="/drupal/drupal-8-brightcove-connector-installation.html">Drupal 8 - Steckerinstallation</a></li>
-                  
-                
-                  
-                    <li><a href="/drupal/drupal-7-brightcove-connector-configuration-and-usage.html">Drupal 7 - Konfiguration und Nutzung</a></li>
-                  
-                
-                  
-                    <li><a href="/drupal/drupal-7-brightcove-connector-installation.html">Drupal 7 - Installation</a></li>
-                  
-                
-              </ul>
-            
-          
-            
-              <h5 class="submenu-header"><a href="/adobe/index.html"> <strong>Adobe+</strong></a></h5>
-              <ul class="sidenav-submenu" style="display:none;">
-                
-                  
-                    <li><a href="/adobe/getting-started-brightcove-video-connect-adobe-experience-manager.html">Erste Schritte mit dem Connector für AEM</a></li>
-                  
-                
-                  
-                    <li><a href="/adobe/adobe-aem-brightcove-connector-configuration.html">konfiguration</a></li>
-                  
-                
-                  
-                    <li><a href="/adobe/adobe-aem-brightcove-connector-installation.html">Installation</a></li>
-                  
-                
-                  
-                    <li><a href="/adobe/adobe-aem-brightcove-connector-overview.html">Überblick</a></li>
-                  
-                
-                  
-                    <li><a href="/adobe/adobe-aem-brightcove-connector-using-connector.html">Verwenden des Connectors</a></li>
-                  
-                
-              </ul>
-            
-          
-            
-              <h5 class="submenu-header"><a href="/sitecore/index.html"> <strong>Sitecore</strong></a></h5>
-              <ul class="sidenav-submenu" style="display:none;">
-                
-                  
-                    <li><a href="/sitecore/getting-started-brightcove-video-connect-sitecore-experience-platform.html">Erste Schritte mit dem Connector für Sitecore</a></li>
-                  
-                
-              </ul>
-            
-          
-            
-              <h5 class="submenu-header"><a href="/sharepoint/index.html"> <strong>SharePoint</strong></a></h5>
-              <ul class="sidenav-submenu" style="display:none;">
-                
-                  
-                    <li><a href="/sharepoint/getting-started-brightcove-video-connect-sharepoint.html">Erste Schritte mit dem Connector für Sharepoint</a></li>
-                  
-                
-                  
-                    <li><a href="/sharepoint/sharepoint-brightcove-connector-4041-using-connector.html">Verwenden des Connectors</a></li>
-                  
-                
-              </ul>
-            
-          
-            
-              <h5 class="submenu-header"><a href="/ecommerce/index.html">eCommerce <strong>+</strong></a></h5>
-              <ul class="sidenav-submenu" style="display:none;">
-                
-                  
-                    <li class="submenu-header">
-                      <a href="/ecommerce/salesforce/index.html">Salesforce Commerce Cloud <strong>+</strong></a>
-                      <ul class="sidenav-subsubmenu" style="display:none;">
-                        
-                        <li><a href="/ecommerce/salesforce/brightcove-custom-cartridge-salesforce-commerce-cloud-installation.html">Salesforce Commerce Cloud: </a>Installation</li>
-                        
-                        <li><a href="/ecommerce/salesforce/brightcove-custom-cartridge-salesforce-commerce-cloud-user-guide.html">Salesforce Commerce Cloud: Benutzer-Guide</a></li>
-                        
-                      </ul>
-                    </li>
-                  
-                
-                  
-                    <li class="submenu-header">
-                      <a href="/ecommerce/adobe-magento-commerce/index.html">Adobe Magento Commerce <strong>+</strong></a>
-                      <ul class="sidenav-subsubmenu" style="display:none;">
-                        
-                        <li><a href="/ecommerce/adobe-magento-commerce/installation-guide.html">Installationsanleitung</a></li>
-                        
-                        <li><a href="/ecommerce/adobe-magento-commerce/user-guide.html">Benutzer-Guide</a></li>
-                        
-                      </ul>
-                    </li>
-                  
-                
-              </ul>
-            
-          
-            
-              <h5 class="submenu-header"><a href="/ecdn/index.html">eCDN <strong>+</strong></a></h5>
-              <ul class="sidenav-submenu" style="display:none;">
-                
-                  
-                    <li class="submenu-header">
-                      <a href="/ecdn/kollective/index.html">Kollective <strong>+</strong></a>
-                      <ul class="sidenav-subsubmenu" style="display:none;">
-                        
-                        <li><a href="/ecdn/kollective/kollective-deployment-guide.html">Kollective eCDN Bereitstellungsleitfaden</a></li>
-                        
-                        <li><a href="/ecdn/kollective/kollective-user-guide.html">Benutzerhandbuch für kollective eCDN</a></li>
-                        
-                      </ul>
-                    </li>
-                  
-                
-                  
-                    <li class="submenu-header">
-                      <a href="/ecdn/peer5/index.html">Peer5 <strong>+</strong></a>
-                      <ul class="sidenav-subsubmenu" style="display:none;">
-                        
-                        <li><a href="/ecdn/peer5/brightcove-with-peer5-integration.html">Brightcove mit Peer5-Integration</a></li>
-                        
-                      </ul>
-                    </li>
-                  
-                
-                  
-                    <li class="submenu-header">
-                      <a href="/ecdn/ramp/index.html">Rampe <strong>+</strong></a>
-                      <ul class="sidenav-subsubmenu" style="display:none;">
-                        
-                        <li><a href="/ecdn/ramp/getting-started-ramp-omnicache-and-video-cloud.html">Erste Schritte mit Ramp OmniCache und Video Cloud</a></li>
-                        
-                        <li><a href="/ecdn/ramp/getting-started-ramp-multicast-and-video-cloud.html">Erste Schritte mit Ramp Multicast+ und Video Cloud</a></li>
-                        
-                      </ul>
-                    </li>
-                  
-                
-              </ul>
-            
-          
-            
-              <h5 class="submenu-header"><a href="/web-conferencing/index.html">Webkonferenzen <strong>+</strong></a></h5>
-              <ul class="sidenav-submenu" style="display:none;">
-                
-                  
-                    <li><a href="/web-conferencing/host-zoom-conference-brightcove-live.html">Zoom-Konferenz auf Brightcove Live</a></li>
-                  
-                
-                  
-                    <li><a href="/web-conferencing/host-cisco-webex-conference-brightcove-live.html">Cisco Webex Konferenz nach Brightcove Live</a></li>
-                  
-                
-                  
-                    <li><a href="/web-conferencing/host-avaya-conference-brightcove-live.html">Avaya-Konferenz auf Brightcove Live</a></li>
-                  
-                
-                  
-                    <li><a href="/web-conferencing/host-inxpo-live.html">INXPO-Ereignis auf Brightcove Live</a></li>
-                  
-                
-              </ul>
-            
-          
-            
-              <h5 class="submenu-header"><a href="/support/index.html">unterstützung <strong>+</strong></a></h5>
-              <ul class="sidenav-submenu" style="display:none;">
-                
-                  
-                    
-                  
-                
-                  
-                    <li><a href="/support/viewing-brightcove-system-status-page.html">Anzeigen der Seite „Systemstatus von Brightcove“</a></li>
-                  
-                
-                  
-                    <li><a href="/support/contact-sales.html">Kontakt mit dem Vertrieb</a></li>
-                  
-                
-                  
-                    <li><a href="/support/opening-case-with-brightcove-support.html">Einen Supportfall öffnen</a></li>
-                  
-                
-              </ul>
-            
-          
-      </nav>
-    </div>
-    <div class="col-lg-7" style="background-color: white;color: #333333;margin-top: -1em;margin-bottom: -1em;padding-bottom:1em;">
-  <!-- bootstrap layout -->
+        <select id="language_select" class="form-select select-focus" style="width: 10%;"
+          onchange="doGTranslate(this);" translate="no">
+          <!-- <option value="">Select Language</option> -->
+          <option value="en|en" translate="No">English</option>
+          <option value="en|zh-TW" translate="No">繁體中文</option>
+          <option value="en|fr" translate="No">Français</option>
+          <option value="en|de" translate="No">Deutsche</option>
+          <option value="en|ja" translate="No">日本語</option>
+          <option value="en|ko" translate="No">한국어</option>
+          <option value="en|es" translate="No">Español</option>
+        </select>
 
-<p id="bc_veggie_burger_wrapper" style="display: none;"><img id="bc_veggie_burger" src="/assets/images/feather/menu.svg" alt="Menü „Navigation"/></p>
-
-<!-- search bar -->
-<div id="nav-search-box" style="margin-top: 1rem;"></div>
-<!-- in-page navigation for narrow screens -->
-<details class="centered-inpage-nav" id="centered_inpage_nav">
-  <summary><h6 class="toc">Inhalt der Seite</h6></summary>
-  <nav id="centered_toc"></nav>
-  <ul id="centered_in_page_toc" class="list-none"></ul>
-</details>
-<!-- open in new tab/window -->
-<a id="open_new_tab" href="#" target="_blank" style="display: none;"><img src="/assets/images/feather/external-link.svg" alt="in neuem Tab öffnen" style="margin-top:4em;width: 1.5em;"/></a>
-
-
-
-  
-    
-
-
-<article class="bcls-article">
-  <h1>SharePoint-BrightCove Anschluss 4.0/4.1: Verwenden des Connectors</h1>
-  <summary></summary>
-  <section class="bcls-section">
-    <h2 id="videos">Videos hinzufügen und bearbeiten</h2>
-    <p>Der SharePoint Connector ermöglicht es einem Inhaltsautor, Videos von seinem lokalen Computer hochzuladen und Metadaten für die Videos zu bearbeiten.</p>
-    <h3>Videos hinzufügen</h3>
-    <figure class="bcls-figure"><img class="bcls-image" alt="Ziehen oder stöbern Sie, um Videos hinzuzufügen" width="700" src="/assets/images/sharepoint/addvideo.jpg"/></figure>
-    <p>Der Abschnitt „Videos hinzufügen“ des Connectors wird verwendet, um neue Videos in Video Cloud hochzuladen. Wenn ein Benutzer auf „Videos hinzufügen“ zugreift (wenn er dazu berechtigt ist), werden ihm die folgenden Felder angezeigt, die es ihm ermöglichen, die Metadaten einzugeben, die an Video Cloud gesendet werden:</p>
-    <ul class="bcls-tasklist">
-      <li><strong>Konto auswählen</strong> - Diese Dropdown-Liste wird mit allen Konten gefüllt, zu denen der Benutzer berechtigt ist, Videos hinzuzufügen. Dies wird über die Zuweisung von Kontogruppen aktiviert. Der Benutzer muss ein Konto auswählen, um das Hochladen zu ermöglichen.</li>
-      <li><strong>Videodatei</strong> - Ziehen Sie Videodateien in das Feld oder klicken Sie auf die Schaltfläche „Durchsuchen“, um den lokalen Dateisystem-Explorer zu öffnen und die Videodatei für den Upload auszuwählen. Dies kann mehrfach wiederholt werden, ohne die Bildschirme wechseln zu müssen. Beachten Sie, dass dieser Schritt nach Folder und Brightcove Tags ausgeführt werden muss, wenn Sie sie von diesem Bildschirm aus festlegen möchten. Sie können auch später bearbeiten.</li>
-      <li><strong>Ordner</strong> - Videos können zu organisatorischen Zwecken in bestimmten Ordnern gespeichert werden.</li>
-      <li><strong>Brightcove tags</strong> - Daten-Tags, die zusätzlich zum Speichern in SharePoint in den Video Cloud-Tag-Informationen gespeichert werden. Diese unterscheiden sich von SharePoint-Metadaten-Tags, die einige Clients dieser Schnittstelle hinzufügen möchten und die nur in SharePoint gespeichert (nicht in Video Cloud übertragen) gespeichert werden.</li>
-    </ul>
-    <p>Wenn die Verarbeitung des Videos abgeschlossen ist, wird ein Link „Video bearbeiten“ angezeigt, über den der Benutzer Metadaten hinzufügen kann.</p>
-    <figure class="bcls-figure"><img class="bcls-image" alt="das Video ist geladen" width="700" src="/assets/images/sharepoint/clickeditvideo.jpg"/></figure>
-    <h3>Videos bearbeiten</h3>
-    <p>Der Bildschirm „Videos bearbeiten“ kann sowohl über den Link „Video bearbeiten“ nach dem Hochladen als auch durch Navigieren zu „Videos verwalten“ und auf das gewünschte Video geklickt werden.</p>
-    <figure class="bcls-figure"><img class="bcls-image" alt="wählen Sie ein Video aus, indem Sie suchen oder einfach nur sc" width="700" src="/assets/images/sharepoint/videomanagement.jpg"/></figure>
-    <p>Der Benutzer kann auch nach Videos suchen, indem er Suchbegriffe in das Feld „Verfügbare Videos“ eingibt und die Daten sortieren soll. Wenn Sie auf den Namen des Videos oder den Link „Video bearbeiten“ klicken, wird der Benutzer zur Seite Video bearbeiten weitergeleitet.</p>
-    <figure class="bcls-figure"><img class="bcls-image" alt="Felder bearbeiten" width="700" src="/assets/images/sharepoint/edit1.jpg"/></figure>
-    <p>Das Brightcove Video Cloud-Konto, in das das Video hochgeladen wird, kann nicht geändert werden, aber die meisten anderen Informationen, einschließlich Videonamen und Beschreibungen und aller benutzerdefinierten Felder, die Ihr Konto enthält. Der Name wird aus dem Dateinamen automatisch generiert, kann jedoch geändert werden.</p>
-    <p>Ein Poster und ein Thumbnail werden ebenfalls generiert, können aber auch hier geändert werden. Es gibt zwei Möglichkeiten, die Bilder zu ändern. Sie können einen neuen Screencap aus dem Video aufnehmen, indem Sie den Aufnahmeschaltknopf in der oberen rechten Ecke des Videos verwenden, oder Sie können einfach neue Bilder hochladen.</p>
-    <figure class="bcls-figure"><img class="bcls-image" alt="Bild aufnehmen" width="700" src="/assets/images/sharepoint/captureimage.jpg"/></figure>
-    <figure class="bcls-figure"><img class="bcls-image" alt="neues Poster und Thumbnail hochladen" width="700" src="/assets/images/sharepoint/uploadnewposterthumbnail.jpg"/></figure>
-    <h3 id="addingtexttracks">Hinzufügen von Textspuren</h3>
-    <p>Textspuren können jedem Video entweder beim ersten Upload oder bei nachfolgenden Updates hinzugefügt werden. Mit einem Video können eine oder mehrere Textspuren verknüpft sein. Der Benutzer kann die Art der Textspur auswählen, die dem Video hinzugefügt werden soll (Datei-Upload, URL-Upload oder Remote-URL). Wenn „Keine“ ausgewählt ist, wird in dem Abschnitt keines der Felder angezeigt.</p>
-    <p><strong>WICHTIG: Ein einzelnes Video wird KEINE Mischung aus Datei-Uploads, URL-Uploads oder Remote-URLs unterstützen. Mit jedem Video kann nur eine Art von Textspur verknüpft werden.</strong></p>
-    <h4>Datei-Upload</h4>
-    <p>Wenn „Datei-Upload“ für Text Track Files ausgewählt ist, werden die folgenden Felder angezeigt:</p>
-    <figure><img class="bcls-image--no-border" alt="" width="700" src="/assets/images/sharepoint/node16612-text-tracks-file-upload.png"/></figure>
-    <ol class="bcls-tasklist">
-      <li><strong>Typ der Textspur auswählen</strong> - Ermöglicht die Auswahl von Datei-Upload, URL-Upload oder Remote-URL.</li>
-      <li><strong>File Chooser</strong> - Auswahl der Textspurdatei.</li>
-      <li><strong>Textspureigenschaften</strong> - Legen Sie Eigenschaften fest, die mit der Textspur verknüpft sind. Wenn Sie auf „Hinzufügen“ klicken, wird die Textspur beim nächsten Upload/Update zu den Videodaten hinzugefügt.
-        <ol type="a">
-          <li><strong>Sprache</strong> - Der zweibuchstabige Code (gültiges Sprach-Tag BCP 47) für die Sprache der Textspur, zum Beispiel „en“ für Englisch.</li>
-          <li><strong>Label</strong> - Das Label für den Track, das für den Benutzer sichtbar ist, z. B. in einem Menü, das die verschiedenen für Untertitel verfügbaren Sprachen auflistet.</li>
-          <li><strong>Art</strong> - Einer der fünf aufgelisteten unterstützten Track-Typen</li>
-        </ol>
-      </li>
-      <li><strong>Liste der hinzugefügten/in der Warteschlange stehenden Textspuren</strong> - Zeigt die Liste der vorhandenen Textspuren und neuen Textspuren an, die beim nächsten Speichern in die Warteschlange gestellt werden. Eine Textspur kann gelöscht werden, indem Sie auf den Link „Entfernen“ klicken und das Video speichern.</li>
-    </ol>
-    <h4>URL hochladen, Remote-URL-Hochladen</h4>
-    <p>Wenn Sie eine dieser Optionen auswählen, wird der Upload „Datei-Upload“ durch ein Textfeld ersetzt, in das der vollständig qualifizierte URL-Pfad zur Textspurdatei eingegeben werden kann.</p>
-    <ul>
-      <li>URL Upload - Geben Sie die öffentliche URL ein, in der sich die Textspurdatei befindet, und klicken Sie dann auf Hochladen. Die Datei wird in Video Cloud hochgeladen.</li>
-      <li>Remote-URL - Geben Sie die öffentliche URL ein, in der sich die Textspurdatei befindet. Die URL darf maximal 249 Zeichen lang sein. Untertitel werden von der externen URL geladen.</li>
-    </ul>
-    <figure><img class="bcls-image--no-border" alt="" width="700" src="/assets/images/sharepoint/node16612-text-tracks-url-upload.png"/></figure>
-    <ol class="bcls-tasklist">
-      <li><strong>Typ der Textspur auswählen</strong> - Ermöglicht die Auswahl von Datei-Upload, URL-Upload oder Remote-URL.</li>
-      <li><strong>URL hinzufügen</strong> - Feld, um den vollqualifizierten URL-Pfad zur Texttrack-Datei einzugeben.</li>
-      <li><strong>Eigenschaften der Textspur</strong> - Ermöglicht das Festlegen der mit der Textspur verbundenen Eigenschaften. Wenn Sie auf „Hinzufügen“ klicken, wird die Textspur beim nächsten Upload/Update zu den Videodaten hinzugefügt.
-        <ol type="a">
-          <li><strong>Sprache</strong> - Der zweibuchstabige Code (gültiges Sprach-Tag BCP 47) für die Sprache der Textspur, zum Beispiel „en“ für Englisch.</li>
-          <li><strong>Label</strong> - Das Label für die Spur, die dem Benutzer angezeigt wird, z. B. in einem Menü, in dem die verschiedenen für Untertitel verfügbaren Sprachen aufgeführt sind.</li>
-          <li><strong>Art</strong> - Einer der fünf aufgelisteten unterstützten Track-Typen.</li>
-        </ol>
-      </li>
-      <li><strong>Liste der hinzugefügten/in der Warteschlange stehenden Textspuren</strong> - Zeigt die Liste der vorhandenen Textspuren und neuen Textspuren an, die beim nächsten Speichern in die Warteschlange gestellt werden. Eine Textspur kann gelöscht werden, indem Sie auf den Link „Entfernen“ klicken und das Video speichern.</li>
-    </ol>
-  </section>
-  <section class="bcls-section">
-    <h2 id="playlists">Hinzufügen, Importieren und Löschen von Playlists und Experiences</h2>
-    <p>Der Abschnitt Playlists verwalten des Connectors wird verwendet, um neue Wiedergabelisten zu erstellen sowie vorhandene Wiedergabelisten zu durchsuchen und zu verwalten, einschließlich Bearbeitung und Aktualisierung. Im Gegensatz zu Videos werden Playlist-Informationen nicht in SharePoint gespeichert, sondern jedes Mal, wenn ein Konto in diesem Abschnitt durchsucht wird, aus Video Cloud abgerufen. Aus diesem Grund gibt es einige Verzögerungen, die mit der Verfügbarkeit von Playlist-Daten über die API verbunden sind, die in den folgenden Abschnitten aufgerufen wird.</p>
-    <h3>Landingpage „Playlists verwalten“</h3>
-    <p>Auf der Landing-Page Playlists verwalten wird die Liste der Felder angezeigt, mit denen Sie in den verfügbaren Konten nach Wiedergabelisten suchen oder neue erstellen können:</p>
-    <figure class="bcls-figure"><img class="bcls-image" alt="Seite „Playlists verwalten“" width="700" src="/assets/images/sharepoint/manageplaylists.jpg"/></figure>
-    <ul class="bcls-tasklist">
-      <li><strong>Konto auswählen</strong> - Diese Dropdown-Liste wird mit allen Konten gefüllt, für die der Benutzer autorisiert ist. Dies wird über die Zuweisung von Kontogruppen aktiviert. Der Benutzer muss ein Konto auswählen, um alle Playlist-Angebote anzuzeigen.</li>
-      <li><strong>Verfügbare Wiedergabeliste</strong> - Um Wiedergabelisten zu durchsuchen, geben Sie Begriffe in dieses Feld ein.</li>
-      <li><strong>Playlist-Anzeigesäulen</strong> - Playlist-Daten werden in diesen Spalten angezeigt. Die Ergebnisse können nach jeder Spalte sortiert werden, indem Sie auf die Spaltenüberschrift klicken.</li>
-      <li><strong>Playlist-Auflistung</strong> - Jede Playlist-Liste enthält Folgendes:
-        <ul>
-          <li>Name der Wiedergabeliste - Wenn Sie auf den Namen klicken, wird die Wiedergabeliste zur Bearbeitung der Daten geöffnet.</li>
-          <li>Eine Liste von Video-IDs, die in der Wiedergabeliste aktiv sind.</li>
-          <li>Kurzbeschreibung.</li>
-          <li>Art der Wiedergabeliste - <a href="https://studio.support.brightcove.com/media/introduction-playlists.html">Manuelle oder Smart Playlist.</a></li>
-          <li>Die ID der Playlist (Video Cloud-Wiedergabelisten-ID).</li>
-          <li>Der Link „Playlist bearbeiten“. Dieser Link (oder das Klicken auf den Namen) wird verwendet, um die Wiedergabeliste zum Bearbeiten zu öffnen oder um ihre Details anzuzeigen.</li>
-        </ul>
-      </li>
-      <li><strong>Neue Playlist hinzufügen</strong> - Klicken Sie auf diese Schaltfläche, um eine neue Wiedergabeliste im ausgewählten Konto zu erstellen.</li>
-    </ul>
-    <h3>Hinzufügen einer neuen manuellen Playlist</h3>
-    <p>Um eine neue Playlist zu einem Konto hinzuzufügen, klickt der Benutzer auf die Schaltfläche „Neue Playlist hinzufügen“. Dadurch wird das Formular Playlist hinzufügen geöffnet:</p>
-    <figure class="bcls-figure"><img class="bcls-image" alt="Playlist bearbeiten" width="700" src="/assets/images/sharepoint/createmanualplaylist.jpg"/></figure>
-    <p>Beachten Sie, dass Videos in der Wiedergabeliste nach oben und unten verschoben werden können, indem Sie das zu verschiedende Video auswählen und die Option „Video verschieben“ aktivieren, um die Schaltflächen nach oben/unten zu verwenden. Es können mehrere Videos gleichzeitig verschoben werden.</p>
-    <ul class="bcls-tasklist">
-      <li><strong>Name</strong> - Der Name der neuen Playlist.</li>
-      <li><strong>Beschreibung</strong> - Eine kurze Beschreibung für die Playlist.</li>
-      <li><strong>Typ</strong> - Der Typ der Wiedergabeliste. In diesem Fall sollte es auf Manuell eingestellt sein.</li>
-      <li><strong>Verfügbare Videos</strong> - Anzeige des Suchfelds und der Liste der im Konto verfügbaren Videos. Auf diese Weise kann der Benutzer die Videooptionen einschränken, die der Wiedergabeliste hinzugefügt werden sollen.</li>
-      <li><strong>Action Arrows</strong> - Verschiebt ausgewählte Videos in die Wiedergabeliste und aus dieser heraus.</li>
-      <li><strong>Videos in dieser Playlist</strong> - Die aktuellen Videos in der Playlist werden hier angezeigt.</li>
-      <li><strong>Erstellen</strong> - Übernehmen Sie die Änderungen und starten Sie den Prozess der Erstellung der neuen Wiedergabeliste.</li>
-    </ul>
-    <h3>Hinzufügen einer neuen Smart-Playlist</h3>
-    <figure class="bcls-figure"><img class="bcls-image" alt="neue Smart-Playlist-Seite" width="700" src="/assets/images/sharepoint/newsmartplaylist.jpg"/></figure>
-    <ul class="bcls-tasklist">
-      <li><strong>Name</strong> - Der Name der neuen Playlist.</li>
-      <li><strong>Beschreibung</strong> - Eine kurze Beschreibung für die Playlist.</li>
-      <li><strong>Typ</strong> - Der Typ der Wiedergabeliste. In diesem Fall sollte es auf Smart gesetzt sein.</li>
-      <li><strong>Tags</strong> - Für eine intelligente Wiedergabeliste kann der Benutzer ein oder mehrere Tags auswählen, die zum Filtern einer Wiedergabeliste verwendet werden können. Das erste Dropdown-Menü ermöglicht es dem Benutzer, „Eins oder mehr enthalten“ oder „Alle enthalten“ auszuwählen, und das zweite Dropdown-Menü ermöglicht es dem Benutzer, die Tags für die Smart Playlist einzugeben. Abhängig von ihrer Auswahl erscheinen entweder alle Videos mit einem der Tags oder nur diejenigen, die alle Tags enthalten.</li>
-      <li><strong>Reihenfolge</strong> - Auf diese Weise kann der Benutzer festlegen, wie die Reihenfolge der passenden Videos festgelegt wird. Die Auswahl umfasst Folgendes:
-        <ul>
-          <li>Alphabetisch</li>
-          <li>Aktiviertes Datum (neuestes zuerst)</li>
-          <li>Aktiviertes Datum (ältestes zuerst)</li>
-          <li>Gesamtzahl der</li>
-          <li>Vergangene Woche spielt</li>
-          <li>Startdatum (ältestes zuerst)</li>
-          <li>Startdatum (neuestes zuerst)</li>
-        </ul>
-      </li>
-      <li><strong>Begrenzen auf</strong> - Die maximale Anzahl von Videos, die in die Wiedergabeliste aufgenommen werden sollen.</li>
-      <li><strong>Vorschau</strong> - Klicken Sie hier, um die Wiedergabeliste so anzuzeigen, wie sie derzeit mit den ausgewählten Optionen funktioniert.</li>
-      <li><strong>Videos in dieser Playlist</strong> - Die aktuellen Videos in der Playlist werden hier angezeigt.</li>
-      <li><strong>Erstellen</strong> - Übernehmen Sie die Änderungen und starten Sie den Prozess der Erstellung der neuen Wiedergabeliste.</li>
-    </ul>
-    <h3>Bearbeiten einer bestehenden Playlist</h3>
-    <p>Um eine vorhandene Wiedergabeliste zu bearbeiten, klicke entweder auf den Namen des Videos oder den Bearbeitungslink in der ganz rechten Spalte auf der Seite Playlists verwalten. Dadurch gelangen Sie zu einer Seite, die fast identisch mit der Seite „Neue Playlist hinzufügen“ ist. Anstelle einer Schaltfläche „Erstellen“ gibt es jedoch eine Schaltfläche „Speichern“. Fast alles kann bearbeitet werden, außer dem Playlist-Typ. Während Sie den Typ ändern und speichern können, werden die Änderungen nicht wirklich gespeichert, wenn Sie die Wiedergabeliste erneut anzeigen.</p>
-    <h3>Erlebnisse</h3>
-    <p>Um Erlebnisse anzuzeigen, klicken Sie auf den Tab Erfahrungen verwalten. Die verfügbaren Erlebnisse werden aufgelistet und verfügbar sein. Sie können sie anzeigen, indem Sie auf den Namen klicken, und die Erfahrung kann in Seiten eingebettet werden, sie kann jedoch nur von Brightcove Studio aus bearbeitet werden. Es besteht die Möglichkeit zu sehen, wie das Erlebnis sowohl auf einem Desktop als auch auf Mobilgeräten aussehen wird und wie es in verschiedenen Wiedergabestatus aussieht.</p>
-    <figure class="bcls-figure"><img class="bcls-image" alt="Seite „Erfahrung“" width="700" src="/assets/images/sharepoint/experience.jpg"/></figure>
-  </section>
-  <section class="bcls-section">
-    <h2 id="embedding">Video zu einer SharePoint-Website hinzufügen</h2>
-    <p>Es gibt verschiedene Möglichkeiten, ein Video in eine SharePoint-Website einzubetten, je nachdem, ob Sie die moderne Benutzeroberfläche oder die klassische Benutzeroberfläche verwenden. Während sich der Einbettungsprozess unterscheidet, ist bei beiden UIs der Prozess zum Einbetten von Videos, Wiedergabelisten und Erlebnissen gleich. Klicke einfach auf das Brightcove Playlist oder Brightcove Experience Symbol anstelle des Brightcove Video-Symbols.</p>
-    <h3>Modernes UI</h3>
-    <p>Klicken Sie in der modernen Benutzeroberfläche zuerst auf das Pluszeichen, um ein neues App-Part an der gewünschten Stelle hinzuzufügen. Wählen Sie Brightcove Video aus.</p>
-    <figure class="bcls-figure"><img class="bcls-image" alt="moderne Sicht" width="700" src="/assets/images/sharepoint/modernaddapppart.jpg"/></figure>
-    <p>Dies öffnet ein Auswahlfenster. Wählen Sie ein Video aus und scrollen Sie dann nach unten und klicken Sie auf „</p>
-    <figure class="bcls-figure"><img class="bcls-image" alt="moderne Sicht" width="700" src="/assets/images/sharepoint/apppartvideoselect.jpg"/></figure>
-    <figure class="bcls-figure"><img class="bcls-image" alt="moderne Sicht" width="700" src="/assets/images/sharepoint/apppartvideopost.jpg"/></figure>
-    <p>Das Video wird nicht sofort angezeigt, aber wenn Sie auf „Veröffentlichen“ oder „Als Entwurf speichern“ klicken, wird die fertige Seite mit dem eingebetteten Video angezeigt.</p>
-    <figure class="bcls-figure"><img class="bcls-image" alt="Clarkie ist ein GUTES MÄDCHEN" width="700" src="/assets/images/sharepoint/applyorcopy.jpg"/></figure>
-    <h3>Klassisches UI</h3>
-    <p>Während die moderne Benutzeroberfläche nur die eine Möglichkeit zum Einbetten hat, bietet die klassische Benutzeroberfläche drei Optionen. Alle von ihnen stammen aus dem Menü „Einfügen“ ganz rechts in der oberen Symbolleiste.</p>
-    <figure class="bcls-figure"><img class="bcls-image" alt="Schaltfläche einfügen" width="700" src="/assets/images/sharepoint/classicmenuinsert.jpg"/></figure>
-    <h4>Einbetten</h4>
-    <p>Klicken Sie zuerst auf das Brightcove Video-Symbol. Oder klicken Sie auf diese, wenn Sie einen Spielisten oder ein Erlebnis einbetten. Der Prozess ist derselbe.</p>
-    <figure class="bcls-figure"><img class="bcls-image" alt="Schaltfläche „Brightcove“" width="700" src="/assets/images/sharepoint/classicbcvid.jpg"/></figure>
-    <p>Dadurch wird das Auswahlmenü für Brightcove Video geöffnet.</p>
-    <figure class="bcls-figure"><img class="bcls-image" alt="klassische Ansicht" width="700" src="/assets/images/sharepoint/classicbcvidview.jpg"/></figure>
-    <p>Wähle das Video aus, scrolle dann nach unten und klicke auf „In die Zwischenablage kopieren“.</p>
-    <figure class="bcls-figure"><img class="bcls-image" alt="klassische Ansicht" width="700" src="/assets/images/sharepoint/applyorcopy.jpg"/></figure>
-    <p>Schließen Sie das Brightcove Video-Fenster und klicken Sie dann im Menü Einfügen auf „Einbetten“.</p>
-    <figure class="bcls-figure"><img class="bcls-image" alt="klassische Ansicht" width="700" src="/assets/images/sharepoint/classicembed.jpg"/></figure>
-    <p>Fügen Sie den kopierten Code in das Feld ein und klicken Sie dann auf Einfügen.</p>
-    <figure class="bcls-figure"><img class="bcls-image" alt="klassische Ansicht" width="700" src="/assets/images/sharepoint/embed.jpg"/></figure>
-    <p>Ihr Video wird auf der Seite erscheinen.</p>
-    <h4>App-Teil</h4>
-    <p>Um ein App-Teil hinzuzufügen, klicken Sie auf das App-Part Symbol.</p>
-    <figure class="bcls-figure"><img class="bcls-image" alt="klassische Ansicht" width="700" src="/assets/images/sharepoint/classicapppart.jpg"/></figure>
-    <p>Dadurch wird ein Menü geöffnet, das Optionen für verschiedene App-Parts bietet. Wählen Sie die Option „Brightcove Video“.</p>
-    <figure class="bcls-figure"><img class="bcls-image" alt="klassische Ansicht" width="700" src="/assets/images/sharepoint/apppartmenu.jpg"/></figure>
-    <p>Dadurch wird der Seite ein Webpart hinzugefügt, aber zunächst ist kein Video angehängt.</p>
-    <figure class="bcls-figure"><img class="bcls-image" alt="ein Mangel an Video" width="700" src="/assets/images/sharepoint/vidfail.jpg"/></figure>
-    <p>Markieren Sie das Kästchen und klicken Sie auf den Pfeil, um „Webpart bearbeiten“ auszuwählen. Dadurch werden die Brightcove Videos geöffnet und Sie können ein Video auswählen. Klicken Sie unten auf Übernehmen. Das Video wird angezeigt, sobald Sie die Seite speichern.</p>
-    <h4>Web-Teil</h4>
-    <figure class="bcls-figure"><img class="bcls-image" alt="menu" width="700" src="/assets/images/sharepoint/classicwebpart.png"/></figure>
-    <p>Webparts können auf zwei Arten hinzugefügt werden. Wenn Sie auf das Webparte-Symbol klicken, wird ein Menü geöffnet, das dem App-Pass-Menü ähnelt, und wenn Sie dieselben Schritte ausführen, werden dieselben Ergebnisse angezeigt.</p>
-    <p>Sie können auch erneut auf die Schaltfläche „Brightcove Video“ klicken und ein Video auswählen. Wählen Sie diesmal jedoch „Dowload-Webpart“.</p>
-    <figure class="bcls-figure"><img class="bcls-image" alt="klassische Ansicht" width="700" src="/assets/images/sharepoint/downloadwebpart.jpg"/></figure>
-    <p>Eine Datei wird auf Ihren Computer heruntergeladen. Klicken Sie auf das Webpart-Symbol. Wenn das Menü geöffnet wird, laden Sie die Datei in das Feld „Webpart hochladen“ hoch. Klicken Sie auf Hochladen</p>
-    <figure class="bcls-figure"><img class="bcls-image" alt="klassische Ansicht" width="700" src="/assets/images/sharepoint/webpartmenu.jpg"/></figure>
-    <p>Ihr Video wird auf Ihrer Seite angezeigt.</p>
-  </section>
-</article>
-
-<!-- complete bootstrap layout -->
-    </div>
-    <div class="col-sm-2 right-side-bar">
-      
-      <nav class="right-side-nav" id="right_side_nav">
-        <h6 class="toc">Inhalt der Seite</h6>
-        <ul id="in_page_nav" class="list-none"></ul>
-      </nav>
-      
-    </div>
-  </div>
-</div>
-
-<hr>
-<footer class="bcls-footer" role="contentinfo">  <div class="row">
-    <div class="region region-footer-top-center col-md-12">
-      <nav role="navigation" aria-labelledby="block-brightcovesupport-menu" id="block-brightcovesupport" class="footer-menu">
-
-        <h2>Brightcove Support-Service</h2>
-
-        <ul class="menu">
-          <li>
-            <a href="https://status.brightcove.com">Systemstatus</a>
-          </li>
-          <li>
-            <a href="https://supportportal.brightcove.com/s/login/?">Kontakt mit dem Support</a>
-          </li>
-          <li>
-            <a href="https://support.brightcove.com/">DOKUMENTATION</a>
-          </li>
-        </ul>
-
-      </nav>
-      <nav role="navigation" aria-labelledby="block-training-menu" id="block-training" class="footer-menu">
-
-        <h2>Schulungen</h2>
-
-        <ul class="menu">
-          <li>
-            <a href="https://studio.support.brightcove.com/training/online-training-courses.html">Online-Kurse</a>
-          </li>
-          <li>
-            <a href="https://studio.support.brightcove.com/training/register-training.html">Für einen Kurs anmelden</a>
-          </li>
-          <li>
-            <a href="https://university.brightcove.com/">Brightcove Universität</a>
-          </li>
-        </ul>
-
-      </nav>
-      <nav role="navigation" aria-labelledby="block-brightcove-menu" class="footer-menu">
-
-        <h2>Brightcove</h2>
-
-        <ul class="menu">
-          <li>
-            <a href="https://www.brightcove.com">brightcove.com</a>
-          </li>
-          <li>
-            <a href="https://supportportal.brightcove.com/s/login/?">Kontaktiere uns</a>
-          </li>
-        </ul>
-      </nav>
-    </div>
-  </div>
-  <div class="row">
-    <div class="region region-footer-bottom-center col-md-12">
-      <div class="bcls-copyright footer-menu">
-        <table>
-          <tr>
-            <td>
-              <div id="bc_copyright" class="field field--name-field-copyright-year field--type-string field--label-hidden field--item" style="float: left;"> Brightcove Inc. Alle Rechte vorbehalten.</div>
-            </td>
-            <td><a href="https://www.brightcove.com/en/legal/privacy">Privacy</a> | <a href="https://www.brightcove.com/en/terms-and-conditions">Allgemeine Geschäftsbedingungen</a></td>
-            <td>
-              <div class="gf-links-cols footer-menu">
-                <div class="gf-social"><a href="https://www.linkedin.com/company/16439" title="LinkedIn" newtab="newtab" class="gf-social-linkedin"><i class="fab fa-linkedin-in" style="font-size: 1.5rem;"></i></a><a href="https://twitter.com/brightcove" title="Twitter" newtab="newtab" class="gf-social-twitter"><i class="fab fa-twitter" style="font-size: 1.5rem;"></i></a><a href="https://www.facebook.com/Brightcove" title="Facebook" newtab="newtab" class="gf-social-facebook"><i class="fab fa-facebook-f" style="font-size: 1.5rem;"></i></a>
-                </div>
-              </div>
-            </td>
-          </tr>
-        </table>
+        <script translate="no">
+          /* <![CDATA[ */
+          function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;if(lang_pair=='')return;var lang=lang_pair.split('|')[1];var plang=location.hostname.split('.')[0];if(plang.length !=2 && plang.toLowerCase() != 'zh-cn' && plang.toLowerCase() != 'zh-tw')plang='en';location.href=location.protocol+'//'+(lang == 'en' ? '' : lang+'.')+location.hostname.replace('www.', '').replace(RegExp('^' + plang + '\\.'), '')+location.pathname+location.search;}
+          /* ]]> */
+        </script>
       </div>
     </div>
   </div>
-</footer>
+</header><!--//header-->
 
-<script>
+<div class="docs-wrapper">
+  <div id="docs-sidebar" class="docs-sidebar" style="padding-right: 15px;">
+    <div id="nav-search-box" class="top-search-box d-lg-none p-3"></div>
+    <div class="row">
       
+        <div id="side_nav" style="margin-left: 1em; display: inline-block; border-right: 1px solid #e5e5e6; padding-right: 1em;">
+          
+          <nav class="docs-nav sidenav" aria-label="Main">
+            <ul class="site-nav" style="list-style-type: none;">
+            
+            
+            
+            <li class="nav-item section-title"><a class="nav-link" href="/index.html">Zuhause</a></li>
+            
+            
+            
+            
+            <li class="nav-item section-title"><a class="nav-link" href="/general/index.html"><span class="theme-icon-holder me-2"> <i class="fa-solid fa-plus"></i></span>&nbsp;Allgemeine Informationen</a>
+              <ul role="list" class="section-items list-unstyled nav flex-column pb-3" style="display:none;">
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/general/cms-integration-training-videos.html">Schulungsvideos zur CMS-Integration</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/general/integrating-your-cms-video-cloud.html">Integrieren Sie Ihr CMS in Video Cloud</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/general/embedding-brightcove-players-cms.html">Einbetten von Brightcove-Playern in ein CMS</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/general/embedding-brightcove-page-experiences-cms.html">Einbetten von In-Page-Erlebnissen in ein CMS</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/general/debugging-network-and-api-connection-issues-cms-and-dam-integrations.html">Debuggen von Netzwerk- und API-Verbindungsproblemen</a></li>
+              
+              
+              
+            </ul>
+            </li>
+            
+            
+            
+            <li class="nav-item section-title"><a class="nav-link" href="/wordpress/index.html"><span class="theme-icon-holder me-2"> <i class="fa-solid fa-plus"></i></span>&nbsp;Wordpress</a>
+              <ul role="list" class="section-items list-unstyled nav flex-column pb-3" style="display:none;">
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/wordpress/getting-started-brightcove-video-connect-wordpress-cms.html">Erste Schritte mit Brightcove Video Connect</a></li>
+              
+              
+              
+            </ul>
+            </li>
+            
+            
+            
+            <li class="nav-item section-title"><a class="nav-link" href="/drupal/index.html"><span class="theme-icon-holder me-2"> <i class="fa-solid fa-plus"></i></span>&nbsp;Drupal</a>
+              <ul role="list" class="section-items list-unstyled nav flex-column pb-3" style="display:none;">
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/drupal/getting-started-brightcove-video-connect-drupal-cms.html">Erste Schritte mit dem Connector für Drupal</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/drupal/drupal-9-brightcove-connector-overview.html">Drupal 9 - Brightcove Connector: Überblick</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/drupal/drupal-8-brightcove-connector-configuration.html">Drupal 8 - Konfiguration</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/drupal/drupal-8-brightcove-connector-content-management.html">Drupal 8 - Inhaltsverwaltung</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/drupal/drupal-8-brightcove-connector-embedding-content.html">Drupal 8 - Inhalte einbetten</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/drupal/drupal-8-brightcove-connector-installation.html">Drupal 8 - Steckverbinderinstallation</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/drupal/drupal-7-brightcove-connector-configuration-and-usage.html">Drupal 7 - Konfiguration und Verwendung</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/drupal/drupal-7-brightcove-connector-installation.html">Drupal 7 - Installation</a></li>
+              
+              
+              
+            </ul>
+            </li>
+            
+            
+            
+            <li class="nav-item section-title"><a class="nav-link" href="/adobe/index.html"><span class="theme-icon-holder me-2"> <i class="fa-solid fa-plus"></i></span>&nbsp;Adobe</a>
+              <ul role="list" class="section-items list-unstyled nav flex-column pb-3" style="display:none;">
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/adobe/getting-started-brightcove-video-connect-adobe-experience-manager.html">Erste Schritte mit dem Connector für AEM</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/adobe/adobe-aem-brightcove-connector-configuration.html">Aufbau</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/adobe/adobe-aem-brightcove-connector-installation.html">Installation für AEM vor Ort</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/adobe/adobe-aem-brightcove-connection-installation-cloud.html">Installation für Cloud AEM</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/adobe/adobe-aem-brightcove-connector-overview.html">Überblick</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/adobe/adobe-aem-brightcove-connector-using-connector.html">Verwenden des Connectors</a></li>
+              
+              
+              
+            </ul>
+            </li>
+            
+            
+            
+            <li class="nav-item section-title"><a class="nav-link" href="/sitecore/index.html"><span class="theme-icon-holder me-2"> <i class="fa-solid fa-plus"></i></span>&nbsp;Sitecore</a>
+              <ul role="list" class="section-items list-unstyled nav flex-column pb-3" style="display:none;">
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/sitecore/getting-started-brightcove-video-connect-sitecore-experience-platform.html">Erste Schritte mit dem Connector für Sitecore</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/sitecore/installation-guide.html">Installationsanleitung: Brightcove Video Connect für Sitecore</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/sitecore/configuration.html">Konfigurationsleitfaden: Brightcove Video Connect für Sitecore</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/sitecore/user-guide.html">Benutzerhandbuch: Brightcove Video Connect für Sitecore</a></li>
+              
+              
+              
+            </ul>
+            </li>
+            
+            
+            
+            <li class="nav-item section-title"><a class="nav-link" href="/sharepoint/index.html"><span class="theme-icon-holder me-2"> <i class="fa-solid fa-plus"></i></span>&nbsp;SharePoint</a>
+              <ul role="list" class="section-items list-unstyled nav flex-column pb-3" style="display:none;">
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/sharepoint/getting-started-brightcove-video-connect-sharepoint.html">Erste Schritte mit dem Connector für Sharepoint</a></li>
+              
+              
+              
+            </ul>
+            </li>
+            
+            
+            
+            <li class="nav-item section-title"><a class="nav-link" href="/hootsuite/index.html"><span class="theme-icon-holder me-2"> <i class="fa-solid fa-plus"></i></span>&nbsp;Hootsuite</a>
+              <ul role="list" class="section-items list-unstyled nav flex-column pb-3" style="display:none;">
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/hootsuite/publishing-brightcove-video-hootsuite.html">Veröffentlichen von Brightcove-Videos über Hootsuite</a></li>
+              
+              
+              
+            </ul>
+            </li>
+            
+            
+            
+            <li class="nav-item section-title"><a class="nav-link" href="/ecommerce/index.html"><span class="theme-icon-holder me-2"> <i class="fa-solid fa-plus"></i></span>&nbsp;eCommerce</a>
+              <ul role="list" class="section-items list-unstyled nav flex-column pb-3" style="display:none;">
+              
+              
+
+              <li class="nav-item subsection-title">
+                
+                <a class="nav-link" href="/ecommerce/salesforce/index.html"> <span class="theme-icon-holder me-2"><i class="fa-solid fa-minus"></i></span>&nbsp;Salesforce Commerce Cloud</a>
+                
+
+                <ul role="list" class="section-items list-unstyled nav flex-column pb-3" style="display:none;">
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="/ecommerce/salesforce/brightcove-custom-cartridge-salesforce-commerce-cloud-installation.html">Salesforce Commerce-Cloud: Installation</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="/ecommerce/salesforce/brightcove-custom-cartridge-salesforce-commerce-cloud-user-guide.html">Salesforce Commerce-Cloud: Benutzerhandbuch</a></li>
+                  
+                  
+                  
+                </ul>
+              </li>
+              
+              
+              
+
+              <li class="nav-item subsection-title">
+                
+                <a class="nav-link" href="/ecommerce/adobe-magento-commerce/index.html"> <span class="theme-icon-holder me-2"><i class="fa-solid fa-minus"></i></span>&nbsp;Adobe Magento E-Commerce</a>
+                
+
+                <ul role="list" class="section-items list-unstyled nav flex-column pb-3" style="display:none;">
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="/ecommerce/adobe-magento-commerce/installation-guide.html">Installationsanleitung</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="/ecommerce/adobe-magento-commerce/user-guide.html">Benutzerhandbuch</a></li>
+                  
+                  
+                  
+                </ul>
+              </li>
+              
+              
+            </ul>
+            </li>
+            
+            
+            
+            <li class="nav-item section-title"><a class="nav-link" href="/ecdn/index.html"><span class="theme-icon-holder me-2"> <i class="fa-solid fa-plus"></i></span>&nbsp;eCDN</a>
+              <ul role="list" class="section-items list-unstyled nav flex-column pb-3" style="display:none;">
+              
+              
+
+              <li class="nav-item subsection-title">
+                
+                <a class="nav-link" href="/ecdn/kollective/index.html"> <span class="theme-icon-holder me-2"><i class="fa-solid fa-minus"></i></span>&nbsp;Kollektiv</a>
+                
+
+                <ul role="list" class="section-items list-unstyled nav flex-column pb-3" style="display:none;">
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="/ecdn/kollective/kollective-deployment-guide.html">Kollective eCDN-Bereitstellungsleitfaden</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="/ecdn/kollective/add-kollective-player-plugin.html">Installieren des Kollective Player Plugins</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="/ecdn/kollective/kollective-user-guide.html">Kollektives eCDN-Benutzerhandbuch</a></li>
+                  
+                  
+                  
+                </ul>
+              </li>
+              
+              
+              
+
+              <li class="nav-item subsection-title">
+                
+                <a class="nav-link" href="/ecdn/peer5/index.html"> <span class="theme-icon-holder me-2"><i class="fa-solid fa-minus"></i></span>&nbsp;Gleichaltrige 5</a>
+                
+
+                <ul role="list" class="section-items list-unstyled nav flex-column pb-3" style="display:none;">
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="/ecdn/peer5/brightcove-with-peer5-integration.html">Brightcove mit Peer5-Integration</a></li>
+                  
+                  
+                  
+                </ul>
+              </li>
+              
+              
+              
+
+              <li class="nav-item subsection-title">
+                
+                <a class="nav-link" href="/ecdn/ramp/index.html"> <span class="theme-icon-holder me-2"><i class="fa-solid fa-minus"></i></span>&nbsp;Rampe</a>
+                
+
+                <ul role="list" class="section-items list-unstyled nav flex-column pb-3" style="display:none;">
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="/ecdn/ramp/getting-started-ramp-omnicache-and-video-cloud.html">Erste Schritte mit Ramp OmniCache und Video Cloud</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="/ecdn/ramp/getting-started-ramp-multicast-and-video-cloud.html">Erste Schritte mit Ramp Multicast+ und Video Cloud</a></li>
+                  
+                  
+                  
+                </ul>
+              </li>
+              
+              
+            </ul>
+            </li>
+            
+            
+            
+            <li class="nav-item section-title"><a class="nav-link" href="/teams/index.html"><span class="theme-icon-holder me-2"> <i class="fa-solid fa-plus"></i></span>&nbsp;Brightcove Video Connect für Microsoft Teams</a>
+              <ul role="list" class="section-items list-unstyled nav flex-column pb-3" style="display:none;">
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/teams/installation.html">Installation des Connectors für Teams</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/teams/using.html">Verwendung des Connectors für Microsoft Teams</a></li>
+              
+              
+              
+            </ul>
+            </li>
+            
+            
+            
+            <li class="nav-item section-title"><a class="nav-link" href="/web-conferencing/index.html"><span class="theme-icon-holder me-2"> <i class="fa-solid fa-plus"></i></span>&nbsp;Webkonferenzen</a>
+              <ul role="list" class="section-items list-unstyled nav flex-column pb-3" style="display:none;">
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/web-conferencing/host-zoom-conference-brightcove-live.html">Zoom-Konferenz auf Brightcove Live</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/web-conferencing/host-cisco-webex-conference-brightcove-live.html">Cisco Webex-Konferenz zu Brightcove Live</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/web-conferencing/host-avaya-conference-brightcove-live.html">Avaya-Konferenz auf Brightcove Live</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/web-conferencing/host-inxpo-live.html">INXPO-Veranstaltung auf Brightcove Live</a></li>
+              
+              
+              
+            </ul>
+            </li>
+            
+            
+            
+            <li class="nav-item section-title"><a class="nav-link" href="/non-brightcove-players/index.html"><span class="theme-icon-holder me-2"> <i class="fa-solid fa-plus"></i></span>&nbsp;Spieler, die keine Brightcove-Spieler sind</a>
+              <ul role="list" class="section-items list-unstyled nav flex-column pb-3" style="display:none;">
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/non-brightcove-players/inplayer.html">Bereitstellen von Brightcove-Content mit InPlayer</a></li>
+              
+              
+              
+            </ul>
+            </li>
+            
+            
+            
+            <li class="nav-item section-title"><a class="nav-link" href="/support/index.html"><span class="theme-icon-holder me-2"> <i class="fa-solid fa-plus"></i></span>&nbsp;Unterstützung</a>
+              <ul role="list" class="section-items list-unstyled nav flex-column pb-3" style="display:none;">
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/support/viewing-brightcove-system-status-page.html">Anzeigen der Seite „Brightcove System Status“</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/support/contact-sales.html">Kontakt zum Vertrieb</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/support/opening-case-with-brightcove-support.html">Einen Supportfall öffnen</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/support/reset-support-portal-password.html">Passwort für das Support-Portal zurücksetzen</a></li>
+              
+              
+              
+            </ul>
+            </li>
+            
+            
+          </ul>
+          </nav>
+        </div>
+      </div>
+    </div><!--//docs-sidebar-->
+  </div>
+</div>
+
+<div style="margin-top: 20px;">
+  <div class="docs-content" style="padding-bottom: 0px;">
+    <div class="container">
+      <div class="docs-overview">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            
+            <li class="breadcrumb-item"><a class="theme-link" href="/">Zuhause</a></li>
+            
+            
+            <li class="breadcrumb-item"><a class="theme-link" href="/sharepoint/">Sharepoint</a></li>
+            
+            
+            
+            <li class="breadcrumb-item active" aria-current="page">SharePoint-Brightcove-Connector 4.0/4.1: Verwenden des Connectors</li>
+            
+            
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="docs-content">
+  <div class="container">
+    <div class="docs-overview py-5">
+      
+      <div class="centered-inpage-nav" id="centered_inpage_nav">
+        <nav id="centered_toc">
+          <select id="centered_in_page_toc" class="form-select select-focus"></select>
+        </nav>
+      </div>
+      <br/>
+      
+      
+<article class="bcls-article">
+  <h1>SharePoint-Brightcove-Connector 4.0/4.1: Verwenden des Connectors</h1>
+  <summary></summary>
+  <section class="bcls-section">
+    <h2 id="videos">Hinzufügen und Bearbeiten von Videos</h2>
+    <p>Mit dem SharePoint Connector kann ein Inhaltsautor Videos von seinem lokalen Computer hochladen und Metadaten für die Videos bearbeiten.</p>
+    <h3>Videos hinzufügen</h3>
+    <figure class="bcls-figure"><img class="bcls-image" alt="Ziehen oder durchsuchen, um Videos hinzuzufügen" width="700" src="/assets/images/sharepoint/addvideo.jpg"/></figure>
+    <p>Im Abschnitt "Videos hinzufügen" des Connectors werden neue Videos in die Video Cloud hochgeladen. Wenn ein Benutzer auf Videos hinzufügen zugreift (sofern er dazu berechtigt ist), werden ihm die folgenden Felder angezeigt, in die er die Metadaten eingeben kann, die an Video Cloud gesendet werden:</p>
+    <ul class="bcls-tasklist">
+      <li><strong>Konto auswählen</strong> - Diese Dropdown-Liste enthält alle Konten, zu denen der Benutzer Videos hinzufügen darf. Dies wird durch die Zuordnung von Kontogruppen aktiviert. Der Benutzer muss ein Konto auswählen, um den Upload zu aktivieren.</li>
+      <li><strong>Videodatei</strong> - Ziehen Sie Videodateien in das Feld oder klicken Sie auf die Schaltfläche "Durchsuchen", um den lokalen Dateisystem-Explorer zu öffnen und die Videodatei zum Hochladen auszuwählen. Dies kann mehrmals wiederholt werden, ohne den Bildschirm zu wechseln. Beachten Sie, dass dieser Schritt nach Folder- und Brightcove Tags ausgeführt werden muss, wenn Sie sie von diesem Bildschirm aus einstellen möchten. Sie können auch später bearbeiten.</li>
+      <li><strong>Mappe</strong> - Videos können aus organisatorischen Gründen in bestimmten Ordnern gespeichert werden.</li>
+      <li><strong>Brightcove-Tags</strong> - Daten-Tags, die zusätzlich zu SharePoint in den Video Cloud-Tag-Informationen gespeichert werden. Diese unterscheiden sich von SharePoint-Metadaten-Tags, die einige Clients zu dieser Benutzeroberfläche hinzufügen möchten und die nur in SharePoint gespeichert (nicht in die Video Cloud übertragen) werden.</li>
+    </ul>
+    <p>Wenn das Video die Verarbeitung abgeschlossen hat, wird ein Link "Video bearbeiten" angezeigt, über den der Benutzer Metadaten hinzufügen kann.</p>
+    <figure class="bcls-figure"><img class="bcls-image" alt="Das Video wird geladen" width="700" src="/assets/images/sharepoint/clickeditvideo.jpg"/></figure>
+    <h3>Videos bearbeiten</h3>
+    <p>Der Bildschirm Videos bearbeiten kann sowohl über den Link Video bearbeiten nach dem Hochladen als auch durch Navigieren zu Videos verwalten und Klicken auf das gewünschte Video aufgerufen werden.</p>
+    <figure class="bcls-figure"><img class="bcls-image" alt="Wählen Sie das Video durch Suchen oder Scrollen aus" width="700" src="/assets/images/sharepoint/videomanagement.jpg"/></figure>
+    <p>Der Benutzer kann Videos auch suchen, indem er Suchwörter in das Feld "Verfügbare Videos" eingibt und auswählt, wie die Daten sortiert werden sollen. Durch Klicken auf den Namen des Videos oder den Link "Video bearbeiten" gelangt der Benutzer zur Seite "Video bearbeiten".</p>
+    <figure class="bcls-figure"><img class="bcls-image" alt="Felder bearbeiten" width="700" src="/assets/images/sharepoint/edit1.jpg"/></figure>
+    <p>Das Brightcove Video Cloud-Konto, auf das das Video hochgeladen wird, kann nicht geändert werden, aber die meisten anderen Informationen können, einschließlich Videonamen und Beschreibungen sowie aller benutzerdefinierten Felder, die Ihr Konto enthält. Der Name wird automatisch aus dem Dateinamen generiert, kann jedoch geändert werden.</p>
+    <p>Ein Poster und eine Miniaturansicht werden ebenfalls generiert, können aber auch hier geändert werden. Es gibt zwei Möglichkeiten, die Bilder zu ändern. Sie können eine neue Bildschirmabdeckung aus dem Video mit der Aufnahmetaste in der oberen rechten Ecke des Videos aufnehmen oder einfach neue Bilder hochladen.</p>
+    <figure class="bcls-figure"><img class="bcls-image" alt="Bild aufnehmen" width="700" src="/assets/images/sharepoint/captureimage.jpg"/></figure>
+    <figure class="bcls-figure"><img class="bcls-image" alt="Laden Sie ein neues Poster und eine Miniaturansicht hoch" width="700" src="/assets/images/sharepoint/uploadnewposterthumbnail.jpg"/></figure>
+    <h3 id="addingtexttracks">Textspuren hinzufügen</h3>
+    <p>Textspuren können jedem Video entweder beim ersten Hochladen oder bei nachfolgenden Aktualisierungen hinzugefügt werden. Einem Video können eine oder mehrere Textspuren zugeordnet sein. Der Benutzer kann den Typ der Textspur auswählen, die dem Video hinzugefügt werden soll (Datei-Upload, URL-Upload oder Remote-URL). Wenn "Keine" ausgewählt ist, werden in dem Abschnitt keine Felder angezeigt.</p>
+    <p><strong>WICHTIG: Ein einzelnes Video unterstützt KEINE Mischung aus Datei-Uploads, URL-Uploads oder Remote-URLs. Jedem Video kann nur eine Art von Textspur zugeordnet werden.</strong></p>
+    <h4>Datei-Upload</h4>
+    <p>Wenn "Text Upload" für Text Track Files ausgewählt ist, werden die folgenden Felder angezeigt:</p>
+    <figure><img class="bcls-image--no-border" alt="" width="700" src="/assets/images/sharepoint/node16612-text-tracks-file-upload.png"/></figure>
+    <ol class="bcls-tasklist">
+      <li><strong>Wählen Sie Typ der Textspur</strong> - Ermöglicht die Auswahl von Datei-Upload, URL-Upload oder Remote-URL.</li>
+      <li><strong>Dateiauswahl</strong> - Auswahl der Textspurdatei.</li>
+      <li><strong>Eigenschaften der Textspur</strong> - Legen Sie die Eigenschaften fest, die der Textspur zugeordnet sind. Durch Klicken auf "Hinzufügen" wird die Textspur beim nächsten Upload / Update zu den Videodaten hinzugefügt.
+        <ol type="a">
+          <li><strong>Sprache</strong> - Der aus zwei Buchstaben bestehende Code (gültiges BCP 47-Sprachetikett) für die Sprache der Textspur, z. B. "en" für Englisch.</li>
+          <li><strong>Etikette</strong> - Die Bezeichnung für den Titel, die für den Benutzer sichtbar ist, z. B. in einem Menü, in dem die verschiedenen für Untertitel verfügbaren Sprachen aufgelistet sind.</li>
+          <li><strong>Nett</strong> - Einer der fünf aufgeführten unterstützten Spurtypen</li>
+        </ol>
+      </li>
+      <li><strong>Liste der hinzugefügten / in die Warteschlange gestellten Textspuren</strong> - Zeigt die Liste der vorhandenen Textspuren und neuen Textspuren an, die beim nächsten Speichern in die Warteschlange gestellt werden. Eine Textspur kann gelöscht werden, indem Sie auf den Link "Entfernen" klicken und das Video speichern.</li>
+    </ol>
+    <h4>URL-Upload, Remote-URL-Upload</h4>
+    <p>Durch Auswahl einer dieser Optionen wird der Upload "Datei-Upload" durch ein Textfeld ersetzt, in das der vollständig qualifizierte URL-Pfad zur Textspurdatei eingefügt werden kann.</p>
+    <ul>
+      <li>URL-Upload - Geben Sie die öffentliche URL ein, in der sich die Textspurdatei befindet, und klicken Sie dann auf Hochladen. Die Datei wird in die Video Cloud hochgeladen.</li>
+      <li>Remote-URL - Geben Sie die öffentliche URL ein, in der sich die Textspurdatei befindet. Die URL muss weniger als 250 Zeichen lang sein. Untertitel werden von der Remote-URL geladen.</li>
+    </ul>
+    <figure><img class="bcls-image--no-border" alt="" width="700" src="/assets/images/sharepoint/node16612-text-tracks-url-upload.png"/></figure>
+    <ol class="bcls-tasklist">
+      <li><strong>Wählen Sie Typ der Textspur</strong> - Ermöglicht die Auswahl von Datei-Upload, URL-Upload oder Remote-URL.</li>
+      <li><strong>URL hinzufügen</strong> - Feld zur Eingabe des vollständig qualifizierten URL-Pfads zur Textspurdatei.</li>
+      <li><strong>Eigenschaften der Textspur</strong> - Ermöglicht die Einstellung der Eigenschaften, die der Textspur zugeordnet sind. Durch Klicken auf "Hinzufügen" wird die Textspur beim nächsten Upload / Update zu den Videodaten hinzugefügt.
+        <ol type="a">
+          <li><strong>Sprache</strong> - Der aus zwei Buchstaben bestehende Code (gültiges BCP 47-Sprachetikett) für die Sprache der Textspur, z. B. "en" für Englisch.</li>
+          <li><strong>Etikette</strong> - Die Bezeichnung für den Titel, der dem Benutzer angezeigt wird, z. B. in einem Menü, in dem die verschiedenen für Untertitel verfügbaren Sprachen aufgelistet sind.</li>
+          <li><strong>Nett</strong> - Einer der fünf aufgeführten unterstützten Spurtypen.</li>
+        </ol>
+      </li>
+      <li><strong>Liste der hinzugefügten / in die Warteschlange gestellten Textspuren</strong> - Zeigt die Liste der vorhandenen Textspuren und neuen Textspuren an, die beim nächsten Speichern in die Warteschlange gestellt werden. Eine Textspur kann gelöscht werden, indem Sie auf den Link "Entfernen" klicken und das Video speichern.</li>
+    </ol>
+  </section>
+  <section class="bcls-section">
+    <h2 id="playlists">Hinzufügen, Importieren und Löschen von Wiedergabelisten und Erfahrungen</h2>
+    <p>Im Abschnitt "Wiedergabelisten verwalten" des Connectors werden neue Wiedergabelisten erstellt sowie vorhandene Wiedergabelisten durchsucht und verwaltet, einschließlich Bearbeiten und Aktualisieren. Im Gegensatz zu Videos werden Wiedergabelisteninformationen nicht in SharePoint gespeichert, sondern bei jedem Durchsuchen eines Kontos in diesem Abschnitt aus der Video Cloud abgerufen. Aus diesem Grund gibt es einige Verzögerungen bei der Verfügbarkeit von Wiedergabelistendaten über die API, die in den folgenden Abschnitten beschrieben werden.</p>
+    <h3>Landing Page für Wiedergabelisten verwalten</h3>
+    <p>Auf der Landing Page Verwalten von Wiedergabelisten wird die Liste der Felder angezeigt, mit denen Sie nach Wiedergabelisten suchen oder neue in den verfügbaren Konten erstellen können:</p>
+    <figure class="bcls-figure"><img class="bcls-image" alt="Seite mit Wiedergabelisten verwalten" width="700" src="/assets/images/sharepoint/manageplaylists.jpg"/></figure>
+    <ul class="bcls-tasklist">
+      <li><strong>Konto auswählen</strong> - Diese Dropdown-Liste enthält alle Konten, auf die der Benutzer zugreifen darf. Dies wird durch die Zuordnung von Kontogruppen aktiviert. Der Benutzer muss ein Konto auswählen, um alle Wiedergabelistenlisten anzuzeigen.</li>
+      <li><strong>Verfügbare Wiedergabeliste</strong> - Um Wiedergabelisten zu durchsuchen, geben Sie Begriffe in dieses Feld ein.</li>
+      <li><strong>Spalten für die Wiedergabelistenanzeige</strong> - In diesen Spalten werden Wiedergabelistendaten angezeigt. Die Ergebnisse können nach jeder Spalte sortiert werden, indem Sie auf die Spaltenüberschrift klicken.</li>
+      <li><strong>Playlist-Liste</strong> - Jede Wiedergabelistenliste enthält Folgendes:
+        <ul>
+          <li>Name der Wiedergabeliste - Durch Klicken auf den Namen wird die Wiedergabeliste zur Bearbeitung ihrer Daten geöffnet.</li>
+          <li>Eine Liste der Video-IDs, die in der Wiedergabeliste aktiv sind.</li>
+          <li>Kurze Beschreibung.</li>
+          <li>Art der Wiedergabeliste - <a href="https://studio.support.brightcove.com/media/introduction-playlists.html">Manuelle oder intelligente Wiedergabeliste.</a></li>
+          <li>Die ID der Wiedergabeliste (Video Cloud-Wiedergabelisten-ID).</li>
+          <li>Der Link "Playlist bearbeiten". Dieser Link (oder das Klicken auf den Namen) wird verwendet, um die Wiedergabeliste zum Bearbeiten zu öffnen oder ihre Details anzuzeigen.</li>
+        </ul>
+      </li>
+      <li><strong>Neue Wiedergabeliste hinzufügen</strong> - Klicken Sie auf diese Schaltfläche, um eine neue Wiedergabeliste im ausgewählten Konto zu erstellen.</li>
+    </ul>
+    <h3>Hinzufügen einer neuen manuellen Wiedergabeliste</h3>
+    <p>Um einem Konto eine neue Wiedergabeliste hinzuzufügen, klickt der Benutzer auf die Schaltfläche "Neue Wiedergabeliste hinzufügen". Dies öffnet das Formular Playlist hinzufügen:</p>
+    <figure class="bcls-figure"><img class="bcls-image" alt="Wiedergabeliste bearbeiten" width="700" src="/assets/images/sharepoint/createmanualplaylist.jpg"/></figure>
+    <p>Beachten Sie, dass Videos in der Wiedergabeliste nach oben und unten verschoben werden können, indem Sie das zu verschiebende Video auswählen und die Option "Video verschieben" aktivieren, um die Auf- / Ab-Tasten zu verwenden. Es können mehrere Videos gleichzeitig verschoben werden.</p>
+    <ul class="bcls-tasklist">
+      <li><strong>Name</strong> - Der Name der neuen Wiedergabeliste.</li>
+      <li><strong>Beschreibung</strong> - Eine kurze Beschreibung der Wiedergabeliste.</li>
+      <li><strong>Art</strong> - Die Art der Wiedergabeliste. In diesem Fall sollte es auf Manuell eingestellt sein.</li>
+      <li><strong>Verfügbare Videos</strong> - Anzeige des Suchfelds und der Liste der im Konto verfügbaren Videos. Auf diese Weise kann der Benutzer die Videoauswahl eingrenzen, um sie der Wiedergabeliste hinzuzufügen.</li>
+      <li><strong>Aktionspfeile</strong> - Verschieben Sie ausgewählte Videos in die Wiedergabeliste hinein und aus dieser heraus.</li>
+      <li><strong>Videos in dieser Wiedergabeliste</strong> - Hier werden die aktuellen Videos in der Wiedergabeliste angezeigt.</li>
+      <li><strong>Erstellen</strong> - Übernehmen Sie die Änderungen und beginnen Sie mit der Erstellung der neuen Wiedergabeliste.</li>
+    </ul>
+    <h3>Hinzufügen einer neuen intelligenten Wiedergabeliste</h3>
+    <figure class="bcls-figure"><img class="bcls-image" alt="neue intelligente Wiedergabelistenseite" width="700" src="/assets/images/sharepoint/newsmartplaylist.jpg"/></figure>
+    <ul class="bcls-tasklist">
+      <li><strong>Name</strong> - Der Name der neuen Wiedergabeliste.</li>
+      <li><strong>Beschreibung</strong> - Eine kurze Beschreibung der Wiedergabeliste.</li>
+      <li><strong>Art</strong> - Die Art der Wiedergabeliste. In diesem Fall sollte Smart eingestellt sein.</li>
+      <li><strong>Stichworte</strong> - Für eine intelligente Wiedergabeliste kann der Benutzer ein oder mehrere Tags auswählen, mit denen eine Wiedergabeliste gefiltert werden kann. In der ersten Dropdown-Liste kann der Benutzer "Eine oder mehrere enthalten" oder "Alle enthalten" auswählen, und in der zweiten Dropdown-Liste kann der Benutzer die Tags für die Smart Playlist eingeben. Abhängig von ihrer Auswahl werden entweder alle Videos mit einem der Tags angezeigt oder nur diejenigen, die alle Tags enthalten.</li>
+      <li><strong>Auftrag</strong> - Auf diese Weise kann der Benutzer festlegen, wie die Reihenfolge der übereinstimmenden Videos festgelegt wird. Die Auswahl umfasst Folgendes:
+        <ul>
+          <li>Alphabetisch</li>
+          <li>Aktivierungsdatum (neueste zuerst)</li>
+          <li>Aktivierungsdatum (älteste zuerst)</li>
+          <li>Gesamtspiele</li>
+          <li>Trailing Week-Spiele</li>
+          <li>Startdatum (älteste zuerst)</li>
+          <li>Startdatum (neueste zuerst)</li>
+        </ul>
+      </li>
+      <li><strong>Beschränken auf</strong> - Die maximale Anzahl von Videos, die in die Wiedergabeliste aufgenommen werden sollen.</li>
+      <li><strong>Vorschau</strong> - Klicken Sie hier, um die Wiedergabeliste anzuzeigen, wie sie derzeit mit den ausgewählten Optionen funktioniert.</li>
+      <li><strong>Videos in dieser Wiedergabeliste</strong> - Hier werden die aktuellen Videos in der Wiedergabeliste angezeigt.</li>
+      <li><strong>Erstellen</strong> - Übernehmen Sie die Änderungen und beginnen Sie mit der Erstellung der neuen Wiedergabeliste.</li>
+    </ul>
+    <h3>Bearbeiten einer vorhandenen Wiedergabeliste</h3>
+    <p>Um eine vorhandene Wiedergabeliste zu bearbeiten, klicken Sie entweder auf den Namen des Videos oder auf den Link zum Bearbeiten ganz rechts auf der Seite Wiedergabelisten verwalten. Dadurch gelangen Sie zu einer Seite, die fast identisch mit der Seite "Neue Wiedergabeliste hinzufügen" ist. Anstelle der Schaltfläche "Erstellen" gibt es jedoch die Schaltfläche "Speichern". Mit Ausnahme des Wiedergabelistentyps kann fast alles bearbeitet werden. Sie können den Typ zwar ändern und speichern, aber wenn Sie die Wiedergabeliste erneut anzeigen, werden die Änderungen nicht gespeichert.</p>
+    <h3>Erfahrungen</h3>
+    <p>Klicken Sie zum Anzeigen von Erfahrungen auf die Registerkarte Erfahrungen verwalten. Die verfügbaren Erfahrungen werden aufgelistet und verfügbar. Sie können sie anzeigen, indem Sie auf den Namen klicken. Die Erfahrung kann in Seiten eingebettet werden, sie kann jedoch nur in Brightcove Studio bearbeitet werden. Es besteht die Möglichkeit, anzuzeigen, wie die Erfahrung sowohl auf einem Desktop als auch auf einem Handy aussehen wird und wie sie in verschiedenen Wiedergabestatus aussieht.</p>
+    <figure class="bcls-figure"><img class="bcls-image" alt="Erfahrungsseite" width="700" src="/assets/images/sharepoint/experience.jpg"/></figure>
+  </section>
+  <section class="bcls-section">
+    <h2 id="embedding">Hinzufügen von Videos zu einer SharePoint-Website</h2>
+    <p>Es gibt verschiedene Möglichkeiten, ein Video in eine SharePoint-Website einzubetten, je nachdem, ob Sie die moderne Benutzeroberfläche oder die klassische Benutzeroberfläche verwenden. Während sich der Einbettungsprozess unterscheidet, ist in beiden Benutzeroberflächen der Prozess zum Einbetten von Videos, Wiedergabelisten und Erlebnissen derselbe. Klicken Sie einfach auf das Brightcove-Wiedergabelisten- oder Brightcove Experience-Symbol anstelle des Brightcove-Videosymbols.</p>
+    <h3>Moderne Benutzeroberfläche</h3>
+    <p>Klicken Sie in der modernen Benutzeroberfläche zuerst auf das Pluszeichen, um an der gewünschten Stelle einen neuen App-Teil hinzuzufügen. Wählen Sie Brightcove Video.</p>
+    <figure class="bcls-figure"><img class="bcls-image" alt="moderne Ansicht" width="700" src="/assets/images/sharepoint/modernaddapppart.jpg"/></figure>
+    <p>Dies öffnet ein Auswahlfenster. Wählen Sie ein Video aus, scrollen Sie nach unten und klicken Sie auf Übernehmen.</p>
+    <figure class="bcls-figure"><img class="bcls-image" alt="moderne Ansicht" width="700" src="/assets/images/sharepoint/apppartvideoselect.jpg"/></figure>
+    <figure class="bcls-figure"><img class="bcls-image" alt="moderne Ansicht" width="700" src="/assets/images/sharepoint/apppartvideopost.jpg"/></figure>
+    <p>Das Video wird nicht sofort angezeigt. Wenn Sie jedoch auf "Veröffentlichen" oder "Als Entwurf speichern" klicken, wird die fertige Seite mit dem eingebetteten Video angezeigt.</p>
+    <figure class="bcls-figure"><img class="bcls-image" alt="Clarkie ist ein gutes Mädchen" width="700" src="/assets/images/sharepoint/applyorcopy.jpg"/></figure>
+    <h3>Klassische Benutzeroberfläche</h3>
+    <p>Während die moderne Benutzeroberfläche nur eine Möglichkeit zum Einbetten bietet, bietet die klassische Benutzeroberfläche drei Optionen. Alle stammen aus dem Menü "Einfügen" ganz rechts in der oberen Symbolleiste.</p>
+    <figure class="bcls-figure"><img class="bcls-image" alt="Schaltfläche einfügen" width="700" src="/assets/images/sharepoint/classicmenuinsert.jpg"/></figure>
+    <h4>Einbetten</h4>
+    <p>Klicken Sie zunächst auf das Brightcove-Videosymbol. Wenn Sie einen Spieler oder eine Erfahrung einbetten, klicken Sie auf diese. Der Prozess ist der gleiche.</p>
+    <figure class="bcls-figure"><img class="bcls-image" alt="Brightcove-Videotaste" width="700" src="/assets/images/sharepoint/classicbcvid.jpg"/></figure>
+    <p>Dadurch wird das Auswahlmenü für Brightcove-Videos geöffnet.</p>
+    <figure class="bcls-figure"><img class="bcls-image" alt="Klassische Ansicht" width="700" src="/assets/images/sharepoint/classicbcvidview.jpg"/></figure>
+    <p>Wählen Sie das Video aus, scrollen Sie nach unten und klicken Sie auf "In Zwischenablage kopieren".</p>
+    <figure class="bcls-figure"><img class="bcls-image" alt="Klassische Ansicht" width="700" src="/assets/images/sharepoint/applyorcopy.jpg"/></figure>
+    <p>Schließen Sie das Brightcove-Videofenster und klicken Sie im Menü Einfügen auf "Einbetten".</p>
+    <figure class="bcls-figure"><img class="bcls-image" alt="Klassische Ansicht" width="700" src="/assets/images/sharepoint/classicembed.jpg"/></figure>
+    <p>Fügen Sie den kopierten Code in das Feld ein und klicken Sie auf Einfügen.</p>
+    <figure class="bcls-figure"><img class="bcls-image" alt="Klassische Ansicht" width="700" src="/assets/images/sharepoint/embed.jpg"/></figure>
+    <p>Dein Video wird auf der Seite angezeigt.</p>
+    <h4>App-Teil</h4>
+    <p>Um ein App-Teil hinzuzufügen, klicken Sie auf das App-Teil-Symbol.</p>
+    <figure class="bcls-figure"><img class="bcls-image" alt="Klassische Ansicht" width="700" src="/assets/images/sharepoint/classicapppart.jpg"/></figure>
+    <p>Dadurch wird ein Menü geöffnet, das Optionen für verschiedene App-Teile bietet. Wählen Sie die Option Brightcove Video.</p>
+    <figure class="bcls-figure"><img class="bcls-image" alt="Klassische Ansicht" width="700" src="/assets/images/sharepoint/apppartmenu.jpg"/></figure>
+    <p>Dadurch wird der Seite ein Webpart hinzugefügt, anfangs ist jedoch kein Video angehängt.</p>
+    <figure class="bcls-figure"><img class="bcls-image" alt="ein Mangel an Video" width="700" src="/assets/images/sharepoint/vidfail.jpg"/></figure>
+    <p>Aktivieren Sie das Kontrollkästchen und klicken Sie auf den Pfeil, um "Webpart bearbeiten" auszuwählen. Dadurch werden die Brightcove-Videos geöffnet und Sie können ein Video auswählen. Klicken Sie unten auf Übernehmen. Das Video wird angezeigt, sobald Sie die Seite gespeichert haben.</p>
+    <h4>Webpart</h4>
+    <figure class="bcls-figure"><img class="bcls-image" alt="Speisekarte" width="700" src="/assets/images/sharepoint/classicwebpart.png"/></figure>
+    <p>Webparts können auf zwei Arten hinzugefügt werden. Wenn Sie auf das Webpart-Symbol klicken, wird ein Menü angezeigt, das dem App Part-Menü ähnelt. Wenn Sie dieselben Schritte ausführen, werden dieselben Ergebnisse erzielt.</p>
+    <p>Sie können auch erneut auf die Schaltfläche Brightcove-Video klicken und ein Video auswählen. Wählen Sie diesmal jedoch "Webpart herunterladen".</p>
+    <figure class="bcls-figure"><img class="bcls-image" alt="Klassische Ansicht" width="700" src="/assets/images/sharepoint/downloadwebpart.jpg"/></figure>
+    <p>Eine Datei wird auf Ihren Computer heruntergeladen. Klicken Sie auf das Webpart-Symbol. Wenn das Menü geöffnet wird, laden Sie die Datei in das Feld "Webpart hochladen" hoch. Klicken Sie auf Hochladen.</p>
+    <figure class="bcls-figure"><img class="bcls-image" alt="Klassische Ansicht" width="700" src="/assets/images/sharepoint/webpartmenu.jpg"/></figure>
+    <p>Dein Video wird auf deiner Seite angezeigt.</p>
+  </section>
+</article>
+
+<!-- <div class="col-sm-2 right-side-bar" style="display: inline-block;max-width: 20%;"> -->
+  
+  <nav class="right-side-nav" id="right_side_nav">
+    <h6 class="toc">Inhalt der Seite</h6>
+    <ul id="in_page_nav" class="list-none"></ul>
+  </nav>
+  
+<!-- </div> -->
+</div>
+</div>
+</div>
+<div class="page-content" style="background-color: rgb(1, 5, 14);">
+  <div class="container" style="width: 50%;">
+    <footer class="py-5">
+      <div class="row">
+        <div class="col-6 col-md">
+          <h5 class="h5-text">Brightcove-Unterstützung</h5>
+          <ul class="list-unstyled text-small" style="color: white ;">
+            <li><a class="a-text" href="https://status.brightcove.com">Systemstatus</a></li>
+            <li><a class="a-text" href="https://supportportal.brightcove.com">Kontaktieren Sie den Support</a></li>
+            <li><a class="a-text" href="https://support.brightcove.com/search.html">Suche in der gesamten Dokumentation</a></li>
+          </ul>
+        </div>
+      
+        <div class="col-6 col-md">
+          <h5 class="h5-text">Ausbildung</h5>
+          <ul class="list-unstyled text-small">
+            <li><a class="a-text" href="https://studio.support.brightcove.com/get-started/training/online-training-courses.html">Online-Kurse</a></li>
+            <li><a class="a-text" href="https://studio.support.brightcove.com/get-started/training/register-training.html">Für einen Kurs anmelden</a></li>
+            <li><a class="a-text" href="https://academy.brightcove.com/">Brightcove-Akademie</a></li>
+          </ul>
+        </div>
+      
+        <div class="col-6 col-md">
+          <h5 class="h5-text">Brightcove</h5>
+          <ul class="list-unstyled text-small">
+            <li><a class="a-text" href="https://www.brightcove.com">BrightCove.com</a></li>
+            <li><a class="a-text" href="https://community.brightcove.com/s/">Bright Spot Community Forum</a></li>
+            <li><a class="a-text" href="https://support.brightcove.com/product-updates.html">Hinweise zur Produktfreigabe</a></li>
+            <li><a class="a-text" href="https://support.brightcove.com/doc-updates.html">Aktualisierte Dokumentation</a></li>
+          </ul>
+        </div>
+      </div>
+    
+      <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
+      <p>© Brightcove Inc. Alle Rechte vorbehalten.</p>
+      <a class="a-text" href="https://www.brightcove.com/en/legal/privacy">Datenschutz</a> <a class="a-text" href="https://www.brightcove.com/en/terms-and-conditions">Bedingungen &amp; Bedingungen</a>
+
+      <ul class="list-unstyled d-flex">
+        <li class="ms-3"><a href="https://www.linkedin.com/company/16439" title="LinkedIn" target="_blank" class="gf-social-linkedin" style="margin-right: 1rem;"><i data-feather="linkedin" style="color:#8E9093;height: 1.25rem;"></i></a></li>
+
+        <li class="ms-3"><a href="https://twitter.com/brightcove" title="Twitter" target="_blank" class="gf-social-twitter" style="margin-right: 1rem;"><i data-feather="twitter" style="color:#8E9093;height: 1.25rem;"></i></a></li>
+
+        <li class="ms-3"><a href="https://www.facebook.com/Brightcove" title="Facebook" target="_blank" class="gf-social-facebook"><i data-feather="facebook" style="color:#8E9093;height: 1.25rem;"></i></a></li>
+      </ul>
+      </div>
+    </footer>
+  </div>
+</div>
+
+
+<script translate="no">
   var searchBox = sajari.init({
     mode: "search-box",
     project: "1588255093746585379", // Set this to your project.
-    collection: "brightcove-documenation", // Set this to your collection.
+    collection: "brightcove-documentation", // Set this to your collection.
     instantPipeline: "autocomplete", // Pipeline used as you type
-    inputPlaceholder: "Search", // Input element placeholder
+    inputPlaceholder: "Search", // Input element placeholder,
+    styling: {
+      components: {
+        
+        input: {
+          container: {
+          backgroundColor: 'white',
+          }
+        
+        }
+      }
+    },
     maxSuggestions: 5, // Maximum number of suggestions to show
-    attachSearchBox: document.getElementById("nav-search-box") // DOM element to attach to
+      attachSearchBox: document.getElementById("nav-search-box") // DOM element to attach to
   });
-  
-    searchBox("sub", "pipeline.search-sent", function (_, query) {
-      window.location = "/search.html?q=" + encodeURIComponent(query.q);
-    });
+
   
 
-</script>
+
+    searchBox("sub", "pipeline.search-sent", function (_, query) {
+    window.location = "/search.html?q=" + encodeURIComponent(query.q);
+    });
+  
+  </script>
+  
+  <!-- Javascript -->          
+  <script src="/assets/s-site-assets-template-stylesheets/plugins/popper.min.js"></script>
+  <script src="/assets/s-site-assets-template-stylesheets/plugins/bootstrap/js/bootstrap.min.js"></script>  
+
+
+  <!-- Page Specific JS -->
+  <script src="/assets/s-site-assets-template-stylesheets/plugins/smoothscroll.min.js"></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script> -->
+  <!-- <script src="/assets/s-site-assets-template-stylesheets/js/highlight-custom.js"></script>  -->
+  <script src="/assets/s-site-assets-template-stylesheets/plugins/simplelightbox/simple-lightbox.min.js"></script>      
+  <script src="/assets/s-site-assets-template-stylesheets/plugins/gumshoe/gumshoe.polyfills.min.js"></script> 
+  <script src="/assets/s-site-assets-template-stylesheets/js/docs.js"></script> 
+
+  <!-- original footer components -->
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  <script src="https://support.brightcove.com/site-assets/js/site/https-fix.js"></script>
-  <script src="https://support.brightcove.com/site-assets/js/site/setDate.js"></script>
+
+  <script src="/assets/s-site-assets-scripts/https-fix.js"></script>
+  <script src="/assets/s-site-assets-scripts/setDate.js"></script>
+  <script src="/assets/s-site-assets-scripts/selector.js"></script>
   
-  <script src="https://support.brightcove.com/site-assets/js/site/prism.js"></script>
+  <script src="/assets/s-site-assets-scripts/prism.js"></script>
+  <script src="/assets/s-site-assets-scripts/prism-normalize.js"></script>
   
-  <script src="https://support.brightcove.com/site-assets/js/site/site.js"></script>
-  <script src="https://support.brightcove.com/site-assets/js/site/tabs.js"></script>
-  <script src="https://support.brightcove.com/site-assets/js/site/toc.js"></script>
+  <script src="/assets/s-site-assets-scripts/site.js"></script>
+  <script src="https://support.brightcove.com/site-assets/js/learning-paths/learning-paths.js"></script>
+  <!-- <script src="/assets/s-site-assets-scripts/site.js"></script> -->
+  <script src="/assets/s-site-assets-scripts/tabs.js"></script>
+  
+  <script src="/assets/s-site-assets-scripts/toc-new-template.js"></script>
+  
   <script src="/assets/js/sites_nav.js"></script>
-  <script src="https://support.brightcove.com/site-assets/js/site/bcls-utils.js"></script>
-  <script src="https://support.brightcove.com/site-assets/js/site/local-link-fix.js"></script>
+  <script src="/assets/s-site-assets-scripts/bcls-utils.js"></script>
+  <script src="/assets/s-site-assets-scripts/local-link-fix.js"></script>
+  <script src="/assets/s-site-assets-scripts/sajari-reindex.js"></script>
   <script src="/assets/js/feedback.js"></script>
   
-  <script src="/assets/js/sajari-search-foot.js"></script>
+  <script src="/assets/s-site-assets-scripts/sajari-search-foot.js"></script>
   
+  <script translate="no">
+    feather.replace()
+  </script>
   <!-- <script src="/assets/js/sajari-index.js"></script> -->
-  <style>
+  <script src="/assets/s-site-assets-scripts/in-app.js"></script>
+  <style translate="no">
     a.sj-paginator__page-number.sj-paginator__page-number--current.css-so0ov7 {
       background-color: lightblue;
     }
@@ -749,6 +1028,5 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
     }
     </style>
 
-</body>
-
-</html>
+  </body>
+</html> 

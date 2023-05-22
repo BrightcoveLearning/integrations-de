@@ -1,430 +1,696 @@
-﻿<!doctype html>
-<html lang="de">
+﻿<!DOCTYPE html>
+<html lang="de"> 
+    <head>
+        <title>Integrieren Sie Ihr CMS in Video Cloud</title>
+        
+        <!-- Meta -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="In diesem Thema lernen Sie die grundlegenden Vorgänge bei der Integration von Brightcove Video Cloud in ein CMS kennen. Darin sind typische Funktionen aufgeführt, die Benutzer innerhalb des CMS ausführen, sowie die Brightcove-API-Vorgänge, die zur Bereitstellung dieser Funktionen verwendet werden können.">
+        
+        <!-- Google Font -->
+        <link href="/assets/s-site-assets-stylesheets/fonts/poppins.css" rel="stylesheet">
+        <link rel="stylesheet" href="/assets/s-site-assets-stylesheets/fonts/articulat-site.css">
+        <link href="/assets/s-site-assets-stylesheets/fonts/source-code-pro.css" rel="stylesheet">
+        
+        <!-- FontAwesome JS-->
+        
+        <script src="https://kit.fontawesome.com/d67c74a882.js" crossorigin="anonymous"></script>  
+        
+        <!-- Plugins CSS -->
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.2/styles/atom-one-dark.min.css">
+        <link rel="stylesheet" href="/assets/s-site-assets-template-stylesheets/plugins/simplelightbox/simple-lightbox.min.css">
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="In diesem Thema lernen Sie die grundlegenden Vorgänge kennen, die bei der Integration von Brightcove Video Cloud mit einem CMS erforderlich sind. Es listet typische Funktionen auf, die Benutzer innerhalb des CMS ausführen, und die Brightcove API-Vorgänge, die zur Bereitstellung dieser Funktionalität verwendet werden können.">
-  
-  <title>Integrieren Sie Ihr CMS mit Video Cloud</title>
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="manifest" href="/site.webmanifest">  
-  <link data-react-helmet="true" rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500&amp;display=swap">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://support.brightcove.com/site-assets/css/site/prism.css">
-  <link rel="stylesheet" href="https://support.brightcove.com/site-assets/css/site/styles.css">
-  <link rel="stylesheet" href="https://support.brightcove.com/site-assets/css/site/landing-page.css">
-  <link rel="stylesheet" href="https://support.brightcove.com/site-assets/css/site/tabs.css">
-  <link rel="stylesheet" href="/assets/css/local.css">
-  <link data-react-helmet="true" rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500&display=swap">
-  <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro&display=swap" rel="stylesheet">
-  <script src="https://kit.fontawesome.com/381443caa8.js" crossorigin="anonymous"></script>
-  <script src="https://support.brightcove.com/site-assets/js/site/google-analytics.js"></script>
-  <script src="/assets/js/sajari-head.js"></script>
-</head>
-
-<body class="body">
-
-<header>
-  <div class="div-header">
-    <a href="/"><img class="product-logo" src="https://support.brightcove.com/site-assets/images/site/product-logos/Video_Cloud_Logo.svg" alt="Produkt-Logo" style="max-height: 100px;max-width: 232px;"/></a>
-<!-- GTranslate: https://gtranslate.io/ -->
-<select onchange="doGTranslate(this);"><option value="">Sprache wählen</option><option value="en|en" translate="No">English</option><option value="en|zh-TW" translate="No">繁體中文</option><option value="en|fr" translate="No">Français</option><option value="en|de" translate="No">Deutsche</option><option value="en|ja" translate="No">日本語</option><option value="en|ko" translate="No">한국어</option><option value="en|es" translate="No">Español</option></select>
-
-<script>
-/* <![CDATA[ */
-function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;if(lang_pair=='')return;var lang=lang_pair.split('|')[1];var plang=location.hostname.split('.')[0];if(plang.length !=2 && plang.toLowerCase() != 'zh-cn' && plang.toLowerCase() != 'zh-tw')plang='en';location.href=location.protocol+'//'+(lang == 'en' ? '' : lang+'.')+location.hostname.replace('www.', '').replace(RegExp('^' + plang + '\\.'), '')+location.pathname+location.search;}
-/* ]]> */
-</script>
-
-    
+        <!-- Theme CSS -->  
+        <link id="theme-style" rel="stylesheet" href="/assets/s-site-assets-template-stylesheets/css/theme.css">
+        <link rel="stylesheet" href="/assets/s-site-assets-stylesheets/prism.css">
+        <link rel="stylesheet" href="/assets/s-site-assets-template-stylesheets/custom-css/styles.css">
 
 
-    <span class="secondary-nav"><a href="https://supportportal.brightcove.com/s/login/?"><img src="https://support.brightcove.com/site-assets/images/site/support.png" alt="Support"/> Kontaktieren Sie Support</a> <span style="vertical-align: top;margin-left:1em;margin-right:1em;">|</span> <a href="https://status.brightcove.com/"><img src="https://support.brightcove.com/site-assets/images/site/status.png" alt="Systemstatus"/> Systemstatus</a></span> <br/>
-    
-  </div>
-  <nav aria-label="breadcrumb">
-    <ol class="breadcrumb arr-right">
-      
-      <li class="breadcrumb-item"><a href="/">Nach Hause</a></li>
-      
-      
-      
-      <li class="breadcrumb-item"><a href="/general/">Allgemeine Informationen</a></li>
-      
-      <li class="breadcrumb-item active" aria-current="page">Integrieren Sie Ihr CMS mit Video Cloud</li>
-    </ol>
-  </nav>
-</header>
-<div class="container">
-    <div class="row">
-            <div class="col-sm-3 left-side-bar">
-        <select id="site_select" class="bcls-select" style="margin-right: 1rem;">
-          <option value="">Weitere Brightcove Docs</option>
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-XBJC11HF8Z"></script>
+        <script translate="no">
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-XBJC11HF8Z');
+        </script>
+        <script src="/assets/s-site-assets-scripts/sixth-sense.js"></script>
+        <script src="/assets/s-site-assets-scripts/sajari-head.js"></script>
+        <script src="/assets/s-site-assets-scripts/feather.min.js"></script>
+
+    </head> 
+
+    <body class="docs-page">
+        
+
+<header class="header fixed-top">
+  <div class="branding docs-branding">
+    <div class="container-fluid position-relative py-2">
+      <div class="docs-logo-wrapper">
+        <button id="docs-sidebar-toggler" class="docs-sidebar-toggler"
+          type="button">
+          <span></span> <span></span> <span></span>
+        </button>
+        <div class="site-logo"><a class="navbar-brand" href="https://support.brightcove.com/" style="margin-left: 15px;"> <img class="logo-icon me-2" src="/assets/s-site-assets-template-stylesheets/images/bc_logo_black_1@1x.png" alt="logo" style="margin-bottom: 9px;"/>
+            <!-- <span class="logo-text">BRIGHTCOVE</span> -->
+          </a></div>
+      </div><!--//docs-logo-wrapper-->
+
+      <div class="docs-top-utilities d-flex justify-content-end
+        align-items-center">
+        
+        <!-- Search bar -->
+        <div id="nav-search-box" class="top-search-box d-none d-lg-flex" style="margin-right: 10px ;"></div>
+
+<select id="site_select" class="form-select select-focus" style="width:
+          20%; margin-right: 10px;" translate="no">
+          <option value="">Other Brightcove Docs</option>
           
-            
-              <option value="https://support.brightcove.com">Dokumentation Home</option>
-            
           
-            
-              <option value="https://audience.support.brightcove.com">Brightcove Publikum</option>
-            
+          <option value="https://support.brightcove.com" translate="no">Documentation Home</option>
           
-            
-              <option value="https://beacon.support.brightcove.com">Brightcove Leuchtfeuer</option>
-            
           
-            
-              <option value="https://campaign.support.brightcove.com">Brightcove Kampagne</option>
-            
           
-            
-              <option value="https://engage.support.brightcove.com">Brightcove Engage</option>
-            
+          <option value="https://support.brightcove.com/" translate="no">-- VIDEO CLOUD --</option>
           
-            
-              <option value="https://live.support.brightcove.com">Brightcove Live</option>
-            
           
-            
-              <option value="https://gallery.support.brightcove.com">Brightcove Gallery</option>
-            
           
-            
-              <option value="https://ssai.support.brightcove.com">Brightcove SSAI</option>
-            
+          <option value="https://studio.support.brightcove.com" translate="no">&nbsp;&nbsp;&nbsp;&nbsp;Video Cloud Studio</option>
           
-            
-              <option value="https://social.support.brightcove.com">Brightcove Social</option>
-            
           
-            
-              <option value="https://studio.support.brightcove.com">Video Cloud Studio</option>
-            
           
-            
-              <option value="https://player.support.brightcove.com">Brightcove Spieler-Entwicklung</option>
-            
+          <option value="https://mstudio.support.brightcove.com" translate="no">&nbsp;&nbsp;&nbsp;&nbsp;Marketing Studio</option>
           
-            
-              <option value="https://apis.support.brightcove.com">APIs für Video Cloud-Plattform</option>
-            
           
-            
-              <option value="https://sdks.support.brightcove.com">Videocloud-Geräte-SDKs</option>
-            
           
-            
-              <option value="https://integrations.support.brightcove.com">Integrationen und CMS-Konnektoren</option>
-            
+          <option value="https://player.support.brightcove.com" translate="no">&nbsp;&nbsp;&nbsp;&nbsp;Brightcove Player Development</option>
           
-            
-              <option value="https://general.support.brightcove.com">Video Cloud — Allgemeine Informationen</option>
-            
           
-            
-              <option value="https://zencoder.support.brightcove.com">Zencoder</option>
-            
+          
+          <option value="https://apis.support.brightcove.com" translate="no">&nbsp;&nbsp;&nbsp;&nbsp;Video Cloud Platform APIs</option>
+          
+          
+          
+          <option value="https://sdks.support.brightcove.com" translate="no">&nbsp;&nbsp;&nbsp;&nbsp;Video Cloud Device SDKs</option>
+          
+          
+          
+          <option value="https://integrations.support.brightcove.com" translate="no">&nbsp;&nbsp;&nbsp;&nbsp;Integrations and CMS Connectors</option>
+          
+          
+          
+          <option value="https://general.support.brightcove.com" translate="no">&nbsp;&nbsp;&nbsp;&nbsp;Video Cloud General Information</option>
+          
+          
+          
+          <option value="https://support.brightcove.com/" translate="no">-- VIDEO ESSENTIALS --</option>
+          
+          
+          
+          <option value="https://audience-insights.support.brightcove.com" translate="no">&nbsp;&nbsp;&nbsp;&nbsp;Brightcove Audience Insights</option>
+          
+          
+          
+          <option value="https://beacon-help.support.brightcove.com" translate="no">&nbsp;&nbsp;&nbsp;&nbsp;Brightcove Beacon Studio</option>
+          
+          
+          
+          <option value="https://beacon.support.brightcove.com" translate="no">&nbsp;&nbsp;&nbsp;&nbsp;Brightcove Beacon Classic</option>
+          
+          
+          
+          <option value="https://corptv.support.brightcove.com" translate="no">&nbsp;&nbsp;&nbsp;&nbsp;CorpTV</option>
+          
+          
+          
+          <option value="https://live.support.brightcove.com" translate="no">&nbsp;&nbsp;&nbsp;&nbsp;Brightcove Live</option>
+          
+          
+          
+          <option value="https://zencoder.support.brightcove.com" translate="no">&nbsp;&nbsp;&nbsp;&nbsp;Zencoder</option>
+          
+          
+          
+          <option value="https://support.brightcove.com/" translate="no">-- VIDEO CLOUD ADD-ONS --</option>
+          
+          
+          
+          <option value="https://gallery.support.brightcove.com" translate="no">&nbsp;&nbsp;&nbsp;&nbsp;Brightcove Gallery</option>
+          
+          
+          
+          <option value="https://studio.support.brightcove.com/social/index.html" translate="no">&nbsp;&nbsp;&nbsp;&nbsp;Brightcove Social</option>
+          
+          
+          
+          <option value="https://interactivity.support.brightcove.com/index.html" translate="no">&nbsp;&nbsp;&nbsp;&nbsp;Brightcove Interactivity</option>
+          
+          
+          
+          <option value="https://ssai.support.brightcove.com" translate="no">&nbsp;&nbsp;&nbsp;&nbsp;Brightcove SSAI</option>
+          
+          
+          
+          <option value="https://campaign.support.brightcove.com" translate="no">&nbsp;&nbsp;&nbsp;&nbsp;Brightcove Campaign</option>
+          
           
         </select>
 
-        <nav class="sidenav" id="side_nav">
-          
-            
-            <h5><a href="/index.html">Nach Hause</a></h5>
-            
-          
-            
-              <h5 class="submenu-header"><a href="/general/index.html">Allgemeine Informationen <strong>+</strong></a></h5>
-              <ul class="sidenav-submenu" style="display:none;">
-                
-                  
-                    <li><a href="/general/cms-integration-training-videos.html">Schulungsvideos zur CMS-Integration</a></li>
-                  
-                
-                  
-                    <li><a href="/general/integrating-your-cms-video-cloud.html">Integrieren Sie Ihr CMS mit Video Cloud</a></li>
-                  
-                
-                  
-                    <li><a href="/general/embedding-brightcove-players-cms.html">Einbetten von Brightcove-Spielern in ein CMS</a></li>
-                  
-                
-                  
-                    <li><a href="/general/embedding-brightcove-page-experiences-cms.html">Einbetten von In-Page-Erlebnissen in ein CMS</a></li>
-                  
-                
-                  
-                    <li><a href="/general/debugging-network-and-api-connection-issues-cms-and-dam-integrations.html">Debuggen von Netzwerk- und API-Verbindungsproblemen</a></li>
-                  
-                
-              </ul>
-            
-          
-            
-              <h5 class="submenu-header"><a href="/wordpress/index.html">Wordpress <strong>+</strong></a></h5>
-              <ul class="sidenav-submenu" style="display:none;">
-                
-                  
-                    <li><a href="/wordpress/getting-started-brightcove-video-connect-wordpress-cms.html">Erste Schritte mit Brightcove Video Connect</a></li>
-                  
-                
-                  
-                    <li><a href="/wordpress/wordpress-brightcove-connector-configuration.html">konfiguration</a></li>
-                  
-                
-                  
-                    <li><a href="/wordpress/wordpress-brightcove-connector-frequently-asked-questions.html">Häufig gestellte Fragen</a></li>
-                  
-                
-                  
-                    <li><a href="/wordpress/wordpress-brightcove-connector-installation.html">Installation</a></li>
-                  
-                
-                  
-                    <li><a href="/wordpress/wordpress-brightcove-connector-using-connector.html">Verwenden des Connectors</a></li>
-                  
-                
-              </ul>
-            
-          
-            
-              <h5 class="submenu-header"><a href="/drupal/index.html">Drupal <strong>+</strong></a></h5>
-              <ul class="sidenav-submenu" style="display:none;">
-                
-                  
-                    <li><a href="/drupal/getting-started-brightcove-video-connect-drupal-cms.html">Erste Schritte mit dem Connector für Drupal</a></li>
-                  
-                
-                  
-                    <li><a href="/drupal/drupal-8-brightcove-connector-configuration.html">Drupal 8 - Konfiguration</a></li>
-                  
-                
-                  
-                    <li><a href="/drupal/drupal-8-brightcove-connector-content-management.html">Drupal 8 - Inhaltsmanagement</a></li>
-                  
-                
-                  
-                    <li><a href="/drupal/drupal-8-brightcove-connector-embedding-content.html">Drupal 8 - Inhalte einbetten</a></li>
-                  
-                
-                  
-                    <li><a href="/drupal/drupal-8-brightcove-connector-installation.html">Drupal 8 - Steckerinstallation</a></li>
-                  
-                
-                  
-                    <li><a href="/drupal/drupal-7-brightcove-connector-configuration-and-usage.html">Drupal 7 - Konfiguration und Nutzung</a></li>
-                  
-                
-                  
-                    <li><a href="/drupal/drupal-7-brightcove-connector-installation.html">Drupal 7 - Installation</a></li>
-                  
-                
-              </ul>
-            
-          
-            
-              <h5 class="submenu-header"><a href="/adobe/index.html"> <strong>Adobe+</strong></a></h5>
-              <ul class="sidenav-submenu" style="display:none;">
-                
-                  
-                    <li><a href="/adobe/getting-started-brightcove-video-connect-adobe-experience-manager.html">Erste Schritte mit dem Connector für AEM</a></li>
-                  
-                
-                  
-                    <li><a href="/adobe/adobe-aem-brightcove-connector-configuration.html">konfiguration</a></li>
-                  
-                
-                  
-                    <li><a href="/adobe/adobe-aem-brightcove-connector-installation.html">Installation</a></li>
-                  
-                
-                  
-                    <li><a href="/adobe/adobe-aem-brightcove-connector-overview.html">Überblick</a></li>
-                  
-                
-                  
-                    <li><a href="/adobe/adobe-aem-brightcove-connector-using-connector.html">Verwenden des Connectors</a></li>
-                  
-                
-              </ul>
-            
-          
-            
-              <h5 class="submenu-header"><a href="/sitecore/index.html"> <strong>Sitecore</strong></a></h5>
-              <ul class="sidenav-submenu" style="display:none;">
-                
-                  
-                    <li><a href="/sitecore/getting-started-brightcove-video-connect-sitecore-experience-platform.html">Erste Schritte mit dem Connector für Sitecore</a></li>
-                  
-                
-              </ul>
-            
-          
-            
-              <h5 class="submenu-header"><a href="/sharepoint/index.html"> <strong>SharePoint</strong></a></h5>
-              <ul class="sidenav-submenu" style="display:none;">
-                
-                  
-                    <li><a href="/sharepoint/getting-started-brightcove-video-connect-sharepoint.html">Erste Schritte mit dem Connector für Sharepoint</a></li>
-                  
-                
-                  
-                    <li><a href="/sharepoint/sharepoint-brightcove-connector-4041-using-connector.html">Verwenden des Connectors</a></li>
-                  
-                
-              </ul>
-            
-          
-            
-              <h5 class="submenu-header"><a href="/ecommerce/index.html">eCommerce <strong>+</strong></a></h5>
-              <ul class="sidenav-submenu" style="display:none;">
-                
-                  
-                    <li class="submenu-header">
-                      <a href="/ecommerce/salesforce/index.html">Salesforce Commerce Cloud <strong>+</strong></a>
-                      <ul class="sidenav-subsubmenu" style="display:none;">
-                        
-                        <li><a href="/ecommerce/salesforce/brightcove-custom-cartridge-salesforce-commerce-cloud-installation.html">Salesforce Commerce Cloud: </a>Installation</li>
-                        
-                        <li><a href="/ecommerce/salesforce/brightcove-custom-cartridge-salesforce-commerce-cloud-user-guide.html">Salesforce Commerce Cloud: Benutzer-Guide</a></li>
-                        
-                      </ul>
-                    </li>
-                  
-                
-                  
-                    <li class="submenu-header">
-                      <a href="/ecommerce/adobe-magento-commerce/index.html">Adobe Magento Commerce <strong>+</strong></a>
-                      <ul class="sidenav-subsubmenu" style="display:none;">
-                        
-                        <li><a href="/ecommerce/adobe-magento-commerce/installation-guide.html">Installationsanleitung</a></li>
-                        
-                        <li><a href="/ecommerce/adobe-magento-commerce/user-guide.html">Benutzer-Guide</a></li>
-                        
-                      </ul>
-                    </li>
-                  
-                
-              </ul>
-            
-          
-            
-              <h5 class="submenu-header"><a href="/ecdn/index.html">eCDN <strong>+</strong></a></h5>
-              <ul class="sidenav-submenu" style="display:none;">
-                
-                  
-                    <li class="submenu-header">
-                      <a href="/ecdn/kollective/index.html">Kollective <strong>+</strong></a>
-                      <ul class="sidenav-subsubmenu" style="display:none;">
-                        
-                        <li><a href="/ecdn/kollective/kollective-deployment-guide.html">Kollective eCDN Bereitstellungsleitfaden</a></li>
-                        
-                        <li><a href="/ecdn/kollective/kollective-user-guide.html">Benutzerhandbuch für kollective eCDN</a></li>
-                        
-                      </ul>
-                    </li>
-                  
-                
-                  
-                    <li class="submenu-header">
-                      <a href="/ecdn/peer5/index.html">Peer5 <strong>+</strong></a>
-                      <ul class="sidenav-subsubmenu" style="display:none;">
-                        
-                        <li><a href="/ecdn/peer5/brightcove-with-peer5-integration.html">Brightcove mit Peer5-Integration</a></li>
-                        
-                      </ul>
-                    </li>
-                  
-                
-                  
-                    <li class="submenu-header">
-                      <a href="/ecdn/ramp/index.html">Rampe <strong>+</strong></a>
-                      <ul class="sidenav-subsubmenu" style="display:none;">
-                        
-                        <li><a href="/ecdn/ramp/getting-started-ramp-omnicache-and-video-cloud.html">Erste Schritte mit Ramp OmniCache und Video Cloud</a></li>
-                        
-                        <li><a href="/ecdn/ramp/getting-started-ramp-multicast-and-video-cloud.html">Erste Schritte mit Ramp Multicast+ und Video Cloud</a></li>
-                        
-                      </ul>
-                    </li>
-                  
-                
-              </ul>
-            
-          
-            
-              <h5 class="submenu-header"><a href="/web-conferencing/index.html">Webkonferenzen <strong>+</strong></a></h5>
-              <ul class="sidenav-submenu" style="display:none;">
-                
-                  
-                    <li><a href="/web-conferencing/host-zoom-conference-brightcove-live.html">Zoom-Konferenz auf Brightcove Live</a></li>
-                  
-                
-                  
-                    <li><a href="/web-conferencing/host-cisco-webex-conference-brightcove-live.html">Cisco Webex Konferenz nach Brightcove Live</a></li>
-                  
-                
-                  
-                    <li><a href="/web-conferencing/host-avaya-conference-brightcove-live.html">Avaya-Konferenz auf Brightcove Live</a></li>
-                  
-                
-                  
-                    <li><a href="/web-conferencing/host-inxpo-live.html">INXPO-Ereignis auf Brightcove Live</a></li>
-                  
-                
-              </ul>
-            
-          
-            
-              <h5 class="submenu-header"><a href="/support/index.html">unterstützung <strong>+</strong></a></h5>
-              <ul class="sidenav-submenu" style="display:none;">
-                
-                  
-                    
-                  
-                
-                  
-                    <li><a href="/support/viewing-brightcove-system-status-page.html">Anzeigen der Seite „Systemstatus von Brightcove“</a></li>
-                  
-                
-                  
-                    <li><a href="/support/contact-sales.html">Kontakt mit dem Vertrieb</a></li>
-                  
-                
-                  
-                    <li><a href="/support/opening-case-with-brightcove-support.html">Einen Supportfall öffnen</a></li>
-                  
-                
-              </ul>
-            
-          
-      </nav>
+        <select id="language_select" class="form-select select-focus" style="width: 10%;"
+          onchange="doGTranslate(this);" translate="no">
+          <!-- <option value="">Select Language</option> -->
+          <option value="en|en" translate="No">English</option>
+          <option value="en|zh-TW" translate="No">繁體中文</option>
+          <option value="en|fr" translate="No">Français</option>
+          <option value="en|de" translate="No">Deutsche</option>
+          <option value="en|ja" translate="No">日本語</option>
+          <option value="en|ko" translate="No">한국어</option>
+          <option value="en|es" translate="No">Español</option>
+        </select>
+
+        <script translate="no">
+          /* <![CDATA[ */
+          function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;if(lang_pair=='')return;var lang=lang_pair.split('|')[1];var plang=location.hostname.split('.')[0];if(plang.length !=2 && plang.toLowerCase() != 'zh-cn' && plang.toLowerCase() != 'zh-tw')plang='en';location.href=location.protocol+'//'+(lang == 'en' ? '' : lang+'.')+location.hostname.replace('www.', '').replace(RegExp('^' + plang + '\\.'), '')+location.pathname+location.search;}
+          /* ]]> */
+        </script>
+      </div>
     </div>
-    <div class="col-lg-7" style="background-color: white;color: #333333;margin-top: -1em;margin-bottom: -1em;padding-bottom:1em;">
-  <!-- bootstrap layout -->
+  </div>
+</header><!--//header-->
 
-<p id="bc_veggie_burger_wrapper" style="display: none;"><img id="bc_veggie_burger" src="/assets/images/feather/menu.svg" alt="Menü „Navigation"/></p>
+<div class="docs-wrapper">
+  <div id="docs-sidebar" class="docs-sidebar" style="padding-right: 15px;">
+    <div id="nav-search-box" class="top-search-box d-lg-none p-3"></div>
+    <div class="row">
+      
+        <div id="side_nav" style="margin-left: 1em; display: inline-block; border-right: 1px solid #e5e5e6; padding-right: 1em;">
+          
+          <nav class="docs-nav sidenav" aria-label="Main">
+            <ul class="site-nav" style="list-style-type: none;">
+            
+            
+            
+            <li class="nav-item section-title"><a class="nav-link" href="/index.html">Zuhause</a></li>
+            
+            
+            
+            
+            <li class="nav-item section-title"><a class="nav-link" href="/general/index.html"><span class="theme-icon-holder me-2"> <i class="fa-solid fa-plus"></i></span>&nbsp;Allgemeine Informationen</a>
+              <ul role="list" class="section-items list-unstyled nav flex-column pb-3" style="display:none;">
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/general/cms-integration-training-videos.html">Schulungsvideos zur CMS-Integration</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/general/integrating-your-cms-video-cloud.html" aria-current="page">Integrieren Sie Ihr CMS in Video Cloud</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/general/embedding-brightcove-players-cms.html">Einbetten von Brightcove-Playern in ein CMS</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/general/embedding-brightcove-page-experiences-cms.html">Einbetten von In-Page-Erlebnissen in ein CMS</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/general/debugging-network-and-api-connection-issues-cms-and-dam-integrations.html">Debuggen von Netzwerk- und API-Verbindungsproblemen</a></li>
+              
+              
+              
+            </ul>
+            </li>
+            
+            
+            
+            <li class="nav-item section-title"><a class="nav-link" href="/wordpress/index.html"><span class="theme-icon-holder me-2"> <i class="fa-solid fa-plus"></i></span>&nbsp;Wordpress</a>
+              <ul role="list" class="section-items list-unstyled nav flex-column pb-3" style="display:none;">
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/wordpress/getting-started-brightcove-video-connect-wordpress-cms.html">Erste Schritte mit Brightcove Video Connect</a></li>
+              
+              
+              
+            </ul>
+            </li>
+            
+            
+            
+            <li class="nav-item section-title"><a class="nav-link" href="/drupal/index.html"><span class="theme-icon-holder me-2"> <i class="fa-solid fa-plus"></i></span>&nbsp;Drupal</a>
+              <ul role="list" class="section-items list-unstyled nav flex-column pb-3" style="display:none;">
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/drupal/getting-started-brightcove-video-connect-drupal-cms.html">Erste Schritte mit dem Connector für Drupal</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/drupal/drupal-9-brightcove-connector-overview.html">Drupal 9 - Brightcove Connector: Überblick</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/drupal/drupal-8-brightcove-connector-configuration.html">Drupal 8 - Konfiguration</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/drupal/drupal-8-brightcove-connector-content-management.html">Drupal 8 - Inhaltsverwaltung</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/drupal/drupal-8-brightcove-connector-embedding-content.html">Drupal 8 - Inhalte einbetten</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/drupal/drupal-8-brightcove-connector-installation.html">Drupal 8 - Steckverbinderinstallation</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/drupal/drupal-7-brightcove-connector-configuration-and-usage.html">Drupal 7 - Konfiguration und Verwendung</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/drupal/drupal-7-brightcove-connector-installation.html">Drupal 7 - Installation</a></li>
+              
+              
+              
+            </ul>
+            </li>
+            
+            
+            
+            <li class="nav-item section-title"><a class="nav-link" href="/adobe/index.html"><span class="theme-icon-holder me-2"> <i class="fa-solid fa-plus"></i></span>&nbsp;Adobe</a>
+              <ul role="list" class="section-items list-unstyled nav flex-column pb-3" style="display:none;">
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/adobe/getting-started-brightcove-video-connect-adobe-experience-manager.html">Erste Schritte mit dem Connector für AEM</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/adobe/adobe-aem-brightcove-connector-configuration.html">Aufbau</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/adobe/adobe-aem-brightcove-connector-installation.html">Installation für AEM vor Ort</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/adobe/adobe-aem-brightcove-connection-installation-cloud.html">Installation für Cloud AEM</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/adobe/adobe-aem-brightcove-connector-overview.html">Überblick</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/adobe/adobe-aem-brightcove-connector-using-connector.html">Verwenden des Connectors</a></li>
+              
+              
+              
+            </ul>
+            </li>
+            
+            
+            
+            <li class="nav-item section-title"><a class="nav-link" href="/sitecore/index.html"><span class="theme-icon-holder me-2"> <i class="fa-solid fa-plus"></i></span>&nbsp;Sitecore</a>
+              <ul role="list" class="section-items list-unstyled nav flex-column pb-3" style="display:none;">
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/sitecore/getting-started-brightcove-video-connect-sitecore-experience-platform.html">Erste Schritte mit dem Connector für Sitecore</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/sitecore/installation-guide.html">Installationsanleitung: Brightcove Video Connect für Sitecore</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/sitecore/configuration.html">Konfigurationsleitfaden: Brightcove Video Connect für Sitecore</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/sitecore/user-guide.html">Benutzerhandbuch: Brightcove Video Connect für Sitecore</a></li>
+              
+              
+              
+            </ul>
+            </li>
+            
+            
+            
+            <li class="nav-item section-title"><a class="nav-link" href="/sharepoint/index.html"><span class="theme-icon-holder me-2"> <i class="fa-solid fa-plus"></i></span>&nbsp;SharePoint</a>
+              <ul role="list" class="section-items list-unstyled nav flex-column pb-3" style="display:none;">
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/sharepoint/getting-started-brightcove-video-connect-sharepoint.html">Erste Schritte mit dem Connector für Sharepoint</a></li>
+              
+              
+              
+            </ul>
+            </li>
+            
+            
+            
+            <li class="nav-item section-title"><a class="nav-link" href="/hootsuite/index.html"><span class="theme-icon-holder me-2"> <i class="fa-solid fa-plus"></i></span>&nbsp;Hootsuite</a>
+              <ul role="list" class="section-items list-unstyled nav flex-column pb-3" style="display:none;">
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/hootsuite/publishing-brightcove-video-hootsuite.html">Veröffentlichen von Brightcove-Videos über Hootsuite</a></li>
+              
+              
+              
+            </ul>
+            </li>
+            
+            
+            
+            <li class="nav-item section-title"><a class="nav-link" href="/ecommerce/index.html"><span class="theme-icon-holder me-2"> <i class="fa-solid fa-plus"></i></span>&nbsp;eCommerce</a>
+              <ul role="list" class="section-items list-unstyled nav flex-column pb-3" style="display:none;">
+              
+              
 
-<!-- search bar -->
-<div id="nav-search-box" style="margin-top: 1rem;"></div>
-<!-- in-page navigation for narrow screens -->
-<details class="centered-inpage-nav" id="centered_inpage_nav">
-  <summary><h6 class="toc">Inhalt der Seite</h6></summary>
-  <nav id="centered_toc"></nav>
-  <ul id="centered_in_page_toc" class="list-none"></ul>
-</details>
-<!-- open in new tab/window -->
-<a id="open_new_tab" href="#" target="_blank" style="display: none;"><img src="/assets/images/feather/external-link.svg" alt="in neuem Tab öffnen" style="margin-top:4em;width: 1.5em;"/></a>
+              <li class="nav-item subsection-title">
+                
+                <a class="nav-link" href="/ecommerce/salesforce/index.html"> <span class="theme-icon-holder me-2"><i class="fa-solid fa-minus"></i></span>&nbsp;Salesforce Commerce Cloud</a>
+                
 
+                <ul role="list" class="section-items list-unstyled nav flex-column pb-3" style="display:none;">
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="/ecommerce/salesforce/brightcove-custom-cartridge-salesforce-commerce-cloud-installation.html">Salesforce Commerce-Cloud: Installation</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="/ecommerce/salesforce/brightcove-custom-cartridge-salesforce-commerce-cloud-user-guide.html">Salesforce Commerce-Cloud: Benutzerhandbuch</a></li>
+                  
+                  
+                  
+                </ul>
+              </li>
+              
+              
+              
 
+              <li class="nav-item subsection-title">
+                
+                <a class="nav-link" href="/ecommerce/adobe-magento-commerce/index.html"> <span class="theme-icon-holder me-2"><i class="fa-solid fa-minus"></i></span>&nbsp;Adobe Magento E-Commerce</a>
+                
 
-  
-    
+                <ul role="list" class="section-items list-unstyled nav flex-column pb-3" style="display:none;">
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="/ecommerce/adobe-magento-commerce/installation-guide.html">Installationsanleitung</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="/ecommerce/adobe-magento-commerce/user-guide.html">Benutzerhandbuch</a></li>
+                  
+                  
+                  
+                </ul>
+              </li>
+              
+              
+            </ul>
+            </li>
+            
+            
+            
+            <li class="nav-item section-title"><a class="nav-link" href="/ecdn/index.html"><span class="theme-icon-holder me-2"> <i class="fa-solid fa-plus"></i></span>&nbsp;eCDN</a>
+              <ul role="list" class="section-items list-unstyled nav flex-column pb-3" style="display:none;">
+              
+              
 
+              <li class="nav-item subsection-title">
+                
+                <a class="nav-link" href="/ecdn/kollective/index.html"> <span class="theme-icon-holder me-2"><i class="fa-solid fa-minus"></i></span>&nbsp;Kollektiv</a>
+                
 
+                <ul role="list" class="section-items list-unstyled nav flex-column pb-3" style="display:none;">
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="/ecdn/kollective/kollective-deployment-guide.html">Kollective eCDN-Bereitstellungsleitfaden</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="/ecdn/kollective/add-kollective-player-plugin.html">Installieren des Kollective Player Plugins</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="/ecdn/kollective/kollective-user-guide.html">Kollektives eCDN-Benutzerhandbuch</a></li>
+                  
+                  
+                  
+                </ul>
+              </li>
+              
+              
+              
+
+              <li class="nav-item subsection-title">
+                
+                <a class="nav-link" href="/ecdn/peer5/index.html"> <span class="theme-icon-holder me-2"><i class="fa-solid fa-minus"></i></span>&nbsp;Gleichaltrige 5</a>
+                
+
+                <ul role="list" class="section-items list-unstyled nav flex-column pb-3" style="display:none;">
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="/ecdn/peer5/brightcove-with-peer5-integration.html">Brightcove mit Peer5-Integration</a></li>
+                  
+                  
+                  
+                </ul>
+              </li>
+              
+              
+              
+
+              <li class="nav-item subsection-title">
+                
+                <a class="nav-link" href="/ecdn/ramp/index.html"> <span class="theme-icon-holder me-2"><i class="fa-solid fa-minus"></i></span>&nbsp;Rampe</a>
+                
+
+                <ul role="list" class="section-items list-unstyled nav flex-column pb-3" style="display:none;">
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="/ecdn/ramp/getting-started-ramp-omnicache-and-video-cloud.html">Erste Schritte mit Ramp OmniCache und Video Cloud</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="/ecdn/ramp/getting-started-ramp-multicast-and-video-cloud.html">Erste Schritte mit Ramp Multicast+ und Video Cloud</a></li>
+                  
+                  
+                  
+                </ul>
+              </li>
+              
+              
+            </ul>
+            </li>
+            
+            
+            
+            <li class="nav-item section-title"><a class="nav-link" href="/teams/index.html"><span class="theme-icon-holder me-2"> <i class="fa-solid fa-plus"></i></span>&nbsp;Brightcove Video Connect für Microsoft Teams</a>
+              <ul role="list" class="section-items list-unstyled nav flex-column pb-3" style="display:none;">
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/teams/installation.html">Installation des Connectors für Teams</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/teams/using.html">Verwendung des Connectors für Microsoft Teams</a></li>
+              
+              
+              
+            </ul>
+            </li>
+            
+            
+            
+            <li class="nav-item section-title"><a class="nav-link" href="/web-conferencing/index.html"><span class="theme-icon-holder me-2"> <i class="fa-solid fa-plus"></i></span>&nbsp;Webkonferenzen</a>
+              <ul role="list" class="section-items list-unstyled nav flex-column pb-3" style="display:none;">
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/web-conferencing/host-zoom-conference-brightcove-live.html">Zoom-Konferenz auf Brightcove Live</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/web-conferencing/host-cisco-webex-conference-brightcove-live.html">Cisco Webex-Konferenz zu Brightcove Live</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/web-conferencing/host-avaya-conference-brightcove-live.html">Avaya-Konferenz auf Brightcove Live</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/web-conferencing/host-inxpo-live.html">INXPO-Veranstaltung auf Brightcove Live</a></li>
+              
+              
+              
+            </ul>
+            </li>
+            
+            
+            
+            <li class="nav-item section-title"><a class="nav-link" href="/non-brightcove-players/index.html"><span class="theme-icon-holder me-2"> <i class="fa-solid fa-plus"></i></span>&nbsp;Spieler, die keine Brightcove-Spieler sind</a>
+              <ul role="list" class="section-items list-unstyled nav flex-column pb-3" style="display:none;">
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/non-brightcove-players/inplayer.html">Bereitstellen von Brightcove-Content mit InPlayer</a></li>
+              
+              
+              
+            </ul>
+            </li>
+            
+            
+            
+            <li class="nav-item section-title"><a class="nav-link" href="/support/index.html"><span class="theme-icon-holder me-2"> <i class="fa-solid fa-plus"></i></span>&nbsp;Unterstützung</a>
+              <ul role="list" class="section-items list-unstyled nav flex-column pb-3" style="display:none;">
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/support/viewing-brightcove-system-status-page.html">Anzeigen der Seite „Brightcove System Status“</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/support/contact-sales.html">Kontakt zum Vertrieb</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/support/opening-case-with-brightcove-support.html">Einen Supportfall öffnen</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/support/reset-support-portal-password.html">Passwort für das Support-Portal zurücksetzen</a></li>
+              
+              
+              
+            </ul>
+            </li>
+            
+            
+          </ul>
+          </nav>
+        </div>
+      </div>
+    </div><!--//docs-sidebar-->
+  </div>
+</div>
+
+<div style="margin-top: 20px;">
+  <div class="docs-content" style="padding-bottom: 0px;">
+    <div class="container">
+      <div class="docs-overview">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            
+            <li class="breadcrumb-item"><a class="theme-link" href="/">Zuhause</a></li>
+            
+            
+            <li class="breadcrumb-item"><a class="theme-link" href="/general/">Allgemein</a></li>
+            
+            
+            
+            <li class="breadcrumb-item active" aria-current="page">Integrieren Sie Ihr CMS in Video Cloud</li>
+            
+            
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="docs-content">
+  <div class="container">
+    <div class="docs-overview py-5">
+      
+      <div class="centered-inpage-nav" id="centered_inpage_nav">
+        <nav id="centered_toc">
+          <select id="centered_in_page_toc" class="form-select select-focus"></select>
+        </nav>
+      </div>
+      <br/>
+      
+      
 <!-- 
   This content appears on:
   
@@ -435,77 +701,77 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
   If you update in one place, you MUST update it in all!
  -->
 
- <h1>Integrieren Sie Ihr CMS mit Video Cloud</h1>
+ <h1>Integrieren Sie Ihr CMS in Video Cloud</h1>
  <article class="bcls-article">
-  <summary>In diesem Thema lernen Sie die grundlegenden Vorgänge kennen, die bei der Integration von Brightcove Video Cloud mit einem CMS erforderlich sind. Es listet typische Funktionen auf, die Benutzer innerhalb des CMS ausführen, und die Brightcove API-Vorgänge, die zur Bereitstellung dieser Funktionalität verwendet werden können.</summary>
+  <summary>In diesem Thema lernen Sie die grundlegenden Vorgänge bei der Integration von Brightcove Video Cloud in ein CMS kennen. Darin sind typische Funktionen aufgeführt, die Benutzer innerhalb des CMS ausführen, sowie die Brightcove-API-Vorgänge, die zur Bereitstellung dieser Funktionen verwendet werden können.</summary>
   <section class="bcls-section">
-    <h2 id="userFunctions">User-Funktionen</h2>
+    <h2 id="userFunctions">Benutzerfunktionen</h2>
     
-    <p>Im Folgenden finden Sie Funktionen im Zusammenhang mit Video Cloud, die Sie Benutzern Ihres CMS möglicherweise zur Verfügung stellen möchten:</p>
+    <p>Nachfolgend finden Sie Funktionen im Zusammenhang mit Video-Cloud die Sie den Nutzern Ihres CMS zur Verfügung stellen möchten:</p>
     
     <ul>
-      <li>Fügen Sie neue Videos zu Video Cloud hinzu</li>
-      <li>Ersetzen Sie ein Video Cloud-Video durch eine neue Version</li>
-      <li>Aktualisiere Metadaten für Videos, wie Titel, Beschreibung und Tags</li>
+      <li>Neue Videos hinzufügen zu Video-Cloud</li>
+      <li>Ersetzen Video-Cloud Video mit neuer Version</li>
+      <li>Metadaten für Videos aktualisieren, z. B. Titel, Beschreibung und Tags</li>
       <li>Videos löschen</li>
-      <li>Erstellen von Playlists</li>
+      <li>Playlists erstellen</li>
       <li>Ändern Sie die Videos in einer Playlist</li>
       <li>Wiedergabelisten löschen</li>
-      <li>Erstellen von Videoplayern</li>
-      <li>Ändern Sie die Eigenschaften von Videoplayern wie Abmessungen oder Styling</li>
-      <li>Fügen Sie Video-Playern über Plugins spezielle Funktionen hinzu</li>
+      <li>Videoplayer erstellen</li>
+      <li>Eigenschaften des Videoplayers ändern, z. B. Abmessungen oder Stil</li>
+      <li>Fügen Sie Videoplayern durch Plugins spezielle Funktionen hinzu</li>
       <li>Veröffentlichen Sie einzelne Videos oder Playlists</li>
-      <li>Stellen Sie Analysedaten zu Videoladungen, Ansichten, Wiedergaberaten, Interaktionen usw. bereit.</li>
+      <li>Bereitstellung von Analysedaten zu Videoladevorgängen, Aufrufen, Wiedergaberaten, Engagement usw.</li>
     </ul>
     
-    <p>Möglicherweise möchten Sie all diese Funktionen nicht Ihren Endbenutzern zur Verfügung stellen - Sie möchten sie beispielsweise keine Videos löschen lassen. Einer der Vorteile der Integration von Video Cloud in Ihr CMS, anstatt Benutzer direkt zu Video Cloud Studio wechseln zu lassen, besteht darin, dass Sie genau auswählen können, welche Funktionen Sie Benutzern über die Brightcove-APIs zur Verfügung stellen möchten.</p>
+    <p>Möglicherweise möchten Sie Ihren Endbenutzern nicht all diese Funktionen zur Verfügung stellen - Sie möchten beispielsweise nicht zulassen, dass sie Videos löschen. Einer der Vorteile der Integration Video-Cloud mit Ihrem CMS, anstatt Benutzer direkt zu lassen Video-Cloud Studio besteht darin, dass Sie genau auswählen können, welche Funktionen den Benutzern über die Brightcove-APIs zur Verfügung gestellt werden sollen.</p>
     </section>
     
     <section class="bcls-section">
     <h2 id="authentication">Authentifizierung</h2>
     
-    <p>Für alle Brightcove API-Anfragen basiert die Authentifizierung auf OAuth2-Zugriffstoken. Es gibt einen zweistufigen Prozess zum Beschaffen von Zugriffstoken:</p>
+    <p>Für alle Brightcove API-Anfragen basiert die Authentifizierung auf OAuth2-Zugriffstoken. Es gibt einen zweistufigen Prozess zum Abrufen von Zugriffstoken:</p>
     
     <ol>
       <li>Erstellen Sie Client-Anmeldeinformationen mit Berechtigungen für die benötigten API-Operationen</li>
-      <li>Verwenden Sie die Client-Anmeldeinformationen, um ein temporäres Zugriffstoken zur Authentifizierung einer API-Anfrage zu</li>
+      <li>Verwenden Sie die Client-Anmeldeinformationen, um ein temporäres Zugriffstoken zu erstellen, um eine API-Anfrage zu authentifizieren</li>
     </ol>
     
-    <h3>Erstellen von Client-Anmelde</h3>
+    <h3>Kundenanmeldeinformationen erstellen</h3>
     
-    <p>Das Erstellen von Client-Anmeldeinformationen ist ein einmaliger Vorgang, der über <a href="https://apis.support.brightcove.com/general/managing-api-authentication-credentials.html"> Video Cloud Studio</a> oder die <a href="https://apis.support.brightcove.com/oauth/getting-started/overview-oauth-api-v4.html#getCredentials"> OAuth API </a>durchgeführt werden kann. Wie auch immer Sie es tun, <code translate="No">client_id</code> und <code translate="No">client_secret</code> werden zurückgegeben, die Sie speichern müssen, um Zugriffstoken anzufordern.</p>
+    <p>Das Erstellen von Client-Anmeldeinformationen ist ein einmaliger Vorgang, der durch <a href="https://apis.support.brightcove.com/general/managing-api-authentication-credentials.html"> Video-Cloud Studio</a> oder der <a href="https://apis.support.brightcove.com/oauth/getting-started/overview-oauth-api-v4.html#getCredentials"> OAuth-API </a>. Wie auch immer du es tust, a <code translate="No">client_id</code> und <code translate="No">client_secret</code> zurückgegeben, die Sie speichern müssen, um Zugriffstoken anzufordern.</p>
     
-    <aside class="bcls-aside bcls-aside--warning">Der <code translate="No">client_secret</code> wird nur angezeigt, wenn die Client-Anmeldeinformationen erstellt werden - sie kann nie wieder abgerufen werden. Wenn Sie ein Kundengeheimnis verlieren, müssen Sie eine neue Client-Berechtigung erstellen.</aside>
+    <aside class="bcls-aside bcls-aside--warning">Die <code translate="No">client_secret</code> wird nur angezeigt, wenn die Client-Anmeldeinformationen erstellt werden - sie können nie wieder abgerufen werden. Wenn Sie ein Clientgeheimnis verlieren, müssen Sie einen neuen Client-Anmeldeinformationen erstellen.</aside>
     
-    <h3>Erstellen eines Zugriffstoken</h3>
+    <h3>Zugriffstoken erstellen</h3>
     
-    <p>Temporäre Zugriffstoken werden mit der <a href="https://apis.support.brightcove.com/oauth/guides/getting-access-tokens.html"> OAuth API </a>erstellt. Das <code translate="No">client_id</code> und <code translate="No">client_secret</code> muss Base64-codiert sein und als <code translate="No">Basic</code> Autorisierungszeichenfolge übergeben werden.</p>
+    <p>Temporäre Zugriffstoken werden mit dem . erstellt <a href="https://apis.support.brightcove.com/oauth/guides/getting-access-tokens.html"> OAuth-API </a>. Die <code translate="No">client_id</code> und <code translate="No">client_secret</code> muss BASE64-codiert und als a . übergeben werden <code translate="No">Basic</code> Autorisierungszeichenfolge.</p>
     
-    <p>Die <code translate="No">access_token</code> Rücksendung wird in einem Authorization-Header mit dem API-Aufruf übergeben:</p>
+    <p>Die <code translate="No">access_token</code> zurückgegeben wird wiederum in einem Authorization-Header mit dem API-Aufruf übergeben:</p>
     
     <pre class="line-numbers">
     <code class="language-bash" translate="No">&gt;Authorization: Bearer <strong><em>your_access_token</em></strong>
     </code>
     </pre>
     
-    <p>Zugangstoken sind 5 Minuten lang gültig. Wenn Sie keine Art von Batch-Operation ausführen, die Hunderte von aufeinanderfolgenden API-Aufrufen tätigt, ist es sinnvoll, für jeden API-Aufruf nur einen neuen anzufordern, anstatt zu versuchen, den Timeout im Auge zu behalten.</p>
+    <p>Zugriffstoken sind 5 Minuten lang gültig. Sofern Sie keine Batch-Operation ausführen, die Hunderte von aufeinander folgenden API-Aufrufen ausführt, ist es sinnvoll, für jeden API-Aufruf einfach einen neuen anzufordern, anstatt zu versuchen, das Timeout zu verfolgen.</p>
     </section>
     
     <section class="bcls-section">
-    <h2 id="addingVideos">Videos hinzufügen</h2>
+    <h2 id="addingVideos">Hinzufügen Videos</h2>
     
-    <p>Wenn Sie zulassen möchten, dass Benutzer Videos von Ihrem CMS zu Video Cloud hinzufügen, können Sie dies mit dem tun <a href="https://apis.support.brightcove.com/dynamic-ingest/getting-started/overview-dynamic-ingest-api-dynamic-delivery.html"> <span translate="No">Dynamic Ingest API</span> </a>. Wir empfehlen, dass Benutzer Videos in Ihr Repository hochladen lassen, was ein S3-Bucket oder nur ein öffentlicher Server sein könnte. Das Dynamic Ingest-System kann die Videos abrufen und durch einen unten beschriebenen zweistufigen Prozess zum Video Cloud-System hinzufügen.</p>
+    <p>Wenn Sie möchten, dass Benutzer Videos von Ihrem CMS zur Video Cloud hinzufügen, können Sie dies mit dem <a href="https://apis.support.brightcove.com/dynamic-ingest/getting-started/overview-dynamic-ingest-api-dynamic-delivery.html"> <span translate="No">Dynamic Ingest API</span> </a>. Wir empfehlen, dass Benutzer Videos in Ihr Repository hochladen, bei dem es sich um einen S3-Bucket oder nur um einen öffentlich zugänglichen Server handeln kann. Das Dynamic Ingest-System kann die Videos einlesen und zum hinzufügen Video-Cloud System durch einen zweistufigen Prozess, der unten beschrieben wird.</p>
     
-    <h3>Hinzufügen eines Videoobjekts zu Video Cloud</h3>
+    <h3>Hinzufügen eines Videoobjekts zu Video-Cloud</h3>
     
-    <p>Der erste Schritt besteht darin, ein Video-Objekt im Video Cloud-System zu erstellen, indem Sie eine <code translate="No">POST</code> Anfrage an die CMS-API stellen:</p>
+    <p>Der erste Schritt besteht darin, ein Videoobjekt im Video Cloud-System zu erstellen, indem Sie a erstellen <code translate="No">POST</code> Anfrage an die CMS-API:</p>
     
     <pre class="line-numbers">
     <code class="language-http" translate="No">https://cms.api.brightcove.com/v1/accounts/:account_id/videos
     </code>
     </pre>
     
-    <p>Der Anfragetext enthält grundlegende Videoeigenschaften in einem JSON-Objekt - minimal das Video <code translate="No">name</code>, aber Sie können auch zusätzliche Metadaten wie a <code translate="No">description</code> und hinzufügen <code translate="No">tags</code>:</p>
+    <p>Der Anfragetext enthält grundlegende Videoeigenschaften in a JSON Objekt - minimal das Video <code translate="No">name</code> , aber Sie können auch zusätzliche Metadaten wie a <code translate="No">description</code> und <code translate="No">tags</code>:</p>
     
     <pre class="line-numbers">
     <code class="language-json" translate="No">{
@@ -517,31 +783,32 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
     </code>
     </pre>
     
-    <aside class="bcls-aside bcls-aside--information">A <code translate="No">reference_id</code> kann zu jedem Video hinzugefügt werden. Referenz-IDs müssen innerhalb des Kontos eindeutig sein. Wenn Ihre Videos IDs in Ihrem CMS-System haben, empfiehlt es sich, diese ID als Referenz-ID im Video Cloud-System zu verwenden.</aside>
+    <aside class="bcls-aside bcls-aside--information">EIN <code translate="No">reference_id</code> kann zu jedem Video hinzugefügt werden. Referenz-IDs müssen innerhalb des Kontos eindeutig sein. Wenn Ihre Videos IDs in Ihrem CMS-System haben, empfiehlt es sich, diese ID als Referenz-ID im Video Cloud-System zu verwenden.</aside>
     
-    <h3>Einnehmen des Videos</h3>
+    <h3>Aufnahme des Videos</h3>
     
-    <p>Wenn Sie das Video-Objekt erstellen, gibt der <span translate="No">CMS API</span> ein JSON-Objekt zurück, das die Videoeigenschaften enthält. Sie extrahieren das Video <code translate="No">id</code> aus dem JSON und verwenden es, um einen Anruf bei der zu tätigen, <span translate="No">Dynamic Ingest API</span> um die Aufnahme und Transkodierung des Videos anzufordern:</p>
+    <p>Wenn Sie das Videoobjekt erstellen, wird das <span translate="No">CMS API</span> gibt ein JSON-Objekt zurück, das die Videoeigenschaften enthält. Sie werden das Video extrahieren <code translate="No">id</code> aus dem JSON, und verwenden Sie es, um einen Anruf beim zu tätigen <span translate="No">Dynamic Ingest API</span> um die Aufnahme und Transcodierung des Videos anzufordern:</p>
     
     <pre class="line-numbers">
     <code class="language-http" translate="No">https://ingest.api.brightcove.com/v1/accounts/<strong><em>ACCOUNT_ID</em></strong>/videos/<strong><em>VIDEO_ID</em></strong>/ingest-requests
     </code>
     </pre>
     
-    <p>Wieder senden Sie JSON im Anfragetext, der den Speicherort der Videodatei angibt:</p>
+    <p>Sie werden wieder senden JSON im Anfragetext, der den Speicherort der Videodatei angibt:</p>
     
     <pre class="line-numbers">
     <code class="language-json" translate="No">{
       "master":{
-        "url":"http://learning-services-media.brightcove.com/videos/mp4/Bird_Woodpecker.mp4"
+        "url":"http://some.site.com/videos/mp4/Bird_Woodpecker.mp4"
       },
       "profile":"multi-platform-extended-static",
       "capture-images": true
     }
     </code>
     </pre>
-    
-    <p>Das <code translate="No">profile</code> hier ist das Ingest-Profil, das angibt, welche Formatvarianten im Transcodierungsprozess erstellt werden sollen. In den meisten Fällen sollte eines der folgenden Standardprofile angemessen sein:</p>
+    <aside class="bcls-aside bcls-aside--information language-editable">Beachten Sie, dass der obige Code davon ausgeht, dass Sie Benutzern eine Aufnahmeprofilauswahl bereitstellen. Wenn nicht, die <code translate="No">profile</code> Feld sollte aus dem Anforderungstext weggelassen werden. In diesem Fall wird das Standardprofil des Kontos verwendet. Dies empfiehlt Brightcove, es sei denn, es werden mehrere Aufgabeprofile benötigt, was ungewöhnlich ist.</aside>
+
+    <p>Die <code translate="No">profile</code> Hier ist das Aufnahmeprofil, das angibt, welche Wiedergabeversionen beim Transcodierungsprozess erstellt werden sollen. In den meisten Fällen sollte eines der folgenden Standardprofile ausreichen:</p>
     
     <h4>Dynamische Lieferprofile</h4>
     
@@ -550,7 +817,7 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
       <li><code translate="No">multi-platform-standard-static</code></li>
     </ul>
     
-    <h4>Legacy-Ingest-Profile</h4>
+    <h4>Ältere Aufnahmeprofile</h4>
     
     <ul>
       <li><code translate="No">videocloud-default-v1 (the default)</code></li>
@@ -562,9 +829,9 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
       <li><code translate="No">high-resolution</code></li>
     </ul>
     
-    <p>Sie können jedoch bei Bedarf zusätzliche benutzerdefinierte Aufnahmeprofile erstellen, indem Sie die <a href="https://apis.support.brightcove.com/ingest-profiles/getting-started/overview-ingest-profiles-api-dynamic-delivery-context-aware-encoding.html"> Ingest-Profile-API </a> verwenden oder <a href="https://studio.support.brightcove.com/admin/managing-ingest-profiles.html"> Video Cloud Studio</a>verwenden.</p>
+    <p>Sie können jedoch bei Bedarf zusätzliche benutzerdefinierte Aufnahmeprofile erstellen, indem Sie die <a href="https://apis.support.brightcove.com/ingest-profiles/getting-started/overview-ingest-profiles-api-dynamic-delivery-context-aware-encoding.html"> Ingest Profiles API </a> oder verwenden <a href="https://studio.support.brightcove.com/admin/managing-ingest-profiles.html"> Video-Cloud Studio</a>.</p>
     
-    <aside class="bcls-aside bcls-aside--warning">Wenn Sie Profile mit der <a href="https://apis.support.brightcove.com/ingest-profiles/"> Ingest-Profile-API </a> abrufen, umfassen die Ergebnisse für <strong>Legacy-Aufnahmekonten Dynamic Delivery-Profile</strong> , aber die Verwendung dieser Dateien führt zu Fehlern. Sie müssen diese Profile auf der Clientseite herausfiltern. Sie können Dynamic Delivery Profile an der Existenz einer <code translate="No">dynamic_origin</code> Eigenschaft erkennen:
+    <aside class="bcls-aside bcls-aside--warning">Wenn Sie Profile mithilfe der  <a href="https://apis.support.brightcove.com/ingest-profiles/">Ingest Profiles API </a> die ergebnisse für <strong>alte Aufnahmekonten</strong> enthält Dynamic Delivery-Profile, deren Verwendung jedoch zu Fehlern führt. Sie müssen diese Profile auf der Clientseite herausfiltern. Sie erkennen Dynamic Delivery-Profile an der Existenz von a <code translate="No">dynamic_origin</code> Eigentum:
     
     <pre class="line-numbers">
     <code class="language-json" translate="No">{
@@ -616,24 +883,24 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
       }</code></pre>
     </aside>
     
-    <h4>Hinzufügen von Poster- und Vorschaubildern</h4>
+    <h4>Hinzufügen von Poster- und Miniaturbildern</h4>
     
-    <p>Die <code translate="No">capture-images</code> Option im obigen Code weist Video Cloud an, während des Transcodierungsprozesses Poster- und Miniaturansichten für das Video in der Mitte des Videos aufzunehmen. Alternativ können Sie einstellen <code translate="No">capture-images</code> zu <code translate="No">false</code> und nehmen Sie stattdessen Bilder auf, entweder zur gleichen Zeit, zu der Sie das Video aufnehmen, oder später:</p>
+    <p>Die <code translate="No">capture-images</code> Option im obigen Code weist an Video-Cloud um Poster und Miniaturbilder für das Video in der Mitte des Transcodierungsprozesses aufzunehmen. Alternativ können Sie einstellen <code translate="No">capture-images</code> zu <code translate="No">false</code> und nehmen Sie stattdessen Bilder auf, entweder gleichzeitig mit der Aufnahme des Videos oder später:</p>
     
     <pre class="line-numbers">
     <code class="language-json" translate="No">{
     "master":{
-    "url":"http://learning-services-media.brightcove.com/videos/mp4/Bird_Woodpecker.mp4"
+    "url":"http://some.site.com/videos/mp4/Bird_Woodpecker.mp4"
     },
     "profile":"multi-platform-extended-static",
     "capture-images": false,
     <strong>"poster": {
-    "url": "http://learning-services-media.brightcove.com/images/for_video/titmouse-poster.png",
+    "url": "http://some.site.com/images/for_video/titmouse-poster.png",
     "width": 640,
     "height": 360
     },
     "thumbnail": {
-    "url": "http://learning-services-media.brightcove.com/images/for_video/titmouse-thumbnail.png",
+    "url": "http://some.site.com/images/for_video/titmouse-thumbnail.png",
     "width": 160,
     "height": 90
     }</strong>
@@ -641,32 +908,32 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
     </code>
     </pre>
     
-    <p>Siehe <a href="https://apis.support.brightcove.com/dynamic-ingest/ingest-guides/images-and-dynamic-ingest-api.html">Bilder und das <span translate="No">Dynamic Ingest API</span> </a> für weitere Details.</p>
+    <p>Sehen <a href="https://apis.support.brightcove.com/dynamic-ingest/ingest-guides/images-and-dynamic-ingest-api.html">Bilder und die <span translate="No">Dynamic Ingest API</span> </a> für mehr Details.</p>
     
-    <h4>Hinzufügen von Textspuren für Beschriftungen oder Kapitel</h4>
+    <h4>Hinzufügen von Textspuren für Untertitel oder Kapitel</h4>
     
-    <p>Sie können den auch verwenden <span translate="No">Dynamic Ingest API</span> , um Textspuren in <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Video_Text_Tracks_Format">WebVTT-Dateien</a> zu Videos hinzuzufügen, entweder zum Zeitpunkt der Aufnahme oder später. Textspuren werden verwendet, um einem Video <a href="https://player.support.brightcove.com/general/adding-captions-videos-programmatically.html">Untertitel</a> oder <a href="https://studio.support.brightcove.com/media/adding-chapters-video.html">Kapitel</a> hinzuzufügen.</p>
+    <p>Sie können auch die verwenden <span translate="No">Dynamic Ingest API</span> um Textspuren hinzuzufügen <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Video_Text_Tracks_Format">WebVTT</a> Dateien zu Videos, entweder zum Zeitpunkt der Aufnahme oder später. Textspuren werden zum Hinzufügen verwendet <a href="https://player.support.brightcove.com/general/adding-captions-videos-programmatically.html">Bildunterschriften</a> oder <a href="https://studio.support.brightcove.com/media/adding-chapters-video.html">Kapitel</a> zu einem Video.</p>
     
     <pre class="line-numbers">
     <code class="language-json" translate="No">{
     "master":{
-    "url":"http://learning-services-media.brightcove.com/videos/mp4/Bird_Woodpecker.mp4"
+    "url":"http://some.site.com/videos/mp4/Bird_Woodpecker.mp4"
     },
     "profile":"multi-platform-extended-static",
     "capture-images": false,
     "poster": {
-    "url": "http://learning-services-media.brightcove.com/images/for_video/titmouse-poster.png",
+    "url": "http://some.site.com/images/for_video/titmouse-poster.png",
     "width": 640,
     "height": 360
     },
     "thumbnail": {
-    "url": "http://learning-services-media.brightcove.com/images/for_video/titmouse-thumbnail.png",
+    "url": "http://some.site.com/images/for_video/titmouse-thumbnail.png",
     "width": 160,
     "height": 90
     },
     <strong>"text_tracks": [
     {
-    "url": "http://learning-services-media.brightcove.com/captions/for_video/Water-in-Motion.vtt",
+    "url": "http://some.site.com/captions/for_video/Water-in-Motion.vtt",
     "srclang": "en",
     "kind": "captions",
     "label": "English",
@@ -677,44 +944,44 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
     </code>
     </pre>
     
-    <p>Weitere Informationen finden Sie unter <a href="https://apis.support.brightcove.com/dynamic-ingest/ingest-guides/ingesting-webvtt-files-text-trackscaptions.html">Einnehmen von WebVTT-Dateien</a> .</p>
+    <p>Sehen <a href="https://apis.support.brightcove.com/dynamic-ingest/ingest-guides/ingesting-webvtt-files-text-trackscaptions.html">Aufnahme von WebVTT-Dateien</a> für mehr Details.</p>
     </section>
     
     <section class="bcls-section" id="manangingVideos">
-    <h2>Verwalten von Videos</h2>
+    <h2>Verwaltung Videos</h2>
     
-    <p>Die <span translate="No">CMS API</span> ermöglicht es Ihnen, Videodaten für ein Konto zurückzuholen. (Wie oben gezeigt, wird es auch verwendet, um Videoobjekte im Rahmen des Videoaufgabe-Prozesses zu erstellen.) Die grundlegendste Anfrage ist wie folgt:</p>
+    <p>Das <span translate="No">CMS API</span> ermöglicht es Ihnen, Videodaten für ein Konto zurückzugewinnen. (Wie oben gezeigt, wird es auch zum Erstellen von Videoobjekten als Teil des Videoaufnahmeprozesses verwendet.) Die grundlegendste Anfrage lautet wie folgt:</p>
     
     <pre class="line-numbers">
     <code class="language-http" translate="No">https://cms.api.brightcove.com/v1/accounts/account_id/videos
     </code>
     </pre>
     
-    <p>Standardmäßig gibt diese Anforderung ein JSON-Array von 20 Videoobjekten zurück, das eine Fülle von Metadaten enthält, darunter Name, Beschreibung, Tags, benutzerdefinierte Felder, die Daten, an denen es erstellt und zuletzt geändert wurde, URLs für das Poster und das Miniaturbild und vieles mehr.</p>
+    <p>Standardmäßig gibt diese Anfrage a . zurück JSON Array aus 20 Videoobjekten mit einer Fülle von Metadaten, einschließlich Name, Beschreibung, Tags, benutzerdefinierten Feldern, Datum der Erstellung und letzten Änderung, URLs für Poster und Miniaturansicht und vieles mehr.</p>
     
     <p>Sie können die Ergebnisse der Anfrage verfeinern, indem Sie der Anfrage einen oder mehrere der folgenden Parameter hinzufügen:</p>
     
     <dl>
       <dt><code translate="No">limit</code></dt>
-      <dd>dies bestimmt die Anzahl der zurückzugebenden Videoobjekte und kann auf eine beliebige Zahl bis zu 100 festgelegt werden - der Standardwert ist 20</dd>
+      <dd>dies bestimmt die Anzahl der zurückzugebenden Videoobjekte und kann auf eine beliebige Zahl bis 100 eingestellt werden - der Standardwert ist 20</dd>
       <dt><code translate="No">offset</code></dt>
-      <dd>dies bestimmt die Anzahl der zu überspringenden Elemente und wird daher zusammen mit dem <code translate="No">limit</code> Durchblättern des Videokatalogs verwendet - der Standardwert ist 0</dd>
+      <dd>dies bestimmt die Anzahl der zu übersprinnenden Elemente und wird daher zusammen mit dem <code translate="No">limit</code> Durchblättern des Videokatalogs verwendet - der Standardwert ist 0</dd>
       <dt><code translate="No">sort</code></dt>
-      <dd>dies bestimmt das Video-Metadatenfeld, um das Ergebnis zu sortieren - standardmäßig werden die Ergebnisse nach sortiert <code translate="No">updated_at</code> (absteigend, um zuerst die zuletzt aktualisierten Videos anzuzeigen)</dd>
+      <dd>dies bestimmt das Video-Metadatenfeld, nach dem das Ergebnis sortiert werden soll - standardmäßig werden die Ergebnisse sortiert <code translate="No">updated_at</code>(absteigend, um zuerst die zuletzt aktualisierten Videos anzuzeigen)</dd>
     </dl>
     
-    <p>Siehe <a href="https://apis.support.brightcove.com/cms/getting-started/overview-cms-api.html#parameters"> <span translate="No">CMS API</span> Übersicht - Parameter</a> für detaillierte Informationen zu diesen Parametern.</p>
+    <p>Sehen <a href="https://apis.support.brightcove.com/cms/getting-started/overview-cms-api.html#parameters"> <span translate="No">CMS API</span> Übersicht - Parameter</a> Für detaillierte Informationen zu diesen Parametern.</p>
     
-    <h3>Suchen nach Videos</h3>
+    <h3>Nach Videos suchen</h3>
     
-    <p>Mithilfe des <code translate="No">q</code> Parameters können Sie auch nach einer Vielzahl von Kriterien nach Videos suchen. Sie können nach bestimmten Feldern wie Name, Beschreibung und Tags sowie nach Daten und dem Status der Videos suchen:</p>
+    <p>Sie können auch nach einer Vielzahl von Kriterien nach Videos suchen, indem Sie die <code translate="No">q</code> Parameter. Sie können nach bestimmten Feldern wie Name, Beschreibung und Tags sowie nach Datum und Status der Videos suchen:</p>
     
     <pre class="line-numbers">
     <code class="language-http" translate="No">https://cms.api.brightcove.com/v1/accounts/account_id/videos?q=tags:sea,mammal
     </code>
     </pre>
     
-    <p>Einzelheiten und alle Suchoptionen finden Sie unter <a href="https://apis.support.brightcove.com/cms/searching/cms-and-playback-apis-video-search-v2.html">Nach Videos suchen</a>.</p>
+    <p>Details und alle Suchmöglichkeiten finden Sie unter <a href="https://apis.support.brightcove.com/cms/searching/cms-and-playback-apis-video-search-v2.html">Nach Videos suchen</a>.</p>
     
     <h3>Ein bestimmtes Video abrufen und aktualisieren</h3>
     
@@ -727,21 +994,21 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
     </code>
     </pre>
     
-    <p>Eine <code translate="No">GET</code> Anfrage gibt das Videoobjekt zurück. Um es zu aktualisieren, ändern Sie es <code translate="No">JSON</code> und senden Sie es mit einer <code translate="No">PATCH</code> Anfrage an dieselbe URL zurück.</p>
+    <p>EIN <code translate="No">GET</code> Anfrage gibt das Videoobjekt zurück. Um es zu aktualisieren, ändern Sie die <code translate="No">JSON</code> und geben Sie es mit a zurück <code translate="No">PATCH</code> Anfrage an die gleiche URL.</p>
     
-    <aside class="bcls-aside bcls-aside--tip">Bei der Anzeige von Videos für Ihre Benutzer empfiehlt es sich, das Miniaturbild in das Display aufzunehmen, um die Wahrscheinlichkeit zu verringern, das falsche Video für die Veröffentlichung oder Aktualisierung auszuwählen.</aside>
+    <aside class="bcls-aside bcls-aside--tip">Bei der Anzeige von Videos für Ihre Nutzer empfiehlt es sich, das Miniaturbild in die Anzeige einzubeziehen, um die Wahrscheinlichkeit zu verringern, dass das falsche Video zum Veröffentlichen oder Aktualisieren ausgewählt wird.</aside>
     </section>
     
     <section class="bcls-section" id="playlists">
     <h2>Wiedergabelisten</h2>
     
-    <p>Playlist-Informationen werden auch auf die <span translate="No">CMS API</span> gleiche Weise verwaltet wie Videoinformationen. Beachten Sie, dass Video Cloud acht Arten von Wiedergabelisten in zwei Kategorien unterstützt:</p>
+    <p>Playlist-Informationen werden auch mit dem verwaltet <span translate="No">CMS API</span> ähnlich wie Videoinformationen. Beachten Sie, dass Video-Cloud unterstützt acht Arten von Wiedergabelisten in zwei Kategorien:</p>
     
     <dl>
       <dt>Manuelle (oder <code translate="No">EXPLICIT</code>) Wiedergabelisten</dt>
-      <dd>enthält eine bestimmte Reihe von Videos - bis zu 100 Videos können enthalten sein</dd>
+      <dd>enthalten einen bestimmten Satz von Videos - bis zu 100 Videos können enthalten sein</dd>
       <dt>Intelligente Wiedergabelisten</dt>
-      <dd>dynamisch zur Laufzeit basierend auf Suchkriterien erstellt - es gibt sieben Arten von Smart Playlists, die der Art und Weise entsprechen, wie die Videos in der Liste bestellt werden:
+      <dd>dynamisch zur Laufzeit basierend auf Suchkriterien erstellt - es gibt sieben Arten von intelligenten Wiedergabelisten, die der Reihenfolge der Videos in der Liste entsprechen:
       <ul>
         <li><code translate="No">ACTIVATEDOLDESTTONEWEST</code></li>
         <li><code translate="No">ACTIVATEDNEWESTTOOLDEST</code></li>
@@ -752,34 +1019,34 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
         <li><code translate="No">STARTDATENEWESTTO_OLDEST</code></li>
       </ul>
     
-      <aside class="bcls-aside bcls-aside--warning">Beachte, dass du eine manuelle Wiedergabeliste <strong>nicht</strong> in eine intelligente Playlist ändern kannst (oder umgekehrt), nachdem die Wiedergabeliste erstellt wurde.</aside>
+      <aside class="bcls-aside bcls-aside--warning">Beachten Sie, dass Sie <strong>nicht</strong> Ändern Sie eine manuelle Wiedergabeliste in eine intelligente Wiedergabeliste (oder umgekehrt), nachdem die Wiedergabeliste erstellt wurde.</aside>
     
-      <p>Die Begrenzung der Anzahl der Videos kann auf eine beliebige Zahl bis zu 100 festgelegt werden.</p>
+      <p>Das Limit für die Anzahl der Videos kann auf eine beliebige Zahl von bis zu 100 festgelegt werden.</p>
       </dd>
     </dl>
     
-    <p>Wie bei Videos können Sie alle Wiedergabelisten abrufen, indem Sie Ergebnisse verwenden <code translate="No">limit</code> und <code translate="No">offset</code> durchblättern, wenn das Konto eine große Anzahl von Wiedergabelisten hat:</p>
+    <p>Wie bei Videos können Sie alle Playlists abrufen, indem Sie <code translate="No">limit</code> und <code translate="No">offset</code> um durch die Ergebnisse zu blättern, wenn das Konto über eine große Anzahl von Playlists verfügt:</p>
     
     <pre class="line-numbers">
     <code class="language-http" translate="No">https://cms.api.brightcove.com/v1/accounts/account_id/<strong><em>playlists</em></strong>
     </code>
     </pre>
     
-    <p>Das zurückgegebene Array von Playlist-Objekten enthält Metadaten für die Wiedergabeliste, einschließlich des <code translate="No">type</code> entsprechenden der oben beschriebenen Typen. Wenn der Typ ist <code translate="No">EXPLICIT</code>, wird es auch ein <code translate="No">video_ids</code> Array geben, das die IDs der enthaltenen Videos enthält. Wenn der Typ einer der Smart-Playlist-Typen ist, wird es eine <code translate="No">search</code> Eigenschaft geben, die die Suchzeichenfolge enthält, die die Videos abruft, etwa so:</p>
+    <p>Das zurückgegebene Array von Wiedergabelistenobjekten enthält Metadaten für die Wiedergabeliste, einschließlich der <code translate="No">type</code> entspricht einem der oben beschriebenen Typen. Wenn der Typ ist <code translate="No">EXPLICIT</code> , es wird auch eine geben <code translate="No">video_ids</code> Array mit den IDs der enthaltenen Videos. Wenn der Typ einer der intelligenten Wiedergabelistentypen ist, wird es eine <code translate="No">search</code> Eigenschaft geben, die die Suchzeichenfolge enthält, die die Videos abruft, etwa wie folgt:</p>
     
     <pre>
     <code class="language-http" translate="No">q=tags:fish,birds
     </code>
     </pre>
     
-    <p>Sie können eine einzelne Wiedergabeliste auch abrufen, indem Sie <code translate="No">id</code>Folgendes verwenden:</p>
+    <p>Sie können eine einzelne Wiedergabeliste auch anhand ihrer <code translate="No">id</code>:</p>
     
     <pre class="line-numbers">
     <code class="language-http" translate="No">https://cms.api.brightcove.com/v1/accounts/account_id/playlists/<strong><em>playlist_id</em></strong>
     </code>
     </pre>
     
-    <p>Wenn Sie die vollständigen Videoobjekte für eine Wiedergabeliste abrufen müssen (um Informationen zu den Videos auf einer Seite anzuzeigen), fügen Sie einfach diese URL <code translate="No">/videos</code> hinzu:</p>
+    <p>Wenn Sie die vollständigen Videoobjekte für eine Wiedergabeliste abrufen müssen (um Informationen zu den Videos auf einer Seite anzuzeigen), fügen Sie einfach hinzu <code translate="No">/videos</code> zu dieser URL:</p>
     
     <pre class="line-numbers">
     <code class="language-http" translate="No">https://cms.api.brightcove.com/v1/accounts/account_id/playlists/<strong><em>playlist_id/videos</em></strong>
@@ -790,20 +1057,20 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
     </section>
     
     <section class="bcls-section" id="creatingPlayers">
-    <h2>Erstellen von Playern</h2>
+    <h2>Spieler erstellen</h2>
     
-    <p>Brightcove Spieler können über die <a href="https://apis.support.brightcove.com/player-management/getting-started/overview-player-management-api.html">Player Management API</a>erstellt werden. Die API ermöglicht es Ihnen, Spieler zu erstellen, ihre Eigenschaften zu aktualisieren und den Einbettungscode in Form einer URL, eines <code translate="No">iframe</code> Tags oder eines HTML-Blocks abzurufen, der in die Seite eingebettet werden soll.</p>
+    <p>Brightcove-Player können über das erstellt werden <a href="https://apis.support.brightcove.com/player-management/getting-started/overview-player-management-api.html">Player Management API</a>. Mit der API können Sie Player erstellen, ihre Eigenschaften aktualisieren und den Einbettungscode in Form einer URL abrufen <code translate="No">iframe</code> -Tag oder einen HTML-Block zum Einbetten in die Seite.</p>
     
-    <p class="BCL-aside">Sie können bis zu 200 Spieler pro Konto haben, aber es ist im Allgemeinen weniger verwirrend für Benutzer, so wenige Spieler zu haben, wie Sie unbedingt benötigen. Sie sollten separate Player zum Abspielen einzelner Videos oder Wiedergabelisten haben, ansonsten benötigen Sie jedoch nur verschiedene Player, wenn sie anders gestaltet werden oder unterschiedliche Funktionen über Plugins hinzugefügt werden.</p>
+    <p class="BCL-aside">Sie können bis zu 200 Spieler pro Konto haben, aber im Allgemeinen ist es für Benutzer weniger verwirrend, so wenige Spieler zu haben, wie Sie unbedingt benötigen. Sie sollten separate Player zum Abspielen einzelner Videos oder Playlists haben, aber ansonsten benötigen Sie unterschiedliche Player nur dann, wenn sie anders gestaltet sind oder unterschiedliche Funktionen durch Plugins hinzugefügt werden.</p>
     
-    <p>Um einen Player zu erstellen, stellen Sie einfach eine <code translate="No">POST</code> Anfrage an die Player Management API:</p>
+    <p>Um einen Spieler zu erstellen, erstellen Sie einfach einen <code translate="No">POST</code> Anfrage an die Player Management API:</p>
     
     <pre class="line-numbers">
     <code class="language-http" translate="No">https://players.api.brightcove.com/v2/accounts/account_id/players
     </code>
     </pre>
     
-    <p>Geben Sie im Hauptteil der Anfrage die <a href="https://apis.support.brightcove.com/player-management/guides/player-configuration-guide.html">Spielerkonfiguration</a> an - das einzige, was erforderlich ist, ist ein <code translate="No">name</code>:</p>
+    <p>Fügen Sie im Hauptteil der Anfrage die <a href="https://apis.support.brightcove.com/player-management/guides/player-configuration-guide.html">Spielerkonfiguration</a> - das einzige was benötigt wird ist a <code translate="No">name</code>:</p>
     
     <pre class="line-numbers">
     <code class="language-json" translate="No">{
@@ -812,7 +1079,7 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
     </code>
     </pre>
     
-    <p>Die Antwort gibt Ihnen die Spieler-ID sowie den Einbettungscode in mehreren Formen:</p>
+    <p>In der Antwort erhalten Sie die Spieler-ID sowie den Einbettungscode in mehreren Formen:</p>
     
     <pre class="line-numbers">
     <code class="language-json" translate="No">{
@@ -826,16 +1093,16 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
     </code>
     </pre>
     
-    <p>Um die vollständige Player-Konfiguration zu erhalten, stellen Sie eine Anfrage an den <code translate="No">/players</code> Endpoint, fügen jedoch die Player-ID hinzu, die in der obigen Antwort zurückgegeben wird:</p>
+    <p>Um die vollständige Player-Konfiguration zu erhalten, stellen Sie eine Anfrage an die <code translate="No">/players</code> Endpunkt, aber fügen Sie die Spieler-ID hinzu, die in der obigen Antwort zurückgegeben wird:</p>
     
     <pre class="line-numbers">
     <code class="language-http" translate="No">https://players.api.brightcove.com/v2/accounts/account_id/players/de055fa4-4f09-45af-8531-419c6794ad04
     </code>
     </pre>
     
-    <p>Sie können eine <code translate="No">PATCH</code> Anfrage an denselben Endpunkt stellen, um die Player-Konfiguration zu aktualisieren.</p>
+    <p>Sie können eine machen <code translate="No">PATCH</code> Fordern Sie denselben Endpunkt an, die Player-Konfiguration zu aktualisieren.</p>
     
-    <p>Sie werden in der obigen Antwort das <code translate="No">preview_embed_code</code> und bemerken <code translate="No">preview_url</code>. Um das Testen neuer Spieler oder Spieler-Updates zu ermöglichen, werden neu erstellte oder aktualisierte Spieler im Vorschaumodus festgelegt, damit Sie sie sehen können, bevor Sie Änderungen an bestehende Spieler übertragen. Um Änderungen in die Produktion zu bringen, müssen Sie den Player mit dieser Anfrage <strong>veröffentlichen</strong> :</p>
+    <p>Sie werden in der obigen Antwort feststellen, dass <code translate="No">preview_embed_code</code> und <code translate="No">preview_url</code>. Um das Testen neuer Spieler oder Spieler-Updates zu ermöglichen, werden neu erstellte oder aktualisierte Spieler in den Vorschaumodus eingestellt, damit Sie sie sehen können, bevor Sie Änderungen an bestehende Spieler weitergeben. Um Änderungen in die Produktion zu übertragen, müssen Sie <strong>veröffentlichen</strong> der Spieler mit dieser Anfrage:</p>
     
     <pre class="line-numbers">
     <code class="language-http" translate="No">https://players.api.brightcove.com/v2/accounts/account_id/players/de055fa4-4f09-45af-8531-419c6794ad04/<strong><em>publish</em></strong>
@@ -846,19 +1113,19 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
     <section class="bcls-section" id="customizingPlayers">
     <h2>Anpassen von Spielern</h2>
     
-    <p>Der <a href="https://player.support.brightcove.com/getting-started/overview-brightcove-player.html">Brightcove Player</a> ist mit Standard-Webtechnologien gebaut: HTML, CSS und JavaScript. Sie können den Player mit denselben Technologien anpassen. Dies kann auf der Seite erfolgen, auf der der Player veröffentlicht wird. Die beste Vorgehensweise besteht jedoch darin, Ihre Anpassungen über die <a href="https://apis.support.brightcove.com/player-management/guides/player-configuration-guide.html">Player-Konfiguration</a> dem Player selbst hinzuzufügen und den Player über eine <code translate="No">PATCH</code> Anfrage an die Player Management API zu aktualisieren im vorherigen Abschnitt erläutert.</p>
+    <p>Die <a href="https://player.support.brightcove.com/getting-started/overview-brightcove-player.html">Brightcove-Player</a> wird mit Standard-Webtechnologien erstellt: HTML, CSS und JavaScript. Sie können den Player mit denselben Technologien anpassen. Dies kann auf der Seite erfolgen, auf der der Player veröffentlicht wird. Es empfiehlt sich jedoch, Ihre Anpassungen über die <a href="https://apis.support.brightcove.com/player-management/guides/player-configuration-guide.html">Player-Konfiguration</a> dem Player selbst hinzuzufügen und den Player über ein <code translate="No">PATCH</code> Anfrage an die Player Management API wie im vorherigen Abschnitt erläutert.</p>
     
-    <p>Sie können dem Player auch zusätzliche Funktionen und Funktionen über <a href="https://player.support.brightcove.com/plugins/brightcove-player-plugins.html">JavaScript-Plugins</a> hinzufügen, und es gibt eine umfangreiche <a href="https://docs.brightcove.com/brightcove-player/current-release/index.html">Player-API</a>, mit der Sie Ihren Code in den Player integrieren können. Brightcove bietet eine Reihe von vorgefertigten Plugins für das Aktivieren von Werbung, das Anpassen des Endbildschirms und das Hinzufügen von Overlays.</p>
+    <p>Sie können dem Player auch zusätzliche Funktionen und Funktionen hinzufügen über JavaScript <a href="https://player.support.brightcove.com/plugins/brightcove-player-plugins.html">Plugins</a> , und es gibt ein umfangreiches <a href="https://docs.brightcove.com/brightcove-player/current-release/index.html">Spieler-API</a> um Ihnen bei der Integration Ihres Codes in den Player zu helfen. Brightcove bietet eine Reihe von vorgefertigten Plugins für Dinge wie das Aktivieren von Werbung, das Anpassen des Endscreens und das Hinzufügen von Overlays.</p>
     </section>
     
     <section class="bcls-section" id="publishingVideos">
     <h2>Veröffentlichen von Videos</h2>
     
-    <p>Im obigen <a href="#creatingPlayers">Abschnitt „Spieler erstellen</a> “ haben wir festgestellt, dass die zurückgegebenen Daten ein iFrame-Tag zum Einbetten des Players in eine HTML-Seite enthalten, wenn Sie das Player-Konfigurationsobjekt mit der Player-Verwaltungs-API erhalten direkt auf einer Seite.</p>
+    <p>In dem <a href="#creatingPlayers">Abschnitt „Spieler erstellen“</a> oben haben wir gesehen, dass, wenn Sie das Player-Konfigurationsobjekt mit der Spielerverwaltungs-API , enthalten die zurückgegebenen Daten ein iframe-Tag zum Einbetten des Players in eine HTML-Seite sowie eine URL für den vollständigen HTML-Code, wenn Sie den Player direkt in eine Seite einbetten möchten.</p>
     
-    <aside class="bcls-aside bcls-aside--tip">Wir empfehlen, dass Sie das iframe-Embed wann immer möglich verwenden, da dies Konflikte zwischen CSS und JavaScript des Players und anderen auf der Seite verwendeten Stylesheets und Skripten verhindert.  <a href="https://player.support.brightcove.com/publish/choosing-correct-embed-code.html">In diesem Dokument</a> finden Sie Einzelheiten zu den Unterschieden und spezifischeren Empfehlungen für die Verwendung in verschiedenen Situationen.</aside>
+    <aside class="bcls-aside bcls-aside--tip">Wir empfehlen Ihnen, wann immer möglich die iframe-Einbettung zu verwenden, da dies Konflikte zwischen dem CSS des Players und . verhindert JavaScript und andere Stylesheets und Skripte, die auf der Seite verwendet werden.  <a href="https://player.support.brightcove.com/publish/choosing-correct-embed-code.html">In diesem Dokument finden Sie</a> Einzelheiten zu den Unterschieden und spezifischeren Empfehlungen, zu denen die Einbettung in verschiedenen Situationen verwendet werden soll.</aside>
     
-    <p>Für die Einbettung, die Sie wählen, müssen Sie dem Einbettungscode eine Video Cloud-Video-ID oder Wiedergabelisten-ID hinzufügen, um dem Player Inhalte hinzuzufügen. Der iframe-Einbettungscode sieht folgendermaßen aus:</p>
+    <p>Für welche Einbettung Sie sich auch entscheiden, Sie müssen a . hinzufügen Video-Cloud Video-ID oder Playlist-ID an den Einbettungscode an, um dem Player Inhalte hinzuzufügen. Der Iframe-Einbettungscode sieht wie folgt aus:</p>
     
     <pre class="line-numbers">
     <code class="language-html" translate="No">&lt;iframe
@@ -876,9 +1143,9 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
     </code>
     </pre>
     
-    <p>Wenn dies ein Playlist-Player ist, verwenden Sie <code translate="No">playlistId={playlist_id}</code> stattdessen den Parameter. Die Änderung des In-Page-Einbettungscodes ist ähnlich.</p>
+    <p>Wenn dies ein Playlist-Player ist, verwenden Sie den Parameter <code translate="No">playlistId={playlist_id}</code> stattdessen. Die Modifikation des In-Page-Einbettungscodes ist ähnlich.</p>
     
-    <p>Sofern die Spielerdimensionen nicht in der Player-Konfiguration festgelegt sind, müssen Sie auch die Größe des Players anpassen, indem Sie Breite und Höhe in einem <code translate="No">style</code> Attribut hinzufügen:</p>
+    <p>Sofern die Player-Abmessungen nicht in der Player-Konfiguration festgelegt sind, müssen Sie auch die Größe des Players anpassen, indem Sie Breite und Höhe in a . hinzufügen <code translate="No">style</code> Attribut:</p>
     
     <pre class="line-numbers">
     <code class="language-html" translate="No">&lt;iframe
@@ -890,173 +1157,186 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
     </section>
     
     <section class="bcls-section" id="analytics">
-    <h2>Analytics-Berichte erhalten</h2>
+    <h2>Analytics-Berichte abrufen</h2>
     
-    <p>Die <a href="https://apis.support.brightcove.com/analytics/getting-started/overview-analytics-api-v1.html"> <span translate="No">Analytics API</span> </a> ermöglicht es Ihnen, Analyseberichte von vielen verschiedenen zu erstellen <code translate="No">dimensions</code>. Weitere Informationen finden Sie in den <a href="https://apis.support.brightcove.com/analytics/dimension-guides/index.html">Maßhilfslinien</a> .</p>
+    <p>Das <a href="https://apis.support.brightcove.com/analytics/getting-started/overview-analytics-api-v1.html"> <span translate="No">Analytics API</span> </a> ermöglicht es Ihnen, Analyseberichte von vielen verschiedenen zu erstellen <code translate="No">dimensions</code>. Siehe die <a href="https://apis.support.brightcove.com/analytics/dimension-guides/index.html">Maßanleitungen</a> für mehr Informationen.</p>
       
-    <p>Sie können den Datumsbereich für den Bericht und die zurückzugebenden Metriken angeben und die Daten abrufen <code translate="No">JSON</code> , &lt;code "&gt; csv</span> , oder <code translate="No">xlxs</code> Format</p>
+    <p>Sie können den Datumsbereich für den Bericht, die zurückzugebenden Metriken angeben, und Sie können die Daten abrufen <code translate="No">JSON</code>, &lt;Code"&gt;csv</span> oder <code translate="No">xlxs</code> Format</p>
     
-    <p>Für Zeiträume innerhalb des letzten Monats können Sie auch detaillierte <a href="https://apis.support.brightcove.com/analytics/getting-started/overview-analytics-api-v1.html#engagement">Engagement-Berichte</a> erstellen, die Ansichten für jeden Hundertstel des Videos anzeigen.</p>
+    <p>Für Zeiträume innerhalb des letzten Monats können Sie auch detaillierte <a href="https://apis.support.brightcove.com/analytics/getting-started/overview-analytics-api-v1.html#engagement">Engagement-Berichte</a> die Aufrufe für jeden hundertsten Teil des Videos anzeigen.</p>
     </section>
     
     <section class="bcls-section" id="summary">
-    <h2>Beschreibung von APIs</h2>
+    <h2>Zusammenfassung der APIs</h2>
     
-    <p>Hier finden Sie eine Zusammenfassung der APIs, die für die Integration mit Video Cloud nützlich sind.</p>
+    <p>Hier ist eine Zusammenfassung der APIs, die für die Integration mit . nützlich sind Video-Cloud.</p>
     
     <dl>
-      <dt><a href="https://apis.support.brightcove.com/oauth/getting-started/overview-oauth-api-v4.html">OAuth API </a></dt>
-      <dd>Wird verwendet, um Client-Anmeldedaten und Zugriffstoken für den Zugriff auf die anderen APIs zu erstellen.</dd>
-      <dt>Medienverwaltung</dt>
+      <dt><a href="https://apis.support.brightcove.com/oauth/getting-started/overview-oauth-api-v4.html">OAuth-API </a></dt>
+      <dd>Wird verwendet, um Client-Anmeldeinformationen und Zugriffstoken für den Zugriff auf die anderen APIs zu erstellen.</dd>
+      <dt>Medienmanagement</dt>
       <dd>
       <dl>
-        <dt><a href="https://apis.support.brightcove.com/ingest-profiles/getting-started/overview-ingest-profiles-api-dynamic-delivery-context-aware-encoding.html">Profile-API aufnehmen </a></dt>
-        <dd>Wird verwendet, um benutzerdefinierte Aufnahmen zu erstellen, die die Formatvarianten angeben, die für zu Video Cloud hinzugefügte Videos erstellt werden</dd>
-        <dt><a href="https://apis.support.brightcove.com/dynamic-ingest/getting-started/overview-dynamic-ingest-api-dynamic-delivery.html">Dynamische Ingest-API </a></dt>
-        <dd>Wird verwendet, um Video Cloud Videos und zugehörige Medienassets hinzuzufügen</dd>
+        <dt><a href="https://apis.support.brightcove.com/ingest-profiles/getting-started/overview-ingest-profiles-api-dynamic-delivery-context-aware-encoding.html">Ingest Profiles API </a></dt>
+        <dd>Wird verwendet, um benutzerdefinierte Aufnahmeprofile zu erstellen, die die Wiedergabeversionen angeben, die für Videos erstellt werden sollen, die zu . hinzugefügt werden Video-Cloud</dd>
+        <dt><a href="https://apis.support.brightcove.com/dynamic-ingest/getting-started/overview-dynamic-ingest-api-dynamic-delivery.html">Dynamische Aufnahme-API </a></dt>
+        <dd>Wird verwendet, um Videos und zugehörige Medieninhalte zu . hinzuzufügen Video-Cloud</dd>
         <dt><a href="https://apis.support.brightcove.com/cms/getting-started/overview-cms-api.html">CMS-API </a></dt>
         <dd>Wird verwendet, um Videoobjekte für die Aufnahme zu erstellen und Videos und Wiedergabelisten zu verwalten</dd>
       </dl>
       </dd>
-      <dt>Brightcove-Player</dt>
+      <dt>Brightcove-Spieler</dt>
       <dd>
       <dl>
-        <dt><a href="https://player.support.brightcove.com/getting-started/overview-brightcove-player.html">Der Brightcove Spieler</a></dt>
-        <dd>Der Player enthält eine JavaScript-API, um zur Laufzeit mit dem Player zu interagieren</dd>
-        <dt><a href="https://apis.support.brightcove.com/player-management/getting-started/overview-player-management-api.html">Spieler-Management-API </a></dt>
-        <dd>Wird verwendet, um Spieler zu erstellen und zu konfigurieren und den Einbettungscode des Spielers zu erhalten</dd>
+        <dt><a href="https://player.support.brightcove.com/getting-started/overview-brightcove-player.html">Der Brightcove-Player</a></dt>
+        <dd>Der Spieler enthält a JavaScript API zur Interaktion mit dem Player zur Laufzeit</dd>
+        <dt><a href="https://apis.support.brightcove.com/player-management/getting-started/overview-player-management-api.html">Spielerverwaltungs-API </a></dt>
+        <dd>Wird verwendet, um Player zu erstellen und zu konfigurieren und um den Player-Einbettungscode zu erhalten</dd>
       </dl>
       </dd>
       <dt><a href="https://apis.support.brightcove.com/analytics/getting-started/overview-analytics-api-v1.html">Analytics-API </a></dt>
-      <dd>Wird verwendet, um Analyseberichte über die Videoleistung</dd>
+      <dd>Wird verwendet, um Analyseberichte zur Videoleistung zu erhalten</dd>
     </dl>
     </section>
   </article>
-<!-- complete bootstrap layout -->
-    </div>
-    <div class="col-sm-2 right-side-bar">
+<!-- <div class="col-sm-2 right-side-bar" style="display: inline-block;max-width: 20%;"> -->
+  
+  <nav class="right-side-nav" id="right_side_nav">
+    <h6 class="toc">Inhalt der Seite</h6>
+    <ul id="in_page_nav" class="list-none"></ul>
+  </nav>
+  
+<!-- </div> -->
+</div>
+</div>
+</div>
+<div class="page-content" style="background-color: rgb(1, 5, 14);">
+  <div class="container" style="width: 50%;">
+    <footer class="py-5">
+      <div class="row">
+        <div class="col-6 col-md">
+          <h5 class="h5-text">Brightcove-Unterstützung</h5>
+          <ul class="list-unstyled text-small" style="color: white ;">
+            <li><a class="a-text" href="https://status.brightcove.com">Systemstatus</a></li>
+            <li><a class="a-text" href="https://supportportal.brightcove.com">Kontaktieren Sie den Support</a></li>
+            <li><a class="a-text" href="https://support.brightcove.com/search.html">Suche in der gesamten Dokumentation</a></li>
+          </ul>
+        </div>
       
-      <nav class="right-side-nav" id="right_side_nav">
-        <h6 class="toc">Inhalt der Seite</h6>
-        <ul id="in_page_nav" class="list-none"></ul>
-      </nav>
+        <div class="col-6 col-md">
+          <h5 class="h5-text">Ausbildung</h5>
+          <ul class="list-unstyled text-small">
+            <li><a class="a-text" href="https://studio.support.brightcove.com/get-started/training/online-training-courses.html">Online-Kurse</a></li>
+            <li><a class="a-text" href="https://studio.support.brightcove.com/get-started/training/register-training.html">Für einen Kurs anmelden</a></li>
+            <li><a class="a-text" href="https://academy.brightcove.com/">Brightcove-Akademie</a></li>
+          </ul>
+        </div>
       
-    </div>
+        <div class="col-6 col-md">
+          <h5 class="h5-text">Brightcove</h5>
+          <ul class="list-unstyled text-small">
+            <li><a class="a-text" href="https://www.brightcove.com">BrightCove.com</a></li>
+            <li><a class="a-text" href="https://community.brightcove.com/s/">Bright Spot Community Forum</a></li>
+            <li><a class="a-text" href="https://support.brightcove.com/product-updates.html">Hinweise zur Produktfreigabe</a></li>
+            <li><a class="a-text" href="https://support.brightcove.com/doc-updates.html">Aktualisierte Dokumentation</a></li>
+          </ul>
+        </div>
+      </div>
+    
+      <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
+      <p>© Brightcove Inc. Alle Rechte vorbehalten.</p>
+      <a class="a-text" href="https://www.brightcove.com/en/legal/privacy">Datenschutz</a> <a class="a-text" href="https://www.brightcove.com/en/terms-and-conditions">Bedingungen &amp; Bedingungen</a>
+
+      <ul class="list-unstyled d-flex">
+        <li class="ms-3"><a href="https://www.linkedin.com/company/16439" title="LinkedIn" target="_blank" class="gf-social-linkedin" style="margin-right: 1rem;"><i data-feather="linkedin" style="color:#8E9093;height: 1.25rem;"></i></a></li>
+
+        <li class="ms-3"><a href="https://twitter.com/brightcove" title="Twitter" target="_blank" class="gf-social-twitter" style="margin-right: 1rem;"><i data-feather="twitter" style="color:#8E9093;height: 1.25rem;"></i></a></li>
+
+        <li class="ms-3"><a href="https://www.facebook.com/Brightcove" title="Facebook" target="_blank" class="gf-social-facebook"><i data-feather="facebook" style="color:#8E9093;height: 1.25rem;"></i></a></li>
+      </ul>
+      </div>
+    </footer>
   </div>
 </div>
 
-<hr>
-<footer class="bcls-footer" role="contentinfo">  <div class="row">
-    <div class="region region-footer-top-center col-md-12">
-      <nav role="navigation" aria-labelledby="block-brightcovesupport-menu" id="block-brightcovesupport" class="footer-menu">
 
-        <h2>Brightcove Support-Service</h2>
-
-        <ul class="menu">
-          <li>
-            <a href="https://status.brightcove.com">Systemstatus</a>
-          </li>
-          <li>
-            <a href="https://supportportal.brightcove.com/s/login/?">Kontakt mit dem Support</a>
-          </li>
-          <li>
-            <a href="https://support.brightcove.com/">DOKUMENTATION</a>
-          </li>
-        </ul>
-
-      </nav>
-      <nav role="navigation" aria-labelledby="block-training-menu" id="block-training" class="footer-menu">
-
-        <h2>Schulungen</h2>
-
-        <ul class="menu">
-          <li>
-            <a href="https://studio.support.brightcove.com/training/online-training-courses.html">Online-Kurse</a>
-          </li>
-          <li>
-            <a href="https://studio.support.brightcove.com/training/register-training.html">Für einen Kurs anmelden</a>
-          </li>
-          <li>
-            <a href="https://university.brightcove.com/">Brightcove Universität</a>
-          </li>
-        </ul>
-
-      </nav>
-      <nav role="navigation" aria-labelledby="block-brightcove-menu" class="footer-menu">
-
-        <h2>Brightcove</h2>
-
-        <ul class="menu">
-          <li>
-            <a href="https://www.brightcove.com">brightcove.com</a>
-          </li>
-          <li>
-            <a href="https://supportportal.brightcove.com/s/login/?">Kontaktiere uns</a>
-          </li>
-        </ul>
-      </nav>
-    </div>
-  </div>
-  <div class="row">
-    <div class="region region-footer-bottom-center col-md-12">
-      <div class="bcls-copyright footer-menu">
-        <table>
-          <tr>
-            <td>
-              <div id="bc_copyright" class="field field--name-field-copyright-year field--type-string field--label-hidden field--item" style="float: left;"> Brightcove Inc. Alle Rechte vorbehalten.</div>
-            </td>
-            <td><a href="https://www.brightcove.com/en/legal/privacy">Privacy</a> | <a href="https://www.brightcove.com/en/terms-and-conditions">Allgemeine Geschäftsbedingungen</a></td>
-            <td>
-              <div class="gf-links-cols footer-menu">
-                <div class="gf-social"><a href="https://www.linkedin.com/company/16439" title="LinkedIn" newtab="newtab" class="gf-social-linkedin"><i class="fab fa-linkedin-in" style="font-size: 1.5rem;"></i></a><a href="https://twitter.com/brightcove" title="Twitter" newtab="newtab" class="gf-social-twitter"><i class="fab fa-twitter" style="font-size: 1.5rem;"></i></a><a href="https://www.facebook.com/Brightcove" title="Facebook" newtab="newtab" class="gf-social-facebook"><i class="fab fa-facebook-f" style="font-size: 1.5rem;"></i></a>
-                </div>
-              </div>
-            </td>
-          </tr>
-        </table>
-      </div>
-    </div>
-  </div>
-</footer>
-
-<script>
-      
+<script translate="no">
   var searchBox = sajari.init({
     mode: "search-box",
     project: "1588255093746585379", // Set this to your project.
-    collection: "brightcove-documenation", // Set this to your collection.
+    collection: "brightcove-documentation", // Set this to your collection.
     instantPipeline: "autocomplete", // Pipeline used as you type
-    inputPlaceholder: "Search", // Input element placeholder
+    inputPlaceholder: "Search", // Input element placeholder,
+    styling: {
+      components: {
+        
+        input: {
+          container: {
+          backgroundColor: 'white',
+          }
+        
+        }
+      }
+    },
     maxSuggestions: 5, // Maximum number of suggestions to show
-    attachSearchBox: document.getElementById("nav-search-box") // DOM element to attach to
+      attachSearchBox: document.getElementById("nav-search-box") // DOM element to attach to
   });
-  
-    searchBox("sub", "pipeline.search-sent", function (_, query) {
-      window.location = "/search.html?q=" + encodeURIComponent(query.q);
-    });
+
   
 
-</script>
+
+    searchBox("sub", "pipeline.search-sent", function (_, query) {
+    window.location = "/search.html?q=" + encodeURIComponent(query.q);
+    });
+  
+  </script>
+  
+  <!-- Javascript -->          
+  <script src="/assets/s-site-assets-template-stylesheets/plugins/popper.min.js"></script>
+  <script src="/assets/s-site-assets-template-stylesheets/plugins/bootstrap/js/bootstrap.min.js"></script>  
+
+
+  <!-- Page Specific JS -->
+  <script src="/assets/s-site-assets-template-stylesheets/plugins/smoothscroll.min.js"></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script> -->
+  <!-- <script src="/assets/s-site-assets-template-stylesheets/js/highlight-custom.js"></script>  -->
+  <script src="/assets/s-site-assets-template-stylesheets/plugins/simplelightbox/simple-lightbox.min.js"></script>      
+  <script src="/assets/s-site-assets-template-stylesheets/plugins/gumshoe/gumshoe.polyfills.min.js"></script> 
+  <script src="/assets/s-site-assets-template-stylesheets/js/docs.js"></script> 
+
+  <!-- original footer components -->
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  <script src="https://support.brightcove.com/site-assets/js/site/https-fix.js"></script>
-  <script src="https://support.brightcove.com/site-assets/js/site/setDate.js"></script>
+
+  <script src="/assets/s-site-assets-scripts/https-fix.js"></script>
+  <script src="/assets/s-site-assets-scripts/setDate.js"></script>
+  <script src="/assets/s-site-assets-scripts/selector.js"></script>
   
-  <script src="https://support.brightcove.com/site-assets/js/site/prism.js"></script>
+  <script src="/assets/s-site-assets-scripts/prism.js"></script>
+  <script src="/assets/s-site-assets-scripts/prism-normalize.js"></script>
   
-  <script src="https://support.brightcove.com/site-assets/js/site/site.js"></script>
-  <script src="https://support.brightcove.com/site-assets/js/site/tabs.js"></script>
-  <script src="https://support.brightcove.com/site-assets/js/site/toc.js"></script>
+  <script src="/assets/s-site-assets-scripts/site.js"></script>
+  <script src="https://support.brightcove.com/site-assets/js/learning-paths/learning-paths.js"></script>
+  <!-- <script src="/assets/s-site-assets-scripts/site.js"></script> -->
+  <script src="/assets/s-site-assets-scripts/tabs.js"></script>
+  
+  <script src="/assets/s-site-assets-scripts/toc-new-template.js"></script>
+  
   <script src="/assets/js/sites_nav.js"></script>
-  <script src="https://support.brightcove.com/site-assets/js/site/bcls-utils.js"></script>
-  <script src="https://support.brightcove.com/site-assets/js/site/local-link-fix.js"></script>
+  <script src="/assets/s-site-assets-scripts/bcls-utils.js"></script>
+  <script src="/assets/s-site-assets-scripts/local-link-fix.js"></script>
+  <script src="/assets/s-site-assets-scripts/sajari-reindex.js"></script>
   <script src="/assets/js/feedback.js"></script>
   
-  <script src="/assets/js/sajari-search-foot.js"></script>
+  <script src="/assets/s-site-assets-scripts/sajari-search-foot.js"></script>
   
+  <script translate="no">
+    feather.replace()
+  </script>
   <!-- <script src="/assets/js/sajari-index.js"></script> -->
-  <style>
+  <script src="/assets/s-site-assets-scripts/in-app.js"></script>
+  <style translate="no">
     a.sj-paginator__page-number.sj-paginator__page-number--current.css-so0ov7 {
       background-color: lightblue;
     }
@@ -1083,6 +1363,5 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
     }
     </style>
 
-</body>
-
-</html>
+  </body>
+</html> 
